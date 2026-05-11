@@ -67,11 +67,7 @@ export default function HomePage() {
 
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
           <div className="mx-auto max-w-3xl text-center">
-            {/* Badge */}
-            <div className="animate-fade-in-up mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white/70 px-4 py-1.5 text-xs font-medium text-primary-700 shadow-sm backdrop-blur-sm">
-              <Shield size={14} />
-              Proyecto Integrador — UNFV 2026
-            </div>
+
 
             {/* Main heading */}
             <h1 className="animate-fade-in-up text-4xl font-extrabold leading-tight tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl"

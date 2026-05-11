@@ -84,18 +84,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* ===== Dark mode ===== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --card-bg: #1a1a1a;
-    --card-border: #2a2a2a;
-    --nav-bg: rgba(10, 10, 10, 0.85);
-    --nav-border: rgba(42, 42, 42, 0.6);
-  }
-}
-
 /* ===== Base ===== */
 * {
   box-sizing: border-box;
