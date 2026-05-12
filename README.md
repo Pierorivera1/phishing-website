@@ -78,7 +78,13 @@ phishing-unfv/
 
 ## ✒️ Autores
 
-* **Piero Raúl Rivera Estrada** - *Desarrollador Frontend Principal* - [GitHub](https://github.com/)
+* **Piero Raúl Rivera Estrada** 
+* **Condori Quispe Tito**
+* **Herrera Ccari Robert Eloy**
+* **Nina Anchapuri Brens Fabrizio Leandro**
+* **Fernández reluz erick arian**
+* **Parraga Vela Jafet Onán**
+
 * Integrantes de la Facultad de Ingeniería Electrónica e Informática — UNFV.
 
 ---
