@@ -89,7 +89,7 @@ export default function HomePage() {
               style={{ animationDelay: "300ms" }}
             >
               <Link
-                href="/que-es"
+                href="/aprender"
                 id="cta-comenzar"
                 className="animate-pulse-glow inline-flex items-center gap-2 rounded-xl bg-primary-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary-600/25 transition-all duration-200 hover:bg-primary-700 hover:shadow-xl hover:shadow-primary-700/30 active:scale-[0.97]"
               >
