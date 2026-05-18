@@ -1,14 +1,21 @@
-import SectionWrapper from "@/components/section-wrapper";
 import PhishingStep from "@/components/phishing-step";
-import { Zap, Mail, LayoutTemplate, Database, BrainCircuit } from "lucide-react";
+import { Zap, Mail, LayoutTemplate, Database, BrainCircuit, ArrowRight } from "lucide-react";
 
-export default function ComoFuncionaPage() {
+export default function AprenderComoFuncionaPage() {
   return (
-    <SectionWrapper
-      title="¿Cómo funciona un ataque?"
-      subtitle="De acuerdo con las investigaciones sobre ciberseguridad, un ataque típico sigue un proceso metódico de 3 pasos (Abdulla et al., 2023)."
-      icon={<Zap size={24} />}
-    >
+    <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 sm:p-10">
+      <header className="mb-8 border-b border-neutral-100 pb-8">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 ring-1 ring-primary-100">
+          <Zap size={24} />
+        </div>
+        <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+          ¿Cómo funciona un ataque?
+        </h1>
+        <p className="mt-4 text-lg text-neutral-500">
+          De acuerdo con las investigaciones sobre ciberseguridad, un ataque típico sigue un proceso metódico de 3 pasos (Abdulla et al., 2023).
+        </p>
+      </header>
+
       {/* Línea de tiempo */}
       <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
         <PhishingStep
@@ -59,6 +66,17 @@ export default function ComoFuncionaPage() {
           </p>
         </div>
       </div>
-    </SectionWrapper>
+
+      <div className="mt-12 flex justify-end border-t border-neutral-100 pt-8">
+        <button
+          disabled
+          className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white opacity-50 shadow-md transition-all"
+          title="Próximamente"
+        >
+          Siguiente módulo
+          <ArrowRight size={18} />
+        </button>
+      </div>
+    </div>
   );
 }

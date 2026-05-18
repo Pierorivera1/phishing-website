@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Shield, ExternalLink } from "lucide-react";
 
 export default function Footer() {
@@ -14,7 +15,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           {/* Brand */}
           <div className="flex items-center gap-2 text-neutral-700">
-            <Shield size={20} className="text-primary-600" />
+            <Image src="/anti_pishing_unfv_logo.png" alt="Logo UNFV" width={24} height={24} className="shrink-0 object-contain" />
             <span className="text-sm font-semibold">
               Anti-Phishing UNFV
             </span>
@@ -22,9 +23,6 @@ export default function Footer() {
 
           {/* Quick links */}
           <nav aria-label="Enlaces del pie de página" className="flex flex-wrap justify-center gap-4 text-sm text-neutral-500">
-            <Link href="/que-es" className="transition-colors hover:text-primary-600">
-              ¿Qué es?
-            </Link>
             <Link href="/consejos" className="transition-colors hover:text-primary-600">
               Consejos
             </Link>

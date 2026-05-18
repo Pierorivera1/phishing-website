@@ -54,11 +54,7 @@ export default function HomePage() {
       >
         {/* Background gradient */}
         <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--neutral-50) 0%, var(--primary-50) 40%, var(--primary-100) 100%)",
-          }}
+          className="absolute inset-0 -z-10 bg-primary-50"
         />
 
         {/* Decorative blobs */}
@@ -74,7 +70,7 @@ export default function HomePage() {
                 style={{ animationDelay: "100ms" }}
             >
               Aprende a protegerte del{" "}
-              <span className="gradient-text">Phishing</span>
+              <span className="text-primary-500">Phishing</span>
             </h1>
 
             {/* Subtitle */}
@@ -110,6 +106,22 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Mini Summary Section ────────────────────────────────────────── */}
+      <section id="mini-summary" className="bg-white px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl relative overflow-hidden rounded-3xl bg-white p-8 text-center shadow-lg shadow-neutral-200/50 ring-1 ring-neutral-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-600/10 hover:ring-primary-300 sm:p-10">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-primary-500" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-50 text-primary-600 ring-1 ring-primary-100">
+            <Shield size={24} />
+          </div>
+          <h2 className="text-2xl font-bold text-neutral-900 sm:text-3xl">
+            ¿Qué es el Phishing?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg">
+            Es un método de <strong className="text-neutral-900">engaño digital</strong> donde los atacantes se hacen pasar por instituciones confiables para robar tu información personal o contraseñas. No hackean tu computadora, <em className="text-primary-600 font-medium not-italic">hackean tu mente</em> mediante la manipulación.
+          </p>
         </div>
       </section>
 
@@ -163,11 +175,7 @@ export default function HomePage() {
       {/* ── CTA Final Section ─────────────────────────────────────── */}
       <section
         id="cta-final"
-        className="relative overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--primary-900) 0%, var(--primary-600) 50%, var(--primary-500) 100%)",
-        }}
+        className="relative overflow-hidden bg-primary-600"
       >
         {/* Decorative */}
         <div className="absolute top-0 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />

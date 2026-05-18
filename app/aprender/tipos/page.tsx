@@ -1,5 +1,5 @@
-import SectionWrapper from "@/components/section-wrapper";
-import { Layers, AlertCircle, Smartphone, Phone, Gift, Users } from "lucide-react";
+import Link from "next/link";
+import { Layers, AlertCircle, Smartphone, Phone, Gift, Users, ArrowRight } from "lucide-react";
 
 const tipos = [
   {
@@ -61,13 +61,21 @@ const tipos = [
   },
 ];
 
-export default function TiposPage() {
+export default function AprenderTiposPage() {
   return (
-    <SectionWrapper
-      title="Tipos de Phishing"
-      subtitle="Conoce las diferentes estrategias que usan los atacantes para engañarte."
-      icon={<Layers size={24} />}
-    >
+    <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 sm:p-10">
+      <header className="mb-8 border-b border-neutral-100 pb-8">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 ring-1 ring-primary-100">
+          <Layers size={24} />
+        </div>
+        <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+          Tipos de Phishing
+        </h1>
+        <p className="mt-4 text-lg text-neutral-500">
+          Conoce las diferentes estrategias que usan los atacantes para engañarte.
+        </p>
+      </header>
+
       <div className="mt-8 flex flex-col gap-10">
         {tipos.map((tipo) => (
           <div
@@ -115,6 +123,16 @@ export default function TiposPage() {
           </div>
         ))}
       </div>
-    </SectionWrapper>
+
+      <div className="mt-12 flex justify-end border-t border-neutral-100 pt-8">
+        <Link
+          href="/aprender/como-funciona"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-primary-700 active:scale-95"
+        >
+          Siguiente módulo
+          <ArrowRight size={18} />
+        </Link>
+      </div>
+    </div>
   );
 }

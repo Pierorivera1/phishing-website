@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Shield,
@@ -14,6 +15,7 @@ import {
   Image as ImageIcon,
   Lightbulb,
   ClipboardCheck,
+  GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,9 +29,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Inicio", href: "/", icon: <Home size={16} /> },
-  { label: "¿Qué es?", href: "/que-es", icon: <HelpCircle size={16} /> },
-  { label: "Tipos", href: "/tipos", icon: <Layers size={16} /> },
-  { label: "Cómo funciona", href: "/como-funciona", icon: <Zap size={16} /> },
+  { label: "Aprender", href: "/aprender", icon: <GraduationCap size={16} /> },
   { label: "Galería", href: "/galeria/correos", icon: <ImageIcon size={16} /> },
   { label: "Consejos", href: "/consejos", icon: <Lightbulb size={16} /> },
   {
@@ -88,7 +88,7 @@ export default function Navbar() {
             className="flex items-center gap-2 text-lg font-bold text-primary-600 transition-colors hover:text-primary-700"
             aria-label="Inicio — Anti-Phishing UNFV"
           >
-            <Shield size={28} className="shrink-0" />
+            <Image src="/anti_pishing_unfv_logo.png" alt="Logo UNFV" width={32} height={32} className="shrink-0 object-contain" />
             <span className="hidden sm:inline">Anti-Phishing UNFV</span>
             <span className="sm:hidden">UNFV</span>
           </Link>
@@ -150,7 +150,7 @@ export default function Navbar() {
         {/* Panel header */}
         <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
           <span className="flex items-center gap-2 text-lg font-bold text-primary-600">
-            <Shield size={22} />
+            <Image src="/anti_pishing_unfv_logo.png" alt="Logo UNFV" width={24} height={24} className="shrink-0 object-contain" />
             Menú
           </span>
           <button
