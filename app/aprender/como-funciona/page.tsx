@@ -1,5 +1,16 @@
+import Link from "next/link";
 import PhishingStep from "@/components/phishing-step";
-import { Zap, Mail, LayoutTemplate, Database, BrainCircuit, ArrowRight } from "lucide-react";
+import {
+  Zap,
+  Crosshair,
+  Drama,
+  Send,
+  Globe,
+  UserX,
+  DatabaseZap,
+  BrainCircuit,
+  ArrowRight,
+} from "lucide-react";
 
 export default function AprenderComoFuncionaPage() {
   return (
@@ -12,31 +23,53 @@ export default function AprenderComoFuncionaPage() {
           ¿Cómo funciona un ataque?
         </h1>
         <p className="mt-4 text-lg text-neutral-500">
-          De acuerdo con las investigaciones sobre ciberseguridad, un ataque típico sigue un proceso metódico de 3 pasos (Abdulla et al., 2023).
+          De acuerdo con las investigaciones sobre ciberseguridad, un ataque
+          típico sigue un proceso metódico de 6 pasos (Abdulla et al., 2023).
         </p>
       </header>
 
-      {/* Línea de tiempo */}
+      {/* Línea de tiempo — 6 pasos */}
       <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
         <PhishingStep
           stepNumber={1}
-          icon={<Mail size={24} />}
-          title="El envío del 'anzuelo'"
-          description="El atacante envía un correo electrónico o un mensaje que contiene un enlace o un archivo adjunto. Este mensaje suele parecer importante o urgente para llamar tu atención rápidamente."
+          icon={<Crosshair size={24} />}
+          title="Eligen a quién engañar"
+          description="El ataque puede ser masivo (miles de correos genéricos) o dirigido a una persona específica, lo que se conoce como spear phishing. En el segundo caso, el atacante investiga tu nombre, carrera o actividad reciente para personalizar el engaño (Abdulla et al., 2023)."
         />
-        
+
         <PhishingStep
           stepNumber={2}
-          icon={<LayoutTemplate size={24} />}
-          title="La creación del engaño"
-          description="Si haces clic en el enlace, se abre una página web diseñada para imitar perfectamente a una institución legítima (como tu universidad o un banco). El objetivo es que te sientas en un entorno seguro y conocido."
+          icon={<Drama size={24} />}
+          title="Crean una mentira creíble"
+          description="Usando ingeniería social, construyen un pretexto convincente: un correo de tu universidad pidiendo que actualices tu contraseña, una alerta bancaria urgente o una oferta irresistible. Explotan emociones como el miedo, la urgencia o la curiosidad (Carreño Ardila et al., 2024)."
         />
 
         <PhishingStep
           stepNumber={3}
-          icon={<Database size={24} />}
-          title="El robo de datos"
-          description="Al ingresar tus datos en esa página falsa, el atacante captura tu información de forma inmediata. A partir de ese momento, tienen acceso no autorizado a tu cuenta o a tus archivos personales."
+          icon={<Send size={24} />}
+          title='Lanzan el "anzuelo"'
+          description="Envían el mensaje por el canal más efectivo: correo electrónico, SMS (smishing), llamada telefónica (vishing) o incluso redes sociales. El 57.3% de los estudiantes haría clic en un enlace de correo que suplanta a una institución (Abdulla et al., 2023)."
+        />
+
+        <PhishingStep
+          stepNumber={4}
+          icon={<Globe size={24} />}
+          title="Ponen la trampa técnica"
+          description="Si haces clic, se abre una página web clonada que imita perfectamente a la institución legítima: mismos colores, logo y estructura. Alternativamente, descargas un archivo adjunto que instala software malicioso en tu dispositivo."
+        />
+
+        <PhishingStep
+          stepNumber={5}
+          icon={<UserX size={24} />}
+          title="Tú caes en el engaño"
+          description="Ingresas tu usuario y contraseña creyendo que es el sitio real. El error no es técnico sino humano: la urgencia del mensaje te impide verificar. Según Molina Hernández y Olivas Doña (2025), el 36.9% de los universitarios cayó en un ataque simulado."
+        />
+
+        <PhishingStep
+          stepNumber={6}
+          icon={<DatabaseZap size={24} />}
+          title="Te roban la información"
+          description="El atacante captura tus credenciales en tiempo real. A partir de ese momento, puede acceder a tu correo institucional, cuentas bancarias, redes sociales o incluso tomar control remoto de tu dispositivo. El daño puede ir desde el robo de identidad hasta pérdidas económicas."
           isLast={true}
         />
       </div>
@@ -51,7 +84,7 @@ export default function AprenderComoFuncionaPage() {
             El rol de la Ingeniería Social: El &quot;hackeo&quot; humano
           </h2>
         </div>
-        
+
         <div className="space-y-4 text-primary-800">
           <p>
             La ingeniería social es el motor que hace que el phishing funcione.
@@ -68,14 +101,13 @@ export default function AprenderComoFuncionaPage() {
       </div>
 
       <div className="mt-12 flex justify-end border-t border-neutral-100 pt-8">
-        <button
-          disabled
-          className="inline-flex cursor-not-allowed items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white opacity-50 shadow-md transition-all"
-          title="Próximamente"
+        <Link
+          href="/galeria/correos"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-primary-700 active:scale-95"
         >
           Siguiente módulo
           <ArrowRight size={18} />
-        </button>
+        </Link>
       </div>
     </div>
   );

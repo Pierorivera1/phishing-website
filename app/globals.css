@@ -177,6 +177,8 @@ body {
 .stagger > *:nth-child(4) { animation-delay: 300ms; }
 .stagger > *:nth-child(5) { animation-delay: 400ms; }
 .stagger > *:nth-child(6) { animation-delay: 500ms; }
+.stagger > *:nth-child(7) { animation-delay: 600ms; }
+.stagger > *:nth-child(8) { animation-delay: 700ms; }
 
 /* ===== Utility classes ===== */
 .glass {
@@ -184,6 +186,13 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--nav-border);
+}
+
+/* Gallery overlay — glassmorphism card overlay */
+.glass-overlay {
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
 }
 
 .gradient-primary {
@@ -199,6 +208,44 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Gallery card group */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.gallery-card .card-overlay {
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateY(8px);
+}
+
+.gallery-card:hover .card-overlay,
+.gallery-card:focus-within .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-card .card-image {
+  transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+/* Alert hotspot pulse */
+@keyframes hotspot-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.hotspot {
+  animation: hotspot-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .section-padding {
