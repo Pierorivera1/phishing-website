@@ -34,11 +34,11 @@ export default function Footer() {
           {/* Meta */}
           <div className="flex items-center gap-3 text-xs text-neutral-400">
             <a
-              href="https://github.com/"
+              href="https://web.unfv.edu.pe/facultades/fiei/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-neutral-600"
-              aria-label="Repositorio en GitHub"
+              aria-label="Página oficial de la FIEI UNFV"
             >
               <ExternalLink size={18} />
             </a>
