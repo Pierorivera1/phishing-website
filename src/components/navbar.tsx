@@ -14,7 +14,7 @@ import {
   Zap,
   Image as ImageIcon,
   Lightbulb,
-  ClipboardCheck,
+  ExternalLink,
   GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -32,12 +32,10 @@ const navItems: NavItem[] = [
   { label: "Aprender", href: "/aprender", icon: <GraduationCap size={16} /> },
   { label: "Galería", href: "/galeria/correos", icon: <ImageIcon size={16} /> },
   { label: "Consejos", href: "/consejos", icon: <Lightbulb size={16} /> },
-  {
-    label: "Evaluación",
-    href: "/evaluacion",
-    icon: <ClipboardCheck size={16} />,
-  },
 ];
+
+const GOOGLE_FORMS_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform";
 
 /* ── Component ─────────────────────────────────────────────────────── */
 
@@ -111,6 +109,16 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            {/* Evaluación → Google Forms (externo) */}
+            <a
+              href={GOOGLE_FORMS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-600 transition-all duration-200 hover:bg-neutral-100 hover:text-neutral-900"
+            >
+              <ExternalLink size={16} />
+              Evaluación
+            </a>
           </nav>
 
           {/* Mobile hamburger */}
@@ -184,6 +192,18 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={GOOGLE_FORMS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMobile}
+                className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-neutral-600 transition-all duration-200 hover:bg-neutral-50 hover:text-neutral-900"
+              >
+                <ExternalLink size={16} />
+                Evaluación
+              </a>
+            </li>
           </ul>
         </nav>
 

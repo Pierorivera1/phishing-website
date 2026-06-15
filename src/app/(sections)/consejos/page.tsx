@@ -289,6 +289,128 @@ export default function ConsejosPage() {
         </div>
       </section>
 
+      {/* ── Sección 3: Acciones Post-Incidente (HU-11) ──────────── */}
+      <section className="section-padding bg-white">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-danger-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-danger-700">
+              <AlertTriangle size={14} />
+              Protocolo de Emergencia
+            </span>
+            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+              ¿Qué hacer si ya caíste en un fraude?
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-neutral-500">
+              Si ingresaste tus datos en un enlace sospechoso o fuiste estafado, sigue estos pasos inmediatamente para mitigar el daño.
+            </p>
+          </div>
+
+          <div className="mx-auto max-w-4xl space-y-6">
+            {/* Paso 1: Llamar al banco */}
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex items-start gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-danger-600 font-bold text-white text-sm">
+                  1
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-neutral-900">Bloquea tus tarjetas y cuentas bancarias</h3>
+                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
+                    Llama de inmediato a la central de emergencias de tu banco en Perú para bloquear tus tarjetas y claves digitales. No uses la app si sospechas que el celular está comprometido.
+                  </p>
+                  
+                  {/* Lista de Teléfonos Bancarios */}
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
+                      <p className="text-xs font-bold text-neutral-800">BCP</p>
+                      <p className="text-sm font-semibold text-primary-600 hover:underline">
+                        <a href="tel:013119898">(01) 311-9898</a>
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
+                      <p className="text-xs font-bold text-neutral-800">BBVA</p>
+                      <p className="text-sm font-semibold text-primary-600 hover:underline">
+                        <a href="tel:015950000">(01) 595-0000</a>
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
+                      <p className="text-xs font-bold text-neutral-800">Interbank</p>
+                      <p className="text-sm font-semibold text-primary-600 hover:underline">
+                        <a href="tel:013119000">(01) 311-9000</a>
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
+                      <p className="text-xs font-bold text-neutral-800">Banco de la Nación</p>
+                      <p className="text-sm font-semibold text-primary-600 hover:underline">
+                        <a href="tel:014405305">(01) 440-5305</a>
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
+                      <p className="text-xs font-bold text-neutral-800">Scotiabank</p>
+                      <p className="text-sm font-semibold text-primary-600 hover:underline">
+                        <a href="tel:013116000">(01) 311-6000</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Paso 2: Cambiar claves */}
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex items-start gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
+                  2
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-neutral-900">Cambia todas tus contraseñas</h3>
+                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
+                    Si ingresaste tu clave en una web falsa, modifícala inmediatamente en el portal oficial. Si usas la misma clave en otras cuentas (como Gmail o redes sociales), cámbialas también. Recuerda usar gestores de contraseñas para evitar repetir credenciales (Guo & Tinmaz, 2023).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Paso 3: Reportar a la Universidad */}
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex items-start gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
+                  3
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-neutral-900">Reporta al soporte TI de la UNFV</h3>
+                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
+                    Si el ataque comprometió tu correo institucional (`@unfv.edu.pe`), avisa de inmediato a la Oficina de Tecnología de la Información para bloquear el correo temporalmente. Esto evita que los ciberdelincuentes usen tu cuenta para enviar spam o phishing masivo a tus compañeros de Ciencias Sociales.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Paso 4: Denunciar formalmente */}
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex items-start gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
+                  4
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-neutral-900">Asienta una denuncia policial o fiscal</h3>
+                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
+                    El fraude informático es un delito según la Ley de Delitos Informáticos en el Perú. Puedes asentar una denuncia formal en:
+                  </p>
+                  <ul className="mt-3 list-disc pl-5 space-y-2 text-xs text-neutral-600">
+                    <li>
+                      <strong>DIVINDAT (DIVISIÓN DE DELITOS DE ALTA TECNOLOGÍA):</strong> Ubicada en la Av. España 323, Cercado de Lima. Central de atención: <a href="tel:014318105" className="text-primary-600 font-semibold">(01) 431-8105</a>.
+                    </li>
+                    <li>
+                      <strong>Ministerio Público (Fiscalía de la Nación):</strong> A través de la Mesa de Partes Virtual o acudiendo a la Fiscalía Corporativa en Ciberdelincuencia de Lima.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA → Evaluación ────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-primary-600">
         <div className="absolute top-0 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
@@ -312,3 +434,4 @@ export default function ConsejosPage() {
     </>
   );
 }
+
