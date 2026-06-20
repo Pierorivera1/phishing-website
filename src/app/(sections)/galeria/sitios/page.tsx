@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   ShieldAlert,
   Lock,
-  LockOpen,
   Link2,
   FileWarning,
   AlertCircle,
@@ -19,6 +18,10 @@ import {
   CheckCircle2,
   XCircle,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 /* ── Interfaces ────────────────────────────────────────────────── */
 
@@ -98,25 +101,25 @@ const realVsFakeChecks = [
 
 const websiteTips = [
   {
-    icon: <Lock size={20} />,
+    icon: <Lock className="h-5 w-5" />,
     title: "Verifica el candado HTTPS",
     description:
       "Haz clic en el candado del navegador para confirmar que el certificado de seguridad pertenece a la empresa real.",
   },
   {
-    icon: <Link2 size={20} />,
+    icon: <Link2 className="h-5 w-5" />,
     title: "Lee la URL completa",
     description:
       "Los atacantes usan dominios parecidos. Compara letra por letra con el sitio oficial antes de ingresar datos.",
   },
   {
-    icon: <Eye size={20} />,
+    icon: <Eye className="h-5 w-5" />,
     title: "Busca errores visuales",
     description:
       "Logos borrosos, colores incorrectos, textos desalineados o enlaces rotos son señales de una copia.",
   },
   {
-    icon: <Scale size={20} />,
+    icon: <Scale className="h-5 w-5" />,
     title: "Compara con el sitio oficial",
     description:
       "Abre el sitio real en otra pestaña y compara los detalles: diseño, URLs de enlaces internos y pie de página.",
@@ -126,21 +129,21 @@ const websiteTips = [
 /* ── Page Component ────────────────────────────────────────────── */
 
 export default function GaleriaSitiosPage() {
-  const [activeTab, setActiveTab] = useState<"real" | "falso">("falso");
   const [activeAlert, setActiveAlert] = useState<number | null>(null);
 
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950">
+      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
+        {/* Decorative background blobs */}
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-1/3 h-96 w-96 rounded-full bg-primary-500 blur-[120px]" />
-          <div className="absolute bottom-0 right-1/3 h-96 w-96 rounded-full bg-danger-500 blur-[120px]" />
+          <div className="absolute top-0 left-1/3 h-96 w-96 rounded-full bg-primary blur-[120px]" />
+          <div className="absolute bottom-0 right-1/3 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-500/20 text-primary-400 ring-1 ring-primary-500/30">
-            <Globe size={28} />
+        <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+            <Globe className="h-7 w-7" />
           </div>
           <h1
             className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
@@ -159,21 +162,21 @@ export default function GaleriaSitiosPage() {
       </section>
 
       {/* ── Comparador principal ──────────────────────────────── */}
-      <section className="section-padding bg-white">
-        <div className="mx-auto max-w-5xl">
+      <section className="section-padding bg-background py-16">
+        <div className="mx-auto max-w-5xl px-4">
           <div className="mb-10 text-center">
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               Comparador: Real vs. Falso
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-neutral-500">
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
               Observa las diferencias entre un sitio web bancario legítimo y su
               copia fraudulenta.
             </p>
           </div>
 
           {/* Full comparison image */}
-          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-lg">
-            <div className="relative aspect-[16/10] w-full bg-neutral-100 sm:aspect-[16/9]">
+          <Card className="overflow-hidden border-border bg-card shadow-lg">
+            <CardContent className="p-0 relative aspect-[16/10] w-full bg-muted sm:aspect-[16/9]">
               <Image
                 src="/images/sitios/comparacion_banco.png"
                 alt="Comparación lado a lado entre un sitio web bancario real y su copia fraudulenta, mostrando 5 diferencias clave"
@@ -182,135 +185,137 @@ export default function GaleriaSitiosPage() {
                 sizes="(max-width: 1024px) 100vw, 960px"
                 priority
               />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Alert points grid */}
-          <div className="mt-10">
-            <h3 className="mb-6 text-center text-sm font-bold uppercase tracking-wider text-neutral-400">
+          <div className="mt-12">
+            <h3 className="mb-6 text-center text-xs font-bold uppercase tracking-wider text-muted-foreground">
               5 diferencias clave entre un sitio real y uno falso
             </h3>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {alertPoints.map((point) => (
-                <button
-                  key={point.id}
-                  id={`alert-point-${point.id}`}
-                  className={`group flex gap-3 rounded-2xl border p-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
-                    activeAlert === point.id
-                      ? "border-danger-300 bg-danger-50 shadow-md"
-                      : "border-neutral-200 bg-white shadow-sm"
-                  }`}
-                  onClick={() =>
-                    setActiveAlert(
-                      activeAlert === point.id ? null : point.id
-                    )
-                  }
-                  aria-expanded={activeAlert === point.id}
-                >
-                  <div
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                      activeAlert === point.id
-                        ? "bg-danger-600"
-                        : "bg-neutral-800"
-                    } hotspot transition-colors`}
-                    style={{
-                      animationPlayState:
-                        activeAlert === point.id ? "running" : "paused",
-                    }}
+              {alertPoints.map((point) => {
+                const isActive = activeAlert === point.id;
+                return (
+                  <Card
+                    key={point.id}
+                    id={`alert-point-${point.id}`}
+                    onClick={() =>
+                      setActiveAlert(
+                        activeAlert === point.id ? null : point.id
+                      )
+                    }
+                    className={cn(
+                      "group flex gap-3 p-5 text-left cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md border-border bg-card",
+                      isActive
+                        ? "border-destructive/30 bg-destructive/5 shadow-md"
+                        : "shadow-sm"
+                    )}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isActive}
                   >
-                    {point.id}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-neutral-900">
-                      {point.label}
-                    </p>
-                    <p
-                      className={`mt-1 text-xs leading-relaxed text-neutral-500 transition-all duration-300 ${
-                        activeAlert === point.id
-                          ? "max-h-40 opacity-100"
-                          : "max-h-0 overflow-hidden opacity-0 sm:max-h-40 sm:opacity-100"
-                      }`}
+                    <div
+                      className={cn(
+                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white transition-colors",
+                        isActive ? "bg-destructive" : "bg-neutral-800 dark:bg-neutral-700"
+                      )}
                     >
-                      {point.description}
-                    </p>
-                  </div>
-                </button>
-              ))}
+                      {point.id}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-foreground">
+                        {point.label}
+                      </p>
+                      <p
+                        className={cn(
+                          "mt-1 text-xs leading-relaxed text-muted-foreground transition-all duration-300",
+                          isActive
+                            ? "max-h-40 opacity-100 mt-2"
+                            : "max-h-0 overflow-hidden opacity-0 sm:max-h-40 sm:opacity-100"
+                        )}
+                      >
+                        {point.description}
+                      </p>
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Checklist comparativa ─────────────────────────────── */}
-      <section className="border-y border-neutral-200 bg-neutral-50 py-16">
+      <section className="border-y border-border bg-muted/20 py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h3 className="mb-8 text-center text-2xl font-bold text-neutral-900">
+          <h3 className="mb-8 text-center text-2xl font-bold text-foreground">
             Checklist de verificación rápida
           </h3>
 
-          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-            {/* Header row */}
-            <div className="grid grid-cols-3 border-b border-neutral-200 bg-neutral-50 text-center">
-              <div className="p-4 text-sm font-bold text-neutral-700">
-                Característica
+          <Card className="overflow-hidden border-border bg-card shadow-sm">
+            <CardContent className="p-0">
+              {/* Header row */}
+              <div className="grid grid-cols-3 border-b border-border bg-muted/50 text-center">
+                <div className="p-4 text-sm font-bold text-foreground">
+                  Característica
+                </div>
+                <div className="flex items-center justify-center gap-1.5 border-l border-border p-4 text-sm font-bold text-emerald-600 dark:text-emerald-500">
+                  <ShieldCheck className="h-4.5 w-4.5" />
+                  Sitio Real
+                </div>
+                <div className="flex items-center justify-center gap-1.5 border-l border-border p-4 text-sm font-bold text-destructive">
+                  <ShieldAlert className="h-4.5 w-4.5" />
+                  Sitio Falso
+                </div>
               </div>
-              <div className="flex items-center justify-center gap-1.5 border-l border-neutral-200 p-4 text-sm font-bold text-emerald-700">
-                <ShieldCheck size={16} />
-                Sitio Real
-              </div>
-              <div className="flex items-center justify-center gap-1.5 border-l border-neutral-200 p-4 text-sm font-bold text-danger-700">
-                <ShieldAlert size={16} />
-                Sitio Falso
-              </div>
-            </div>
 
-            {/* Rows */}
-            {realVsFakeChecks.map((check, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-3 border-b border-neutral-100 last:border-b-0 transition-colors hover:bg-neutral-50"
-              >
-                <div className="flex items-center p-4 text-sm text-neutral-700">
-                  {check.label}
+              {/* Rows */}
+              {realVsFakeChecks.map((check, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-3 border-b border-border last:border-b-0 transition-colors hover:bg-muted/10"
+                >
+                  <div className="flex items-center p-4 text-sm text-foreground">
+                    {check.label}
+                  </div>
+                  <div className="flex items-center justify-center border-l border-border p-4">
+                    {check.real ? (
+                      <CheckCircle2
+                        className="h-5 w-5 text-emerald-500"
+                      />
+                    ) : (
+                      <XCircle className="h-5 w-5 text-destructive" />
+                    )}
+                  </div>
+                  <div className="flex items-center justify-center border-l border-border p-4">
+                    {check.fake ? (
+                      <CheckCircle2
+                        className="h-5 w-5 text-destructive"
+                      />
+                    ) : (
+                      <XCircle className="h-5 w-5 text-muted-foreground/30" />
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center justify-center border-l border-neutral-100 p-4">
-                  {check.real ? (
-                    <CheckCircle2
-                      size={20}
-                      className="text-emerald-500"
-                    />
-                  ) : (
-                    <XCircle size={20} className="text-danger-400" />
-                  )}
-                </div>
-                <div className="flex items-center justify-center border-l border-neutral-100 p-4">
-                  {check.fake ? (
-                    <CheckCircle2
-                      size={20}
-                      className="text-danger-500"
-                    />
-                  ) : (
-                    <XCircle size={20} className="text-neutral-300" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* ── Consejos para reconocer webs falsas ──────────────── */}
-      <section className="section-padding bg-white">
-        <div className="mx-auto max-w-6xl">
+      <section className="section-padding bg-background py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="mb-10 text-center">
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary-700">
-              <FileWarning size={14} />
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 border-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+              <FileWarning className="h-3.5 w-3.5" />
               Guía rápida
-            </span>
-            <h2 className="text-3xl font-bold text-neutral-900">
+            </Badge>
+            <h2 className="text-3xl font-bold text-foreground">
               ¿Cómo reconocer una página web falsa?
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-neutral-500">
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
               Basado en recomendaciones de ESET y Kaspersky para identificar
               sitios clonados.
             </p>
@@ -318,54 +323,52 @@ export default function GaleriaSitiosPage() {
 
           <div className="grid gap-6 sm:grid-cols-2">
             {websiteTips.map((tip, i) => (
-              <div
+              <Card
                 key={i}
-                className="group flex gap-4 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:p-8"
+                className="group flex gap-4 border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:p-8"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600 ring-1 ring-primary-100 transition-transform duration-300 group-hover:scale-110">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-110">
                   {tip.icon}
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-neutral-900 sm:text-lg">
+                  <h3 className="text-base font-bold text-foreground sm:text-lg">
                     {tip.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-500">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {tip.description}
                   </p>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Navigation CTA ───────────────────────────────────── */}
-      <section className="border-t border-neutral-200 bg-white">
+      <section className="border-t border-border bg-card">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 lg:px-8">
           <div>
-            <h3 className="text-xl font-bold text-neutral-900">
+            <h3 className="text-xl font-bold text-foreground">
               ¿Quieres aprender a protegerte?
             </h3>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-muted-foreground">
               Descubre consejos prácticos y recomendaciones de seguridad
               digital.
             </p>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="/consejos"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-primary-700 active:scale-95"
-            >
-              Ver consejos
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="/galeria/correos"
-              className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 shadow-sm transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 active:scale-95"
-            >
-              Correos
-              <ChevronRight size={18} />
-            </Link>
+          <div className="flex gap-3 w-full sm:w-auto">
+            <Button asChild className="rounded-xl px-6 py-5 text-sm font-semibold flex-1 sm:flex-none">
+              <Link href="/consejos">
+                Ver consejos
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-xl px-6 py-5 text-sm font-semibold border-border flex-1 sm:flex-none">
+              <Link href="/galeria/correos">
+                Correos
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

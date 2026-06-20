@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 /* ── Google Font: Inter ────────────────────────────────────────────── */
 const inter = Inter({
@@ -47,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} h-full antialiased`} style={{ colorScheme: "light" }}>
+    <html lang="es" className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)} style={{ colorScheme: "light" }}>
       <body className="flex min-h-full flex-col font-sans">
         {/* Sticky navbar */}
         <Navbar />

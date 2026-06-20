@@ -1,5 +1,7 @@
 import SectionWrapper from "@/components/section-wrapper";
 import { HelpCircle, AlertTriangle, ShieldAlert } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function QueEsPage() {
   return (
@@ -10,7 +12,7 @@ export default function QueEsPage() {
     >
       <div className="space-y-8">
         <p>
-          El phishing es una forma de <strong>engaño digital</strong> en la que,
+          El phishing es una forma de <strong className="text-foreground">engaño digital</strong> en la que,
           de acuerdo con Molina Hernández y Olivas Doña (2025), personas mal
           intencionadas intentan robar información privada o credenciales
           haciéndose pasar por una institución confiable. Según explican Carreño
@@ -19,30 +21,34 @@ export default function QueEsPage() {
           enlaces a sitios web falsos para obtener datos de los usuarios.
         </p>
 
-        <div className="my-8 rounded-2xl border border-primary-200 bg-primary-50 p-6 sm:p-8">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary-600 shadow-sm">
-              <ShieldAlert size={20} />
+        <Card className="my-8 border-primary/20 bg-primary/5 p-6 sm:p-8">
+          <CardHeader className="p-0 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-card text-primary shadow-sm border border-border">
+                <ShieldAlert className="h-5 w-5" />
+              </div>
+              <CardTitle className="text-xl font-bold text-primary dark:text-primary-400">
+                No hackean tu computadora, hackean tu mente
+              </CardTitle>
             </div>
-            <h3 className="text-xl font-bold text-primary-900">
-              No hackean tu computadora, hackean tu mente
-            </h3>
-          </div>
-          <p className="text-primary-800">
-            A diferencia de otros ataques cibernéticos, el phishing no busca
-            romper la seguridad de una computadora, sino que utiliza la{" "}
-            <strong>ingeniería social</strong>. Tal como señalan Carreño Ardila
-            et al. (2024), esta técnica consiste en engañar a personas que no
-            están capacitadas en seguridad digital mediante el uso de la
-            manipulación.
-            <br />
-            <br />
-            Por su parte, Molina Hernández y Olivas Doña (2025) destacan que es
-            un <em>truco psicológico</em> que explota la confianza o la urgencia
-            del usuario para que este realice acciones que lo perjudiquen sin
-            darse cuenta.
-          </p>
-        </div>
+          </CardHeader>
+          <CardContent className="p-0">
+            <p className="text-muted-foreground">
+              A diferencia de otros ataques cibernéticos, el phishing no busca
+              romper la seguridad de una computadora, sino que utiliza la{" "}
+              <strong className="text-foreground">ingeniería social</strong>. Tal como señalan Carreño Ardila
+              et al. (2024), esta técnica consiste en engañar a personas que no
+              están capacitadas en seguridad digital mediante el uso de la
+              manipulación.
+              <br />
+              <br />
+              Por su parte, Molina Hernández y Olivas Doña (2025) destacan que es
+              un <em className="text-foreground font-medium not-italic">truco psicológico</em> que explota la confianza o la urgencia
+              del usuario para que este realice acciones que lo perjudiquen sin
+              darse cuenta.
+            </p>
+          </CardContent>
+        </Card>
 
         <p>
           En el ámbito estudiantil, la vulnerabilidad es alta debido al uso
@@ -52,27 +58,21 @@ export default function QueEsPage() {
         </p>
 
         {/* Dato clave */}
-        <aside className="my-8 flex gap-4 rounded-xl border-l-4 border-amber-500 bg-white p-6 shadow-sm ring-1 ring-neutral-200">
-          <AlertTriangle
-            className="shrink-0 text-amber-500"
-            size={24}
-            aria-hidden="true"
-          />
-          <div>
-            <h4 className="text-sm font-bold tracking-wider text-amber-800 uppercase">
-              Dato Crítico
-            </h4>
-            <p className="mt-1 font-medium text-neutral-800">
-              Una investigación realizada por Molina Hernández y Olivas Doña
-              (2025) demostró que un{" "}
-              <strong className="text-amber-600">
-                36,9% de los estudiantes universitarios
-              </strong>{" "}
-              analizados resultaron vulnerables ante ataques simulados por
-              correo electrónico.
-            </p>
-          </div>
-        </aside>
+        <Alert className="my-8 border-l-4 border-l-amber-500 bg-amber-500/5 border-border">
+          <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0" />
+          <AlertTitle className="text-sm font-bold tracking-wider text-amber-800 dark:text-amber-500 uppercase ml-2">
+            Dato Crítico
+          </AlertTitle>
+          <AlertDescription className="mt-1 font-medium text-foreground ml-2">
+            Una investigación realizada por Molina Hernández y Olivas Doña
+            (2025) demostró que un{" "}
+            <strong className="text-amber-600 dark:text-amber-500">
+              36,9% de los estudiantes universitarios
+            </strong>{" "}
+            analizados resultaron vulnerables ante ataques simulados por
+            correo electrónico.
+          </AlertDescription>
+        </Alert>
 
         <p>
           El objetivo final de estos ataques suele ser el robo de información

@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface SectionWrapperProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
@@ -21,34 +22,34 @@ export default function SectionWrapper({
   ...props
 }: SectionWrapperProps) {
   return (
-    <article
+    <Card
       className={cn(
-        "mx-auto w-full max-w-4xl px-4 py-12 sm:px-6 md:py-20 lg:px-8",
+        "mx-auto w-full max-w-4xl border-border bg-card p-6 sm:p-10 shadow-sm",
         className
       )}
       {...props}
     >
       {/* Cabecera de la sección */}
-      <header className="mb-10 text-center sm:mb-14">
+      <CardHeader className="p-0 mb-8 text-center sm:mb-12">
         {icon && (
-          <div className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 ring-1 ring-primary-100">
+          <div className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
             {icon}
           </div>
         )}
-        <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+        <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           {title}
-        </h1>
+        </CardTitle>
         {subtitle && (
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-500 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             {subtitle}
           </p>
         )}
-      </header>
+      </CardHeader>
 
       {/* Contenido principal */}
-      <div className="flex flex-col gap-6 text-base leading-relaxed text-neutral-600 sm:text-lg sm:leading-loose">
+      <CardContent className="p-0 flex flex-col gap-6 text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-loose">
         {children}
-      </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 }

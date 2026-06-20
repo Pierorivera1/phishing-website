@@ -1,25 +1,27 @@
 import Link from "next/link";
-import SectionWrapper from "@/components/section-wrapper";
 import { HelpCircle, AlertTriangle, ShieldAlert, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function AprenderQueEsPage() {
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 sm:p-10">
-      <header className="mb-8 border-b border-neutral-100 pb-8">
-        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 ring-1 ring-primary-100">
-          <HelpCircle size={24} />
+    <Card className="rounded-3xl border-border bg-card shadow-sm p-6 sm:p-10">
+      <CardHeader className="p-0 mb-8 border-b border-border pb-8">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <HelpCircle className="h-6 w-6" />
         </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+        <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           ¿Qué es el Phishing?
-        </h1>
-        <p className="mt-4 text-lg text-neutral-500">
+        </CardTitle>
+        <p className="mt-4 text-lg text-muted-foreground">
           Entendiendo la anatomía del fraude digital en el entorno universitario.
         </p>
-      </header>
+      </CardHeader>
 
-      <div className="space-y-8 text-base leading-relaxed text-neutral-600 sm:text-lg sm:leading-loose">
+      <CardContent className="p-0 space-y-8 text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-loose">
         <p>
-          El phishing es una forma de <strong>engaño digital</strong> en la que,
+          El phishing es una forma de <strong className="text-foreground">engaño digital</strong> en la que,
           de acuerdo con Molina Hernández y Olivas Doña (2025), personas mal
           intencionadas intentan robar información privada o credenciales
           haciéndose pasar por una institución confiable. Según explican Carreño
@@ -28,30 +30,34 @@ export default function AprenderQueEsPage() {
           enlaces a sitios web falsos para obtener datos de los usuarios.
         </p>
 
-        <div className="my-8 rounded-2xl border border-primary-200 bg-primary-50 p-6 sm:p-8">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary-600 shadow-sm">
-              <ShieldAlert size={20} />
+        <Card className="my-8 border-primary/20 bg-primary/5 p-6 sm:p-8">
+          <CardHeader className="p-0 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-card text-primary shadow-sm border border-border">
+                <ShieldAlert className="h-5 w-5" />
+              </div>
+              <CardTitle className="text-xl font-bold text-primary dark:text-primary-400">
+                No hackean tu computadora, hackean tu mente
+              </CardTitle>
             </div>
-            <h3 className="text-xl font-bold text-primary-900">
-              No hackean tu computadora, hackean tu mente
-            </h3>
-          </div>
-          <p className="text-primary-800">
-            A diferencia de otros ataques cibernéticos, el phishing no busca
-            romper la seguridad de una computadora, sino que utiliza la{" "}
-            <strong>ingeniería social</strong>. Tal como señalan Carreño Ardila
-            et al. (2024), esta técnica consiste en engañar a personas que no
-            están capacitadas en seguridad digital mediante el uso de la
-            manipulación.
-            <br />
-            <br />
-            Por su parte, Molina Hernández y Olivas Doña (2025) destacan que es
-            un <em>truco psicológico</em> que explota la confianza o la urgencia
-            del usuario para que este realice acciones que lo perjudiquen sin
-            darse cuenta.
-          </p>
-        </div>
+          </CardHeader>
+          <CardContent className="p-0">
+            <p className="text-muted-foreground">
+              A diferencia de otros ataques cibernéticos, el phishing no busca
+              romper la seguridad de una computadora, sino que utiliza la{" "}
+              <strong className="text-foreground">ingeniería social</strong>. Tal como señalan Carreño Ardila
+              et al. (2024), esta técnica consiste en engañar a personas que no
+              están capacitadas en seguridad digital mediante el uso de la
+              manipulación.
+              <br />
+              <br />
+              Por su parte, Molina Hernández y Olivas Doña (2025) destacan que es
+              un <em className="text-foreground font-medium not-italic">truco psicológico</em> que explota la confianza o la urgencia
+              del usuario para que este realice acciones que lo perjudiquen sin
+              darse cuenta.
+            </p>
+          </CardContent>
+        </Card>
 
         <p>
           En el ámbito estudiantil, la vulnerabilidad es alta debido al uso
@@ -61,27 +67,21 @@ export default function AprenderQueEsPage() {
         </p>
 
         {/* Dato clave */}
-        <aside className="my-8 flex gap-4 rounded-xl border-l-4 border-amber-500 bg-white p-6 shadow-sm ring-1 ring-neutral-200">
-          <AlertTriangle
-            className="shrink-0 text-amber-500"
-            size={24}
-            aria-hidden="true"
-          />
-          <div>
-            <h4 className="text-sm font-bold tracking-wider text-amber-800 uppercase">
-              Dato Crítico
-            </h4>
-            <p className="mt-1 font-medium text-neutral-800">
-              Una investigación realizada por Molina Hernández y Olivas Doña
-              (2025) demostró que un{" "}
-              <strong className="text-amber-600">
-                36,9% de los estudiantes universitarios
-              </strong>{" "}
-              analizados resultaron vulnerables ante ataques simulados por
-              correo electrónico.
-            </p>
-          </div>
-        </aside>
+        <Alert className="my-8 border-l-4 border-l-amber-500 bg-amber-500/5 border-border">
+          <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0" />
+          <AlertTitle className="text-sm font-bold tracking-wider text-amber-800 dark:text-amber-500 uppercase ml-2">
+            Dato Crítico
+          </AlertTitle>
+          <AlertDescription className="mt-1 font-medium text-foreground ml-2">
+            Una investigación realizada por Molina Hernández y Olivas Doña
+            (2025) demostró que un{" "}
+            <strong className="text-amber-600 dark:text-amber-500">
+              36,9% de los estudiantes universitarios
+            </strong>{" "}
+            analizados resultaron vulnerables ante ataques simulados por
+            correo electrónico.
+          </AlertDescription>
+        </Alert>
 
         <p>
           El objetivo final de estos ataques suele ser el robo de información
@@ -91,17 +91,20 @@ export default function AprenderQueEsPage() {
           verificación constante antes de interactuar con cualquier
           comunicación digital inesperada.
         </p>
-      </div>
+      </CardContent>
 
-      <div className="mt-12 flex justify-end border-t border-neutral-100 pt-8">
-        <Link
-          href="/aprender/tipos"
-          className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-primary-700 active:scale-95"
+      <div className="mt-12 flex justify-end border-t border-border pt-8">
+        <Button
+          asChild
+          size="lg"
+          className="rounded-xl px-6 py-5 text-sm font-semibold transition-all hover:bg-primary-700 active:scale-95"
         >
-          Siguiente módulo
-          <ArrowRight size={18} />
-        </Link>
+          <Link href="/aprender/tipos">
+            Siguiente módulo
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 }

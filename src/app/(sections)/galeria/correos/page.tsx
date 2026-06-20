@@ -21,9 +21,24 @@ import {
   Check,
   CheckCheck,
   Info,
-  XCircle,
-  ZoomIn,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 /* ─────────────────────────────────────────────────────────────────── */
 /* ── INTERFACES                                                   ── */
@@ -450,7 +465,7 @@ const conversations: MobileConversation[] = [
       {
         label: "URL claramente falsa",
         description:
-          "El dominio oficial de Serpost es 'serpost.com.pe'. El enlace 'serpost-aduana-pago.com' es fraudulento: usan guiones y palabras adicionales para parecer legítimo a primera vista.",
+          "El dominio oficial de Serpost is 'serpost.com.pe'. El enlace 'serpost-aduana-pago.com' es fraudulento: usan guiones y palabras adicionales para parecer legítimo a primera vista.",
       },
     ],
     explanation:
@@ -464,32 +479,32 @@ const conversations: MobileConversation[] = [
 
 const mainIndicators = [
   {
-    icon: <Link2 size={20} />,
+    icon: <Link2 className="h-5 w-5" />,
     label: "Identifican phishing por enlaces",
     stat: "75%",
-    color: "text-danger-600",
-    bg: "bg-danger-50",
+    color: "text-destructive",
+    bg: "bg-destructive/10",
   },
   {
-    icon: <UserX size={20} />,
+    icon: <UserX className="h-5 w-5" />,
     label: "Lo detectan por remitente inusual",
     stat: "62.9%",
-    color: "text-primary-600",
-    bg: "bg-primary-50",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
   {
-    icon: <AlertTriangle size={20} />,
+    icon: <AlertTriangle className="h-5 w-5" />,
     label: "Reconocen la presión psicológica",
     stat: "48.6%",
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-amber-600 dark:text-amber-500",
+    bg: "bg-amber-100/50 dark:bg-amber-950/30",
   },
   {
-    icon: <PenLine size={20} />,
+    icon: <PenLine className="h-5 w-5" />,
     label: "Se fijan en la calidad de redacción",
     stat: "40%",
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
+    color: "text-emerald-600 dark:text-emerald-500",
+    bg: "bg-emerald-100/50 dark:bg-emerald-950/30",
   },
 ];
 
@@ -502,20 +517,20 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
   const isWA = conv.canal === "whatsapp";
 
   return (
-    <article
+    <Card
       id={`sim-${conv.id}`}
-      className="flex flex-col gap-6 rounded-3xl border border-neutral-200 bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:p-8 lg:flex-row lg:items-start"
+      className="flex flex-col gap-6 border-border bg-card p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:p-8 lg:flex-row lg:items-start"
     >
       {/* ── Left: Phone Mockup ────────────────────────────────── */}
       <div className="flex w-full shrink-0 flex-col items-center gap-3 lg:w-[260px]">
         {/* Canal badge */}
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white ${
-            isWA ? "bg-[#25d366]" : "bg-primary-600"
+        <Badge
+          className={`px-3 py-1 text-xs font-bold uppercase tracking-wider text-white border-none ${
+            isWA ? "bg-[#25d366] hover:bg-[#20ba59]" : "bg-primary hover:bg-primary-600"
           }`}
         >
           {isWA ? "WhatsApp" : "SMS"} · Fraude
-        </span>
+        </Badge>
 
         {/* Phone frame */}
         <div
@@ -535,11 +550,6 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
           {/* Chat header */}
           {isWA ? (
             <div className="flex items-center gap-2.5 bg-[#075e54] px-3 py-2.5">
-              <button className="text-white opacity-70 hover:opacity-100">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                </svg>
-              </button>
               <div
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base"
                 style={{ backgroundColor: conv.avatarColor + "33" }}
@@ -560,11 +570,6 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
             </div>
           ) : (
             <div className="flex items-center gap-2 bg-neutral-100 px-3 py-2.5">
-              <button className="text-neutral-600">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                </svg>
-              </button>
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-200 text-base">
                 {conv.avatarEmoji}
               </div>
@@ -579,10 +584,10 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
 
           {/* Chat body */}
           <div
-            className={`flex flex-col gap-2 overflow-y-auto p-3 ${
+            className={cn(
+              "flex flex-col gap-2 overflow-y-auto p-3 min-h-[280px]",
               isWA ? "bg-[#e5ddd5]" : "bg-neutral-50"
-            }`}
-            style={{ minHeight: 280 }}
+            )}
           >
             {conv.bubbles.map((bubble, bi) => {
               const isMe = bubble.from === "me";
@@ -603,36 +608,31 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
                           setActiveHotspot(activeHotspot === hs ? null : hs!)
                         }
                         aria-label={`Ver señal ${hs}`}
-                        className={`absolute -top-1.5 -right-1.5 z-20 flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-extrabold text-white shadow-md transition-all duration-200 ${
+                        className={cn(
+                          "absolute -top-1.5 -right-1.5 z-20 flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-extrabold text-white shadow-md transition-all duration-200",
                           isHighlighted
-                            ? "scale-125 bg-danger-600 ring-2 ring-danger-300"
-                            : "bg-danger-500 hover:scale-110"
-                        }`}
+                            ? "scale-125 bg-destructive ring-2 ring-destructive/30"
+                            : "bg-destructive/95 hover:bg-destructive hover:scale-110"
+                        )}
                       >
                         {hs}
                       </button>
                     )}
 
                     <div
-                      className={`max-w-[180px] rounded-xl px-2.5 py-1.5 shadow-sm transition-all duration-200 ${
+                      className={cn(
+                        "max-w-[180px] rounded-xl px-2.5 py-1.5 shadow-sm transition-all duration-200",
                         isMe
                           ? isWA
-                            ? "rounded-tr-none bg-[#dcf8c6]"
-                            : "rounded-tr-none bg-primary-100"
+                            ? "rounded-tr-none bg-[#dcf8c6] text-neutral-800"
+                            : "rounded-tr-none bg-primary/20 text-foreground"
                           : isWA
-                          ? "rounded-tl-none bg-white"
-                          : "rounded-tl-none bg-neutral-200"
-                      } ${
-                        isHighlighted
-                          ? "ring-2 ring-danger-400"
-                          : ""
-                      }`}
+                          ? "rounded-tl-none bg-white text-neutral-900"
+                          : "rounded-tl-none bg-neutral-200 text-neutral-950",
+                        isHighlighted && "ring-2 ring-destructive/60 shadow-md"
+                      )}
                     >
-                      <p
-                        className={`break-words text-[10px] leading-relaxed ${
-                          isMe ? "text-neutral-800" : "text-neutral-900"
-                        }`}
-                      >
+                      <p className="break-words text-[10px] leading-relaxed">
                         {bubble.text}
                       </p>
                       <div className="mt-0.5 flex items-center justify-end gap-1">
@@ -655,9 +655,10 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
 
           {/* Chat input bar */}
           <div
-            className={`flex items-center gap-2 px-3 py-2 ${
+            className={cn(
+              "flex items-center gap-2 px-3 py-2",
               isWA ? "bg-[#f0f0f0]" : "bg-white border-t border-neutral-200"
-            }`}
+            )}
           >
             <div className="flex-1 rounded-full bg-white px-3 py-1 text-[9px] text-neutral-400 shadow-inner ring-1 ring-neutral-200">
               Escribe un mensaje...
@@ -679,9 +680,9 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
         </div>
 
         {/* Hint */}
-        <p className="text-center text-[10px] text-neutral-400">
+        <p className="text-center text-[10px] text-muted-foreground mt-2">
           Toca los{" "}
-          <span className="rounded-full bg-danger-500 px-1.5 py-0.5 font-bold text-white">
+          <span className="rounded-full bg-destructive px-1.5 py-0.5 font-bold text-white">
             números rojos
           </span>{" "}
           para ver las señales
@@ -690,84 +691,80 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
 
       {/* ── Right: Explanation Panel ──────────────────────────── */}
       <div className="flex-1">
-        <h3 className="text-xl font-extrabold tracking-tight text-neutral-900 sm:text-2xl">
+        <h3 className="text-xl font-extrabold tracking-tight text-foreground sm:text-2xl">
           {conv.title}
         </h3>
-        <p className="mt-1 text-xs text-neutral-500">{conv.contactSub}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{conv.contactSub}</p>
 
-        <p className="mt-4 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           {conv.explanation}
         </p>
 
-        {/* Hotspots list */}
+        {/* Hotspots list with Accordion */}
         <div className="mt-6 space-y-3">
-          <p className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Señales de fraude en esta conversación:
           </p>
-          {conv.hotspots.map((hs, i) => {
-            const num = i + 1;
-            const isActive = activeHotspot === num;
-            return (
-              <button
-                key={i}
-                onClick={() =>
-                  setActiveHotspot(isActive ? null : num)
-                }
-                aria-expanded={isActive}
-                className={`w-full rounded-2xl border p-4 text-left transition-all duration-200 ${
-                  isActive
-                    ? "border-danger-300 bg-danger-50 shadow-md"
-                    : "border-neutral-200 bg-white hover:border-neutral-300 hover:bg-neutral-50"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white transition-colors ${
-                      isActive ? "bg-danger-600" : "bg-neutral-700"
-                    }`}
-                  >
-                    {num}
-                  </span>
-                  <span
-                    className={`text-sm font-bold ${
-                      isActive ? "text-danger-800" : "text-neutral-800"
-                    }`}
-                  >
-                    {hs.label}
-                  </span>
-                  {isActive ? (
-                    <XCircle size={14} className="ml-auto text-danger-400" />
-                  ) : (
-                    <ZoomIn size={14} className="ml-auto text-neutral-300" />
-                  )}
-                </div>
 
-                {/* Expandable description */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isActive
-                      ? "max-h-40 opacity-100 pt-3"
-                      : "max-h-0 opacity-0"
-                  }`}
+          <Accordion
+            type="single"
+            collapsible
+            value={activeHotspot ? String(activeHotspot) : ""}
+            onValueChange={(val) => setActiveHotspot(val ? Number(val) : null)}
+            className="space-y-2 w-full"
+          >
+            {conv.hotspots.map((hs, i) => {
+              const num = i + 1;
+              const isActive = activeHotspot === num;
+              return (
+                <AccordionItem
+                  key={i}
+                  value={String(num)}
+                  className={cn(
+                    "rounded-2xl border px-4 py-1.5 transition-all duration-200 border-border bg-card",
+                    isActive && "border-destructive/30 bg-destructive/5 shadow-sm"
+                  )}
                 >
-                  <p className="border-t border-danger-200 pt-3 text-xs leading-relaxed text-danger-700">
-                    {hs.description}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
+                  <AccordionTrigger className="hover:no-underline py-2 text-foreground font-semibold flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={cn(
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white transition-colors",
+                          isActive ? "bg-destructive" : "bg-muted-foreground"
+                        )}
+                      >
+                        {num}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-sm font-bold text-left",
+                          isActive ? "text-destructive" : "text-foreground"
+                        )}
+                      >
+                        {hs.label}
+                      </span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-2 text-xs leading-relaxed text-muted-foreground border-t border-border/30 mt-2">
+                    <span className={cn(isActive && "text-destructive/90")}>
+                      {hs.description}
+                    </span>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
         </div>
 
         {/* Warning callout */}
-        <div className="mt-6 flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <Info size={16} className="mt-0.5 shrink-0 text-amber-600" />
-          <p className="text-xs leading-relaxed text-amber-800">
+        <Alert className="mt-6 border border-amber-200 bg-amber-500/5">
+          <Info className="h-4 w-4 text-amber-500" />
+          <AlertDescription className="text-xs leading-relaxed text-foreground ml-2">
             <strong>¿Cómo actuar?</strong> No respondas, no hagas clic en ningún enlace y bloquea el número. Si mencionan una cuenta bancaria o transferencia, llama directamente a tu familiar o banco.
-          </p>
-        </div>
+          </AlertDescription>
+        </Alert>
       </div>
-    </article>
+    </Card>
   );
 }
 
@@ -782,15 +779,15 @@ export default function GaleriaCorreosPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950">
+      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-danger-500 blur-[120px]" />
+          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
           <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-amber-500 blur-[120px]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-danger-500/20 text-danger-400 ring-1 ring-danger-500/30">
-            <Mail size={28} />
+        <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive ring-1 ring-destructive/20">
+            <Mail className="h-7 w-7" />
           </div>
           <h1
             className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
@@ -809,218 +806,208 @@ export default function GaleriaCorreosPage() {
       </section>
 
       {/* ── Indicadores estadísticos ──────────────────────────── */}
-      <section className="border-b border-neutral-200 bg-white py-10">
+      <section className="border-b border-border bg-card py-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-6 text-center text-xs font-bold uppercase tracking-widest text-neutral-400">
+          <h2 className="mb-6 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
             ¿Cómo detectan el phishing los estudiantes? — Shahbazi et al., 2025
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {mainIndicators.map((ind, i) => (
-              <div
+              <Card
                 key={i}
-                className="flex flex-col items-center gap-2 rounded-2xl border border-neutral-200 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="flex flex-col items-center gap-2 border-border bg-card p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div
                   className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${ind.bg} ${ind.color}`}
                 >
                   {ind.icon}
                 </div>
-                <span className="text-2xl font-extrabold tracking-tight text-neutral-900">
+                <span className="text-2xl font-extrabold tracking-tight text-foreground">
                   {ind.stat}
                 </span>
-                <span className="text-xs font-medium text-neutral-500">
+                <span className="text-xs font-medium text-muted-foreground">
                   {ind.label}
                 </span>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Tabs ─────────────────────────────────────────────── */}
-      <nav
-        className="sticky top-0 z-30 flex justify-center border-b border-neutral-200 bg-white/95 py-4 backdrop-blur-md"
-        aria-label="Tipo de canal"
-      >
-        <div className="flex rounded-xl bg-neutral-100 p-1 ring-1 ring-neutral-200">
-          <button
-            onClick={() => setActiveTab("emails")}
-            className={`flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition-all ${
-              activeTab === "emails"
-                ? "bg-white text-primary-600 shadow-sm"
-                : "text-neutral-500 hover:text-neutral-800"
-            }`}
-          >
-            <Mail size={16} />
-            Correos Electrónicos
-          </button>
-          <button
-            onClick={() => setActiveTab("celular")}
-            className={`flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold transition-all ${
-              activeTab === "celular"
-                ? "bg-white text-primary-600 shadow-sm"
-                : "text-neutral-500 hover:text-neutral-800"
-            }`}
-          >
-            <Smartphone size={16} />
-            WhatsApp & SMS
-          </button>
-        </div>
-      </nav>
+      {/* ── Tabs (using shadcn component) ────────────────────── */}
+      <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as any)} className="w-full">
+        <nav
+          className="sticky top-0 z-30 flex justify-center border-b border-border bg-card/95 py-4 backdrop-blur-md"
+          aria-label="Tipo de canal"
+        >
+          <TabsList className="bg-muted ring-1 ring-border rounded-xl">
+            <TabsTrigger value="emails" className="px-5 py-2.5 font-bold">
+              <Mail className="mr-2 h-4 w-4" />
+              Correos Electrónicos
+            </TabsTrigger>
+            <TabsTrigger value="celular" className="px-5 py-2.5 font-bold">
+              <Smartphone className="mr-2 h-4 w-4" />
+              WhatsApp & SMS
+            </TabsTrigger>
+          </TabsList>
+        </nav>
 
-      {/* ── Gallery Content ───────────────────────────────────── */}
-      <section className="section-padding bg-neutral-50">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-10 text-center">
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
-              {activeTab === "emails"
-                ? "Correos de Phishing"
-                : "Conversaciones Fraudulentas"}
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-500">
-              {activeTab === "emails"
-                ? "Pasa el cursor o toca cada tarjeta para ver los indicadores de fraude."
-                : "Toca los números rojos sobre las burbujas del chat para identificar cada señal de peligro."}
-            </p>
-          </div>
+        {/* ── Gallery Content ───────────────────────────────────── */}
+        <section className="section-padding bg-muted/20 py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="mb-10 text-center">
+              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+                {activeTab === "emails"
+                  ? "Correos de Phishing"
+                  : "Conversaciones Fraudulentas"}
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+                {activeTab === "emails"
+                  ? "Pasa el cursor o toca cada tarjeta para ver los indicadores de fraude."
+                  : "Toca los números rojos sobre las burbujas del chat para identificar cada señal de peligro."}
+              </p>
+            </div>
 
-          {activeTab === "emails" ? (
-            /* ── Email Grid ───────────────────────────────────── */
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {emails.map((email) => {
-                const isFraude = email.badge === "fraude";
-                const isActive = activeCard === email.id;
+            <TabsContent value="emails" className="outline-none mt-0">
+              {/* ── Email Grid ───────────────────────────────────── */}
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {emails.map((email) => {
+                  const isFraude = email.badge === "fraude";
+                  const isActive = activeCard === email.id;
 
-                return (
-                  <article
-                    key={email.id}
-                    id={`gallery-${email.id}`}
-                    className="gallery-card group cursor-pointer border border-neutral-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
-                    onClick={() =>
-                      setActiveCard(isActive ? null : email.id)
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        setActiveCard(isActive ? null : email.id);
+                  return (
+                    <Card
+                      key={email.id}
+                      id={`gallery-${email.id}`}
+                      className="gallery-card group cursor-pointer border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl overflow-hidden"
+                      onClick={() =>
+                        setActiveCard(isActive ? null : email.id)
                       }
-                    }}
-                    tabIndex={0}
-                    role="button"
-                    aria-expanded={isActive}
-                    aria-label={`Ver indicadores de: ${email.title}`}
-                  >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-                      <Image
-                        src={email.src}
-                        alt={email.alt}
-                        fill
-                        className="card-image object-cover object-top"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        loading={
-                          email.id === "correo-banco" ? "eager" : "lazy"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setActiveCard(isActive ? null : email.id);
                         }
-                        priority={email.id === "correo-banco"}
-                      />
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-expanded={isActive}
+                      aria-label={`Ver de: ${email.title}`}
+                    >
+                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                        <Image
+                          src={email.src}
+                          alt={email.alt}
+                          fill
+                          className="card-image object-cover object-top"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading={
+                            email.id === "correo-banco" ? "eager" : "lazy"
+                          }
+                          priority={email.id === "correo-banco"}
+                        />
 
-                      <div className="absolute top-3 left-3 z-10">
-                        {isFraude ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-danger-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
-                            <ShieldAlert size={12} />
-                            Fraude
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
-                            <ShieldCheck size={12} />
-                            Legítimo
-                          </span>
-                        )}
-                      </div>
-
-                      <div
-                        className={`card-overlay glass-overlay absolute inset-0 z-20 flex flex-col justify-end p-5 ${
-                          isActive ? "!opacity-100 !translate-y-0" : ""
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-300">
-                          <Eye size={12} />
-                          Indicadores de{" "}
-                          {isFraude ? "fraude" : "legitimidad"}
+                        <div className="absolute top-3 left-3 z-10">
+                          {isFraude ? (
+                            <Badge className="inline-flex items-center gap-1 rounded-full bg-destructive text-white hover:bg-destructive shadow-lg border-none">
+                              <ShieldAlert className="h-3 w-3" />
+                              Fraude
+                            </Badge>
+                          ) : (
+                            <Badge className="inline-flex items-center gap-1 rounded-full bg-emerald-600 text-white hover:bg-emerald-600 shadow-lg border-none">
+                              <ShieldCheck className="h-3 w-3" />
+                              Legítimo
+                            </Badge>
+                          )}
                         </div>
-                        <ul className="mt-3 space-y-1.5">
-                          {email.indicators.map((ind, j) => (
-                            <li
-                              key={j}
-                              className="flex items-start gap-2 text-sm text-white"
-                            >
-                              <span
-                                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
-                                  isFraude
-                                    ? "bg-danger-500"
-                                    : "bg-emerald-500"
-                                }`}
-                              >
-                                {j + 1}
-                              </span>
-                              {ind}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
 
-                    <div className="p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
-                        {email.tipo}
-                      </p>
-                      <h3 className="mt-1 text-base font-bold text-neutral-900">
-                        {email.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-500 line-clamp-2">
-                        {email.explanation}
-                      </p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          ) : (
-            /* ── Phone Simulators ─────────────────────────────── */
-            <div className="flex flex-col gap-8">
-              {conversations.map((conv) => (
-                <PhoneSimulator key={conv.id} conv={conv} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+                        <div
+                          className={cn(
+                            "card-overlay glass-overlay absolute inset-0 z-20 flex flex-col justify-end p-5 transition-opacity duration-300",
+                            isActive ? "!opacity-100 !translate-y-0" : ""
+                          )}
+                        >
+                          <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-300">
+                            <Eye className="h-3.5 w-3.5" />
+                            Indicadores de{" "}
+                            {isFraude ? "fraude" : "legitimidad"}
+                          </div>
+                          <ul className="mt-3 space-y-1.5">
+                            {email.indicators.map((ind, j) => (
+                              <li
+                                key={j}
+                                className="flex items-start gap-2 text-sm text-white"
+                              >
+                                <span
+                                  className={cn(
+                                    "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white",
+                                    isFraude
+                                      ? "bg-destructive"
+                                      : "bg-emerald-500"
+                                  )}
+                                >
+                                  {j + 1}
+                                </span>
+                                {ind}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="p-4">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          {email.tipo}
+                        </p>
+                        <h3 className="mt-1 text-base font-bold text-foreground">
+                          {email.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                          {email.explanation}
+                        </p>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="celular" className="outline-none mt-0">
+              {/* ── Phone Simulators ─────────────────────────────── */}
+              <div className="flex flex-col gap-8">
+                {conversations.map((conv) => (
+                  <PhoneSimulator key={conv.id} conv={conv} />
+                ))}
+              </div>
+            </TabsContent>
+          </div>
+        </section>
+      </Tabs>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="border-t border-neutral-200 bg-white">
+      <section className="border-t border-border bg-card">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 lg:px-8">
           <div>
-            <h3 className="text-xl font-bold text-neutral-900">
+            <h3 className="text-xl font-bold text-foreground">
               ¿Puedes distinguir un sitio real de uno falso?
             </h3>
-            <p className="mt-1 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-muted-foreground">
               Compara sitios web clonados y aprende a detectar páginas fraudulentas.
             </p>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="/galeria/sitios"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-primary-700 active:scale-95"
-            >
-              Ver sitios web
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              href="/consejos"
-              className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 shadow-sm transition-all hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 active:scale-95"
-            >
-              Consejos
-              <ChevronRight size={18} />
-            </Link>
+          <div className="flex gap-3 w-full sm:w-auto">
+            <Button asChild className="rounded-xl px-6 py-5 text-sm font-semibold flex-1 sm:flex-none">
+              <Link href="/galeria/sitios">
+                Ver sitios web
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-xl px-6 py-5 text-sm font-semibold border-border flex-1 sm:flex-none">
+              <Link href="/consejos">
+                Consejos
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

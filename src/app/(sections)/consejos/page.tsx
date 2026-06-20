@@ -11,11 +11,14 @@ import {
   Lock,
   Wifi,
   RefreshCw,
-  ChevronRight,
   BookOpen,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Consejos de Prevención",
@@ -35,7 +38,7 @@ interface Consejo {
 
 const consejosIdentificacion: Consejo[] = [
   {
-    icon: <Mail size={24} />,
+    icon: <Mail className="h-6 w-6" />,
     title: "Verifica el remitente antes de abrir",
     description:
       "Revisa la dirección de correo completa, no solo el nombre visible. Los atacantes usan dominios similares (ej: @unfv-soporte.com en vez de @unfv.edu.pe).",
@@ -43,7 +46,7 @@ const consejosIdentificacion: Consejo[] = [
     source: "Shahbazi et al., 2025",
   },
   {
-    icon: <Link2Off size={24} />,
+    icon: <Link2Off className="h-6 w-6" />,
     title: "No hagas clic en links sospechosos",
     description:
       "Pasa el cursor sobre el enlace para ver la URL real antes de hacer clic. Si la dirección no coincide con el sitio oficial, no lo abras.",
@@ -51,7 +54,7 @@ const consejosIdentificacion: Consejo[] = [
     source: "Shahbazi et al., 2025",
   },
   {
-    icon: <AlertTriangle size={24} />,
+    icon: <AlertTriangle className="h-6 w-6" />,
     title: "Desconfía de mensajes con urgencia extrema",
     description:
       'Los atacantes usan frases como "Tu cuenta será bloqueada en 24 horas" o "Acción inmediata requerida" para que actúes sin pensar.',
@@ -59,7 +62,7 @@ const consejosIdentificacion: Consejo[] = [
     source: "Shahbazi et al., 2025; Yoro et al., 2023",
   },
   {
-    icon: <Search size={24} />,
+    icon: <Search className="h-6 w-6" />,
     title: "Busca errores ortográficos y de diseño",
     description:
       "Los correos de phishing suelen contener errores gramaticales, logos de baja calidad o formatos inconsistentes. Las instituciones reales cuidan su comunicación.",
@@ -67,7 +70,7 @@ const consejosIdentificacion: Consejo[] = [
     source: "Shahbazi et al., 2025",
   },
   {
-    icon: <Flag size={24} />,
+    icon: <Flag className="h-6 w-6" />,
     title: 'Usa la función "Reportar phishing"',
     description:
       "Todos los servicios de correo tienen un botón para reportar correos sospechosos. Úsalo: protege a otros usuarios y entrena al filtro de spam.",
@@ -75,7 +78,7 @@ const consejosIdentificacion: Consejo[] = [
     source: "Okokpujie et al., 2025",
   },
   {
-    icon: <FileWarning size={24} />,
+    icon: <FileWarning className="h-6 w-6" />,
     title: "No abras archivos adjuntos inesperados",
     description:
       "Los archivos .exe, .zip o incluso .docx pueden contener malware. Si no esperabas el archivo, contacta al remitente por otro medio para confirmar.",
@@ -87,7 +90,7 @@ const consejosIdentificacion: Consejo[] = [
 
 const recomendacionesProteccion: Consejo[] = [
   {
-    icon: <KeyRound size={24} />,
+    icon: <KeyRound className="h-6 w-6" />,
     title: "Usa contraseñas únicas y seguras",
     description:
       "Cada cuenta debe tener una contraseña diferente de al menos 12 caracteres, combinando mayúsculas, minúsculas, números y símbolos.",
@@ -95,21 +98,21 @@ const recomendacionesProteccion: Consejo[] = [
     source: "Abdulla et al., 2023; Guo & Tinmaz, 2023",
   },
   {
-    icon: <Smartphone size={24} />,
+    icon: <Smartphone className="h-6 w-6" />,
     title: "Activa la verificación en dos pasos (2FA)",
     description:
       "Con 2FA activado, aunque un atacante obtenga tu contraseña, necesitará el código de tu teléfono para acceder a tu cuenta.",
     source: "Abdulla et al., 2023",
   },
   {
-    icon: <Lock size={24} />,
+    icon: <Lock className="h-6 w-6" />,
     title: "Usa un gestor de contraseñas",
     description:
       "Herramientas como Bitwarden o Google Password Manager generan y almacenan contraseñas únicas. Solo necesitas recordar una contraseña maestra.",
     source: "Guo & Tinmaz, 2023",
   },
   {
-    icon: <Wifi size={24} />,
+    icon: <Wifi className="h-6 w-6" />,
     title: "Evita WiFi público para cuentas importantes",
     description:
       "Las redes WiFi abiertas permiten que terceros intercepten tu tráfico. Usa datos móviles o VPN para acceder a tu correo o banca online.",
@@ -117,7 +120,7 @@ const recomendacionesProteccion: Consejo[] = [
     source: "Abdulla et al., 2023",
   },
   {
-    icon: <RefreshCw size={24} />,
+    icon: <RefreshCw className="h-6 w-6" />,
     title: "Mantén tu software actualizado",
     description:
       "Las actualizaciones corrigen vulnerabilidades de seguridad. Activa las actualizaciones automáticas en tu sistema operativo y navegador.",
@@ -137,56 +140,58 @@ function ConsejoCard({
   variant?: "identify" | "protect";
 }) {
   const isIdentify = variant === "identify";
-  const accentBg = isIdentify ? "bg-danger-50" : "bg-primary-50";
-  const accentText = isIdentify ? "text-danger-600" : "text-primary-600";
-  const accentBorder = isIdentify ? "border-danger-200" : "border-primary-200";
-  const statBg = isIdentify ? "bg-danger-50" : "bg-primary-50";
-  const statText = isIdentify ? "text-danger-700" : "text-primary-700";
+  const accentBg = isIdentify ? "bg-destructive/10" : "bg-primary/10";
+  const accentText = isIdentify ? "text-destructive" : "text-primary";
+  const accentBorder = isIdentify ? "border-destructive/20" : "border-primary/20";
 
   return (
-    <article
+    <Card
       id={`consejo-${variant}-${index}`}
-      className={`animate-fade-in-up group relative overflow-hidden rounded-2xl border ${accentBorder} bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8`}
+      className={`animate-fade-in-up group relative overflow-hidden border ${accentBorder} bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Number badge */}
-      <div className="absolute -top-1 -right-1 flex h-8 w-8 items-center justify-center rounded-bl-xl rounded-tr-2xl bg-neutral-900 text-xs font-bold text-white">
+      <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-bl-xl bg-neutral-900 dark:bg-neutral-800 text-xs font-bold text-white">
         {index + 1}
       </div>
 
       {/* Icon */}
-      <div
-        className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl ${accentBg} ${accentText} ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-110`}
-      >
-        {consejo.icon}
-      </div>
+      <CardHeader className="p-0 mb-5">
+        <div
+          className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${accentBg} ${accentText} ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-110`}
+        >
+          {consejo.icon}
+        </div>
+      </CardHeader>
 
       {/* Content */}
-      <h3 className="text-lg font-bold text-neutral-900 sm:text-xl">
-        {consejo.title}
-      </h3>
-      <p className="mt-3 text-sm leading-relaxed text-neutral-600 sm:text-base">
-        {consejo.description}
-      </p>
+      <CardContent className="p-0">
+        <h3 className="text-lg font-bold text-foreground sm:text-xl">
+          {consejo.title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          {consejo.description}
+        </p>
 
-      {/* Stat badge */}
-      {consejo.stat && (
-        <div
-          className={`mt-4 inline-flex items-center gap-1.5 rounded-lg ${statBg} px-3 py-1.5 text-xs font-semibold ${statText}`}
-        >
-          <BookOpen size={12} />
-          {consejo.stat}
-        </div>
-      )}
+        {/* Stat badge */}
+        {consejo.stat && (
+          <div className="mt-4">
+            <Badge variant="outline" className={`inline-flex items-center gap-1.5 rounded-lg ${accentBg} border-none px-3 py-1.5 text-xs font-semibold ${accentText}`}>
+              <BookOpen className="h-3.5 w-3.5" />
+              {consejo.stat}
+            </Badge>
+          </div>
+        )}
 
-      {/* Source */}
-      <p className="mt-3 text-xs text-neutral-400">{consejo.source}</p>
+        {/* Source */}
+        <p className="mt-3 text-xs text-muted-foreground/60">{consejo.source}</p>
+      </CardContent>
 
       {/* Decorative corner glow */}
       <div
         className={`absolute -bottom-10 -right-10 h-28 w-28 rounded-full ${accentBg} opacity-0 transition-opacity duration-500 group-hover:opacity-60`}
       />
-    </article>
+    </Card>
   );
 }
 
@@ -196,16 +201,16 @@ export default function ConsejosPage() {
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950">
+      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
         {/* Decorative elements */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-danger-500 blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-primary-500 blur-[120px]" />
+          <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-primary blur-[120px]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8">
+        <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
           <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-white/20">
-            <Shield size={28} />
+            <Shield className="h-7 w-7" />
           </div>
           <h1
             className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
@@ -225,17 +230,17 @@ export default function ConsejosPage() {
       </section>
 
       {/* ── Sección 1: Identificar Phishing (HU-09) ────────────── */}
-      <section className="section-padding bg-white">
-        <div className="mx-auto max-w-6xl">
+      <section className="section-padding bg-background py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-danger-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-danger-700">
-              <AlertTriangle size={14} />
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-destructive/10 border-destructive/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
+              <AlertTriangle className="h-3.5 w-3.5" />
               Señales de alerta
-            </span>
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+            </Badge>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               ¿Cómo identificar un intento de phishing?
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-neutral-500">
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               Estas son las 6 señales clave que debes buscar antes de confiar en
               cualquier mensaje o correo electrónico.
             </p>
@@ -256,21 +261,21 @@ export default function ConsejosPage() {
 
       {/* ── Divider ────────────────────────────────────────────── */}
       <div className="mx-auto max-w-6xl px-4">
-        <hr className="border-neutral-200" />
+        <hr className="border-border" />
       </div>
 
       {/* ── Sección 2: Protección Digital (HU-10) ──────────────── */}
-      <section className="section-padding bg-neutral-50">
-        <div className="mx-auto max-w-6xl">
+      <section className="section-padding bg-muted/20 py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary-700">
-              <Shield size={14} />
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 border-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+              <Shield className="h-3.5 w-3.5" />
               Protección digital
-            </span>
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+            </Badge>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               Recomendaciones de seguridad
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-neutral-500">
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               Medidas concretas para proteger tus cuentas y datos personales
               contra ataques de ingeniería social.
             </p>
@@ -290,148 +295,147 @@ export default function ConsejosPage() {
       </section>
 
       {/* ── Sección 3: Acciones Post-Incidente (HU-11) ──────────── */}
-      <section className="section-padding bg-white">
-        <div className="mx-auto max-w-6xl">
+      <section className="section-padding bg-background py-16">
+        <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-danger-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-danger-700">
-              <AlertTriangle size={14} />
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-destructive/10 border-destructive/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
+              <AlertTriangle className="h-3.5 w-3.5" />
               Protocolo de Emergencia
-            </span>
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+            </Badge>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               ¿Qué hacer si ya caíste en un fraude?
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-neutral-500">
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               Si ingresaste tus datos en un enlace sospechoso o fuiste estafado, sigue estos pasos inmediatamente para mitigar el daño.
             </p>
           </div>
 
           <div className="mx-auto max-w-4xl space-y-6">
             {/* Paso 1: Llamar al banco */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
-              <div className="flex items-start gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-danger-600 font-bold text-white text-sm">
-                  1
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold text-neutral-900">Bloquea tus tarjetas y cuentas bancarias</h3>
-                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
-                    Llama de inmediato a la central de emergencias de tu banco en Perú para bloquear tus tarjetas y claves digitales. No uses la app si sospechas que el celular está comprometido.
-                  </p>
-                  
-                  {/* Lista de Teléfonos Bancarios */}
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
-                      <p className="text-xs font-bold text-neutral-800">BCP</p>
-                      <p className="text-sm font-semibold text-primary-600 hover:underline">
-                        <a href="tel:013119898">(01) 311-9898</a>
-                      </p>
-                    </div>
-                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
-                      <p className="text-xs font-bold text-neutral-800">BBVA</p>
-                      <p className="text-sm font-semibold text-primary-600 hover:underline">
-                        <a href="tel:015950000">(01) 595-0000</a>
-                      </p>
-                    </div>
-                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
-                      <p className="text-xs font-bold text-neutral-800">Interbank</p>
-                      <p className="text-sm font-semibold text-primary-600 hover:underline">
-                        <a href="tel:013119000">(01) 311-9000</a>
-                      </p>
-                    </div>
-                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
-                      <p className="text-xs font-bold text-neutral-800">Banco de la Nación</p>
-                      <p className="text-sm font-semibold text-primary-600 hover:underline">
-                        <a href="tel:014405305">(01) 440-5305</a>
-                      </p>
-                    </div>
-                    <div className="rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200">
-                      <p className="text-xs font-bold text-neutral-800">Scotiabank</p>
-                      <p className="text-sm font-semibold text-primary-600 hover:underline">
-                        <a href="tel:013116000">(01) 311-6000</a>
-                      </p>
+            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+              <CardContent className="p-0">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-destructive font-bold text-white text-sm">
+                    1
+                  </span>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-foreground">Bloquea tus tarjetas y cuentas bancarias</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      Llama de inmediato a la central de emergencias de tu banco en Perú para bloquear tus tarjetas y claves digitales. No uses la app si sospechas que el celular está comprometido.
+                    </p>
+                    
+                    {/* Lista de Teléfonos Bancarios */}
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      {[
+                        { name: "BCP", phone: "(01) 311-9898", link: "tel:013119898" },
+                        { name: "BBVA", phone: "(01) 595-0000", link: "tel:015950000" },
+                        { name: "Interbank", phone: "(01) 311-9000", link: "tel:013119000" },
+                        { name: "Banco de la Nación", phone: "(01) 440-5305", link: "tel:014405305" },
+                        { name: "Scotiabank", phone: "(01) 311-6000", link: "tel:013116000" },
+                      ].map((bank) => (
+                        <Card key={bank.name} className="bg-muted/30 p-3 border-border">
+                          <p className="text-xs font-bold text-foreground">{bank.name}</p>
+                          <a href={bank.link} className="text-sm font-semibold text-primary hover:underline block mt-1">
+                            {bank.phone}
+                          </a>
+                        </Card>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Paso 2: Cambiar claves */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
-              <div className="flex items-start gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
-                  2
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold text-neutral-900">Cambia todas tus contraseñas</h3>
-                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
-                    Si ingresaste tu clave en una web falsa, modifícala inmediatamente en el portal oficial. Si usas la misma clave en otras cuentas (como Gmail o redes sociales), cámbialas también. Recuerda usar gestores de contraseñas para evitar repetir credenciales (Guo & Tinmaz, 2023).
-                  </p>
+            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+              <CardContent className="p-0">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                    2
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground">Cambia todas tus contraseñas</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      Si ingresaste tu clave en una web falsa, modifícala inmediatamente en el portal oficial. Si usas la misma clave en otras cuentas (como Gmail o redes sociales), cámbialas también. Recuerda usar gestores de contraseñas para evitar repetir credenciales (Guo & Tinmaz, 2023).
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Paso 3: Reportar a la Universidad */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
-              <div className="flex items-start gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
-                  3
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold text-neutral-900">Reporta al soporte TI de la UNFV</h3>
-                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
-                    Si el ataque comprometió tu correo institucional (`@unfv.edu.pe`), avisa de inmediato a la Oficina de Tecnología de la Información para bloquear el correo temporalmente. Esto evita que los ciberdelincuentes usen tu cuenta para enviar spam o phishing masivo a tus compañeros de Ciencias Sociales.
-                  </p>
+            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+              <CardContent className="p-0">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                    3
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground">Reporta al soporte TI de la UNFV</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      Si el ataque comprometió tu correo institucional (`@unfv.edu.pe`), avisa de inmediato a la Oficina de Tecnología de la Información para bloquear el correo temporalmente. Esto evita que los ciberdelincuentes usen tu cuenta para enviar spam o phishing masivo a tus compañeros de Ciencias Sociales.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Paso 4: Denunciar formalmente */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
-              <div className="flex items-start gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 font-bold text-white text-sm">
-                  4
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold text-neutral-900">Asienta una denuncia policial o fiscal</h3>
-                  <p className="mt-2 text-sm text-neutral-500 leading-relaxed">
-                    El fraude informático es un delito según la Ley de Delitos Informáticos en el Perú. Puedes asentar una denuncia formal en:
-                  </p>
-                  <ul className="mt-3 list-disc pl-5 space-y-2 text-xs text-neutral-600">
-                    <li>
-                      <strong>DIVINDAT (DIVISIÓN DE DELITOS DE ALTA TECNOLOGÍA):</strong> Ubicada en la Av. España 323, Cercado de Lima. Central de atención: <a href="tel:014318105" className="text-primary-600 font-semibold">(01) 431-8105</a>.
-                    </li>
-                    <li>
-                      <strong>Ministerio Público (Fiscalía de la Nación):</strong> A través de la Mesa de Partes Virtual o acudiendo a la Fiscalía Corporativa en Ciberdelincuencia de Lima.
-                    </li>
-                  </ul>
+            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+              <CardContent className="p-0">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                    4
+                  </span>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-foreground">Asienta una denuncia policial o fiscal</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      El fraude informático es un delito según la Ley de Delitos Informáticos en el Perú. Puedes asentar una denuncia formal en:
+                    </p>
+                    <ul className="mt-3 list-disc pl-5 space-y-2 text-xs text-muted-foreground leading-relaxed">
+                      <li>
+                        <strong>DIVINDAT (DIVISIÓN DE DELITOS DE ALTA TECNOLOGÍA):</strong> Ubicada en la Av. España 323, Cercado de Lima. Central de atención: <a href="tel:014318105" className="text-primary font-semibold hover:underline">(01) 431-8105</a>.
+                      </li>
+                      <li>
+                        <strong>Ministerio Público (Fiscalía de la Nación):</strong> A través de la Mesa de Partes Virtual o acudiendo a la Fiscalía Corporativa en Ciberdelincuencia de Lima.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* ── CTA → Evaluación ────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-primary-600">
+      <section className="relative overflow-hidden bg-primary py-16 sm:py-20">
         <div className="absolute top-0 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
-        <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
             ¿Podrías detectar un ataque real?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-primary-100 sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/85 sm:text-base">
             Pon a prueba tus conocimientos completando nuestra evaluación sobre
             prevención de phishing y seguridad digital.
           </p>
-          <Link
-            href="/evaluacion"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-semibold text-primary-700 shadow-lg transition-all duration-200 hover:bg-primary-50 hover:shadow-xl active:scale-[0.97]"
+          <Button
+            asChild
+            size="lg"
+            variant="secondary"
+            className="mt-8 bg-white hover:bg-neutral-100 text-primary hover:text-primary-600 rounded-xl px-8 py-6 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-[0.97]"
           >
-            Realizar evaluación
-            <ChevronRight size={18} />
-          </Link>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Realizar evaluación
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </a>
+          </Button>
         </div>
       </section>
     </>
   );
 }
-
