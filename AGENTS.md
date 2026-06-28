@@ -1,5 +1,20 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# Project Instructions: Phishing UNFV
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+## Project Structure
+- Source code is strictly located within `src/`.
+- All routes, components, and utilities are under `src/app/`, `src/components/`, and `src/lib/`.
+
+## Framework & Tooling
+- **Next.js 15 (App Router):** Expect breaking changes compared to older versions. Refer to `node_modules/next/dist/docs/` if unsure.
+- **Tailwind CSS 4.x:** Managed natively; there is no `tailwind.config.ts` file.
+- **Database:** Uses `better-sqlite3`. Schema is defined in `src/lib/schema.sql`.
+
+## Development
+- **Start:** `npm run dev`
+- **Lint:** `npm run lint`
+- **Build:** `npm run build`
+
+## Conventions
+- Enforce strict TypeScript typing.
+- Use `shadcn/ui` components (see `components.json`).
+- Verify documentation (`README.md`, `docs/PLAN_TECNICO.md`) against actual file locations, as the documentation may occasionally be out of sync.

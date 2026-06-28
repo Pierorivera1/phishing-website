@@ -19,13 +19,16 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-2 text-muted-foreground">
             <Image
-              src="/anti_pishing_unfv_logo.png"
+              src="/anti_pishing_unfv_logo.webp"
               alt="Logo UNFV"
               width={24}
               height={24}
               className="shrink-0 object-contain"
             />
-            <span className="text-sm font-semibold text-foreground">
+            <span 
+              className="text-sm font-semibold text-foreground font-pixel"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               Anti-Phishing UNFV
             </span>
           </div>

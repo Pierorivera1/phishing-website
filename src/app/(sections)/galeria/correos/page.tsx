@@ -37,7 +37,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -87,7 +87,7 @@ interface MobileConversation {
 const emails: PhishingEmail[] = [
   {
     id: "correo-banco",
-    src: "/images/correos/correo1.png",
+    src: "/images/correos/correo1.webp",
     alt: "Correo fraudulento suplantando a un banco",
     title: "Alerta bancaria falsa",
     badge: "fraude",
@@ -103,7 +103,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-universidad",
-    src: "/images/correos/correo2.png",
+    src: "/images/correos/correo2.webp",
     alt: "Correo fraudulento suplantando una universidad",
     title: "Beca internacional falsa",
     badge: "fraude",
@@ -119,7 +119,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-premio",
-    src: "/images/correos/correo3.png",
+    src: "/images/correos/correo3.webp",
     alt: "Correo fraudulento de premio falso",
     title: "Premio ficticio (Baiting)",
     badge: "fraude",
@@ -135,7 +135,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-sms",
-    src: "/images/correos/correo4.png",
+    src: "/images/correos/correo4.webp",
     alt: "Ejemplo de smishing (phishing por SMS)",
     title: "Smishing — Alerta por SMS",
     badge: "fraude",
@@ -151,7 +151,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-red-social",
-    src: "/images/correos/correo5.png",
+    src: "/images/correos/correo5.webp",
     alt: "Correo suplantando a Instagram",
     title: "Alerta de seguridad falsa",
     badge: "fraude",
@@ -167,7 +167,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-delivery",
-    src: "/images/correos/correo6.png",
+    src: "/images/correos/correo6.webp",
     alt: "Correo suplantando un servicio de envíos",
     title: "Paquete no entregado (Delivery)",
     badge: "fraude",
@@ -183,7 +183,7 @@ const emails: PhishingEmail[] = [
   },
   {
     id: "correo-legitimo",
-    src: "/images/correos/correo_no_fraudulento.png",
+    src: "/images/correos/correo_no_fraudulento.webp",
     alt: "Correo legítimo de la UNFV",
     title: "Correo legítimo — UNFV",
     badge: "legitimo",
@@ -519,13 +519,13 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
   return (
     <Card
       id={`sim-${conv.id}`}
-      className="flex flex-col gap-6 border-border bg-card p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:p-8 lg:flex-row lg:items-start"
+      className="flex flex-col gap-6 rounded-none border-4 border-border bg-card p-6 shadow-[8px_8px_0px_0px_var(--secondary)] sm:p-8 lg:flex-row lg:items-start"
     >
       {/* ── Left: Phone Mockup ────────────────────────────────── */}
       <div className="flex w-full shrink-0 flex-col items-center gap-3 lg:w-[260px]">
         {/* Canal badge */}
         <Badge
-          className={`px-3 py-1 text-xs font-bold uppercase tracking-wider text-white border-none ${
+          className={`rounded-none border-2 border-black/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white ${
             isWA ? "bg-[#25d366] hover:bg-[#20ba59]" : "bg-primary hover:bg-primary-600"
           }`}
         >
@@ -691,7 +691,10 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
 
       {/* ── Right: Explanation Panel ──────────────────────────── */}
       <div className="flex-1">
-        <h3 className="text-xl font-extrabold tracking-tight text-foreground sm:text-2xl">
+        <h3 
+          className="text-lg font-bold text-foreground sm:text-xl"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
           {conv.title}
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">{conv.contactSub}</p>
@@ -721,15 +724,15 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
                   key={i}
                   value={String(num)}
                   className={cn(
-                    "rounded-2xl border px-4 py-1.5 transition-all duration-200 border-border bg-card",
-                    isActive && "border-destructive/30 bg-destructive/5 shadow-sm"
+                    "rounded-none border-4 px-4 py-1.5 transition-all duration-200 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)]",
+                    isActive && "border-destructive/30 bg-destructive/5 shadow-none"
                   )}
                 >
                   <AccordionTrigger className="hover:no-underline py-2 text-foreground font-semibold flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <span
                         className={cn(
-                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white transition-colors",
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-none border-2 border-border text-xs font-bold text-white transition-colors",
                           isActive ? "bg-destructive" : "bg-muted-foreground"
                         )}
                       >
@@ -740,6 +743,7 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
                           "text-sm font-bold text-left",
                           isActive ? "text-destructive" : "text-foreground"
                         )}
+                        style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
                       >
                         {hs.label}
                       </span>
@@ -757,7 +761,7 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
         </div>
 
         {/* Warning callout */}
-        <Alert className="mt-6 border border-amber-200 bg-amber-500/5">
+        <Alert className="mt-6 rounded-none border-4 border-l-amber-500 bg-amber-500/5 border-border">
           <Info className="h-4 w-4 text-amber-500" />
           <AlertDescription className="text-xs leading-relaxed text-foreground ml-2">
             <strong>¿Cómo actuar?</strong> No respondas, no hagas clic en ningún enlace y bloquea el número. Si mencionan una cuenta bancaria o transferencia, llama directamente a tu familiar o banco.
@@ -768,10 +772,6 @@ function PhoneSimulator({ conv }: { conv: MobileConversation }) {
   );
 }
 
-/* ─────────────────────────────────────────────────────────────────── */
-/* ── PAGE COMPONENT                                               ── */
-/* ─────────────────────────────────────────────────────────────────── */
-
 export default function GaleriaCorreosPage() {
   const [activeTab, setActiveTab] = useState<"emails" | "celular">("emails");
   const [activeCard, setActiveCard] = useState<string | null>(null);
@@ -779,24 +779,40 @@ export default function GaleriaCorreosPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
-          <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-amber-500 blur-[120px]" />
-        </div>
+      <section 
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/pythonbannerbackground.png')",
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+
+        {/* Pixel grid overlay effect */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
+            backgroundSize: "8px 8px"
+          }}
+        />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive ring-1 ring-destructive/20">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-destructive/10 text-destructive shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
             <Mail className="h-7 w-7" />
           </div>
           <h1
-            className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
-            style={{ animationDelay: "100ms" }}
+            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
+            style={{ 
+              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
+              animationDelay: "100ms",
+              textShadow: "3px 3px 0px #000000"
+            }}
           >
             Galería de Mensajes Fraudulentos
           </h1>
           <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-300 sm:text-lg"
+            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
             style={{ animationDelay: "200ms" }}
           >
             Analiza ejemplos reales de correos, SMS y WhatsApp de phishing.
@@ -806,7 +822,7 @@ export default function GaleriaCorreosPage() {
       </section>
 
       {/* ── Indicadores estadísticos ──────────────────────────── */}
-      <section className="border-b border-border bg-card py-10">
+      <section className="border-b-4 border-border bg-card py-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-6 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
             ¿Cómo detectan el phishing los estudiantes? — Shahbazi et al., 2025
@@ -815,14 +831,17 @@ export default function GaleriaCorreosPage() {
             {mainIndicators.map((ind, i) => (
               <Card
                 key={i}
-                className="flex flex-col items-center gap-2 border-border bg-card p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                className="flex flex-col items-center gap-2 rounded-none border-4 border-border bg-card p-5 text-center shadow-[4px_4px_0px_0px_var(--secondary)] transition-all duration-300 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_var(--secondary)]"
               >
                 <div
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${ind.bg} ${ind.color}`}
+                  className={`inline-flex h-10 w-10 items-center justify-center rounded-none border-2 border-border ${ind.bg} ${ind.color}`}
                 >
                   {ind.icon}
                 </div>
-                <span className="text-2xl font-extrabold tracking-tight text-foreground">
+                <span 
+                  className="text-2xl font-bold tracking-tight text-foreground"
+                  style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                >
                   {ind.stat}
                 </span>
                 <span className="text-xs font-medium text-muted-foreground">
@@ -837,15 +856,15 @@ export default function GaleriaCorreosPage() {
       {/* ── Tabs (using shadcn component) ────────────────────── */}
       <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as any)} className="w-full">
         <nav
-          className="sticky top-0 z-30 flex justify-center border-b border-border bg-card/95 py-4 backdrop-blur-md"
+          className="sticky top-0 z-30 flex justify-center border-b-4 border-border bg-background py-4"
           aria-label="Tipo de canal"
         >
-          <TabsList className="bg-muted ring-1 ring-border rounded-xl">
-            <TabsTrigger value="emails" className="px-5 py-2.5 font-bold">
+          <TabsList className="bg-muted ring-2 ring-border rounded-none p-1">
+            <TabsTrigger value="emails" className="rounded-none px-5 py-2.5 font-bold data-[state=active]:bg-foreground data-[state=active]:text-background" style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}>
               <Mail className="mr-2 h-4 w-4" />
               Correos Electrónicos
             </TabsTrigger>
-            <TabsTrigger value="celular" className="px-5 py-2.5 font-bold">
+            <TabsTrigger value="celular" className="rounded-none px-5 py-2.5 font-bold data-[state=active]:bg-foreground data-[state=active]:text-background" style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}>
               <Smartphone className="mr-2 h-4 w-4" />
               WhatsApp & SMS
             </TabsTrigger>
@@ -856,7 +875,10 @@ export default function GaleriaCorreosPage() {
         <section className="section-padding bg-muted/20 py-16">
           <div className="mx-auto max-w-6xl px-4">
             <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+              <h2 
+                className="text-2xl font-bold text-foreground sm:text-3xl"
+                style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+              >
                 {activeTab === "emails"
                   ? "Correos de Phishing"
                   : "Conversaciones Fraudulentas"}
@@ -879,7 +901,7 @@ export default function GaleriaCorreosPage() {
                     <Card
                       key={email.id}
                       id={`gallery-${email.id}`}
-                      className="gallery-card group cursor-pointer border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl overflow-hidden"
+                      className="gallery-card group cursor-pointer rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)] transition-all duration-300 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--secondary)] overflow-hidden"
                       onClick={() =>
                         setActiveCard(isActive ? null : email.id)
                       }
@@ -909,12 +931,12 @@ export default function GaleriaCorreosPage() {
 
                         <div className="absolute top-3 left-3 z-10">
                           {isFraude ? (
-                            <Badge className="inline-flex items-center gap-1 rounded-full bg-destructive text-white hover:bg-destructive shadow-lg border-none">
+                            <Badge className="inline-flex items-center gap-1 rounded-none border-2 border-black/20 bg-destructive text-white hover:bg-destructive shadow-lg">
                               <ShieldAlert className="h-3 w-3" />
                               Fraude
                             </Badge>
                           ) : (
-                            <Badge className="inline-flex items-center gap-1 rounded-full bg-emerald-600 text-white hover:bg-emerald-600 shadow-lg border-none">
+                            <Badge className="inline-flex items-center gap-1 rounded-none border-2 border-black/20 bg-emerald-600 text-white hover:bg-emerald-600 shadow-lg">
                               <ShieldCheck className="h-3 w-3" />
                               Legítimo
                             </Badge>
@@ -927,7 +949,10 @@ export default function GaleriaCorreosPage() {
                             isActive ? "!opacity-100 !translate-y-0" : ""
                           )}
                         >
-                          <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-300">
+                          <div 
+                            className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-300"
+                            style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                          >
                             <Eye className="h-3.5 w-3.5" />
                             Indicadores de{" "}
                             {isFraude ? "fraude" : "legitimidad"}
@@ -940,7 +965,7 @@ export default function GaleriaCorreosPage() {
                               >
                                 <span
                                   className={cn(
-                                    "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white",
+                                    "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-none border border-white/20 text-[10px] font-bold text-white",
                                     isFraude
                                       ? "bg-destructive"
                                       : "bg-emerald-500"
@@ -959,7 +984,10 @@ export default function GaleriaCorreosPage() {
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           {email.tipo}
                         </p>
-                        <h3 className="mt-1 text-base font-bold text-foreground">
+                        <h3 
+                          className="mt-1 text-base font-bold text-foreground"
+                          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                        >
                           {email.title}
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
@@ -985,11 +1013,14 @@ export default function GaleriaCorreosPage() {
       </Tabs>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="border-t border-border bg-card">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 lg:px-8">
+      <section className="border-t-4 border-border bg-card py-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-8 sm:flex-row sm:px-6 lg:px-8">
           <div>
-            <h3 className="text-xl font-bold text-foreground">
-              ¿Puedes distinguir un sitio real de uno falso?
+            <h3 
+              className="text-lg font-bold text-foreground"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
+              ¿Quieres aprender a protegerte?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Compara sitios web clonados y aprende a detectar páginas fraudulentas.

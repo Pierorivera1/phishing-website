@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Shield,
@@ -7,8 +9,11 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { FadeIn } from "@/components/animations/fade-in";
+import { StaggerContainer, StaggerItem } from "@/components/animations/stagger-container";
+import { SlideIn } from "@/components/animations/slide-in";
 
 const GOOGLE_FORMS_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform";
@@ -25,25 +30,25 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    icon: <AlertTriangle className="h-7 w-7" />,
+    icon: <AlertTriangle className="h-6 w-6" />,
     value: "36.9%",
     label: "de estudiantes cae en ataques de phishing",
     color: "text-destructive",
     bgColor: "bg-destructive/10",
   },
   {
-    icon: <TrendingUp className="h-7 w-7" />,
+    icon: <TrendingUp className="h-6 w-6" />,
     value: "68.88%",
     label: "de delitos informáticos en Perú son fraude digital",
     color: "text-primary",
     bgColor: "bg-primary/10",
   },
   {
-    icon: <GraduationCap className="h-7 w-7" />,
+    icon: <GraduationCap className="h-6 w-6" />,
     value: "0",
     label: "capacitaciones formales en ciberseguridad en la UNFV",
-    color: "text-amber-600 dark:text-amber-500",
-    bgColor: "bg-amber-100/50 dark:bg-amber-950/30",
+    color: "text-accent",
+    bgColor: "bg-accent/10",
   },
 ];
 
@@ -51,178 +56,237 @@ const stats: Stat[] = [
 
 export default function HomePage() {
   return (
-    <>
+    <div className="min-h-screen bg-background text-foreground select-none">
       {/* ── Hero Section ──────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative overflow-hidden"
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/python-animated.gif')",
+        }}
       >
-        {/* Background gradient */}
-        <div
-          className="absolute inset-0 -z-10 bg-primary/5"
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+
+        {/* Pixel grid overlay effect */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
+            backgroundSize: "8px 8px"
+          }}
         />
 
-        {/* Decorative blobs */}
-        <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary/10 opacity-30 blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-primary/20 opacity-20 blur-3xl" />
-
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
+            {/* Badge */}
+            <FadeIn delay={0} duration={0.4}>
+              <div className="inline-block border-2 border-white bg-white/10 px-3 py-1.5 text-[10px] tracking-widest text-white font-bold mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
+                [ Sistema de concientización ]
+              </div>
+            </FadeIn>
+
             {/* Main heading */}
-            <h1 className="animate-fade-in-up text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
-                style={{ animationDelay: "100ms" }}
-            >
-              Aprende a protegerte del{" "}
-              <span className="text-primary font-extrabold">Phishing</span>
-            </h1>
+            <FadeIn delay={0.1} duration={0.5} yOffset={28}>
+              <h1 
+                className="text-lg sm:text-2xl lg:text-3xl leading-relaxed tracking-wider text-white font-bold"
+                style={{ 
+                  fontFamily: "'Press Start 2P', system-ui, sans-serif",
+                  textShadow: "4px 4px 0px #000000"
+                }}
+              >
+                Aprende a protegerte del{" "}
+                <span className="text-primary block sm:inline mt-2 sm:mt-0" style={{ textShadow: "4px 4px 0px #000000" }}>Phishing</span>
+              </h1>
+            </FadeIn>
 
             {/* Subtitle */}
-            <p
-              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
-              style={{ animationDelay: "200ms" }}
-            >
-              Plataforma educativa para la concientización y prevención de
-              fraudes digitales, diseñada para estudiantes de la Facultad de
-              Ciencias Sociales de la UNFV.
-            </p>
+            <FadeIn delay={0.2} duration={0.5}>
+              <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                Plataforma educativa para la concientización y prevención de
+                fraudes digitales, diseñada para estudiantes de la Facultad de
+                Ciencias Sociales de la UNFV.
+              </p>
+            </FadeIn>
 
             {/* CTA buttons */}
-            <div
-              className="animate-fade-in-up mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-              style={{ animationDelay: "300ms" }}
-            >
-              <Button
-                asChild
-                size="lg"
-                className="animate-pulse-glow w-full sm:w-auto rounded-xl px-7 py-6 text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.97]"
-              >
-                <Link href="/aprender" id="cta-comenzar">
-                  Comenzar
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto rounded-xl border-border bg-card px-7 py-6 text-sm font-semibold hover:bg-primary/5 hover:text-primary active:scale-[0.97]"
-              >
-                <a
-                  href={GOOGLE_FORMS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  id="cta-evaluacion"
+            <FadeIn delay={0.35} duration={0.5}>
+              <div className="mt-10 flex flex-col items-center justify-center gap-6 sm:flex-row">
+                <Button
+                  asChild
+                  size="lg"
+                  font="retro"
+                  className="w-full sm:w-auto px-8 py-6 text-xs bg-primary text-primary-foreground hover:bg-primary/95 active:scale-[0.97]"
                 >
-                  Ir a la evaluación
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            </div>
+                  <Link href="/aprender" id="cta-comenzar">
+                    Comenzar
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  font="retro"
+                  className="w-full sm:w-auto px-8 py-6 text-xs border-2 border-border bg-card hover:bg-muted active:scale-[0.97]"
+                >
+                  <a
+                    href={GOOGLE_FORMS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    id="cta-evaluacion"
+                  >
+                    Evaluación
+                    <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
       {/* ── Mini Summary Section ────────────────────────────────────────── */}
-      <section id="mini-summary" className="bg-background px-4 py-12 sm:px-6 lg:px-8">
-        <Card className="mx-auto max-w-4xl relative overflow-hidden p-8 text-center shadow-lg shadow-neutral-200/30 dark:shadow-none border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 hover:ring-1 hover:ring-primary/30 sm:p-10">
-          <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20">
-            <Shield className="h-6 w-6" />
-          </div>
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            ¿Qué es el Phishing?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Es un método de <strong className="text-foreground">engaño digital</strong> donde los atacantes se hacen pasar por instituciones confiables para robar tu información personal o contraseñas. No hackean tu computadora, <em className="text-primary font-medium not-italic">hackean tu mente</em> mediante la manipulación.
-          </p>
-        </Card>
+      <section id="mini-summary" className="px-4 py-12 sm:px-6 lg:px-8">
+        <FadeIn yOffset={32}>
+          <Card className="mx-auto max-w-4xl border-4 border-primary bg-card p-6 sm:p-10 shadow-[6px_6px_0px_0px_rgba(255,55,0,0.2)]">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center border-2 border-primary bg-primary/10 text-primary">
+                <Shield className="h-7 w-7" />
+              </div>
+              <h2 
+                className="inline-flex items-center gap-3 text-sm sm:text-lg font-bold text-foreground tracking-wide"
+                style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
+              >
+                <svg width="20" height="20" viewBox="0 0 49 49" fill="none" className="shrink-0">
+                  <circle cx="24.5" cy="24.5" r="22" stroke="#334155" strokeWidth="0" fill="#A3E635" />
+                </svg>
+                <span>¿Qué es el Phishing?</span>
+              </h2>
+              <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Es un método de <strong className="text-foreground font-bold">engaño digital</strong> donde los atacantes se hacen pasar por instituciones confiables para robar tu información personal o contraseñas. No hackean tu computadora, <em className="text-primary font-bold not-italic">hackean tu mente</em> mediante la manipulación.
+              </p>
+            </div>
+          </Card>
+        </FadeIn>
       </section>
 
       {/* ── Stats Section ─────────────────────────────────────────── */}
-      <section id="estadisticas" className="section-padding bg-background py-16">
-        <div className="mx-auto max-w-6xl">
+      <section id="estadisticas" className="bg-background py-12 border-t-4 border-border">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Section heading */}
-          <div className="mb-12 text-center">
-            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-              ¿Por qué es importante?
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              Datos clave sobre la amenaza del phishing en el entorno
-              universitario peruano.
-            </p>
-          </div>
-
-          {/* Stat cards */}
-          <div className="stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {stats.map((stat, i) => (
-              <Card
-                key={i}
-                id={`stat-card-${i}`}
-                className="animate-fade-in-up group relative overflow-hidden border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          <FadeIn>
+            <div className="mb-12 text-center">
+              <h2 
+                className="inline-flex items-center gap-3 text-sm sm:text-lg font-bold text-foreground"
+                style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
               >
-                <CardHeader className="p-0 mb-5">
-                  {/* Icon */}
-                  <div
-                    className={`inline-flex rounded-xl p-3 ${stat.bgColor} ${stat.color}`}
-                  >
-                    {stat.icon}
-                  </div>
-                </CardHeader>
+                <svg width="20" height="20" viewBox="0 0 49 49" fill="none" className="shrink-0">
+                  <circle cx="24.5" cy="24.5" r="22" stroke="#334155" strokeWidth="0" fill="#A3E635" />
+                </svg>
+                <span>¿Por qué es importante?</span>
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+                Datos clave sobre la amenaza del phishing en el entorno
+                universitario peruano.
+              </p>
+            </div>
+          </FadeIn>
 
-                <CardContent className="p-0">
-                  {/* Value */}
-                  <p className="text-4xl font-extrabold tracking-tight text-foreground">
-                    {stat.value}
-                  </p>
+          {/* Stat cards — staggered cascade */}
+          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {stats.map((stat, i) => (
+              <StaggerItem key={i}>
+                <Card
+                  id={`stat-card-${i}`}
+                  className="border-4 border-border bg-card p-8 min-h-[260px] overflow-visible flex flex-col shadow-[6px_6px_0px_0px_var(--secondary)] transition-transform hover:-translate-y-1"
+                >
+                  <CardHeader className="p-0 mb-6">
+                    {/* Icon with retro borders */}
+                    <div className={`w-fit inline-flex border-2 border-current p-2.5 ${stat.color} ${stat.bgColor}`}>
+                      {stat.icon}
+                    </div>
+                  </CardHeader>
 
-                  {/* Label */}
-                  <p className="mt-2 text-sm leading-snug text-muted-foreground">
-                    {stat.label}
-                  </p>
-                </CardContent>
+                  <CardContent className="p-0 flex-1">
+                    {/* Value in pixelated font */}
+                    <p 
+                      className="text-base sm:text-lg font-bold tracking-tight text-foreground"
+                      style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
+                    >
+                      {stat.value}
+                    </p>
 
-                {/* Decorative gradient on hover */}
-                <div className="absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-primary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </Card>
+                    {/* Label */}
+                    <p className="mt-4 text-base leading-snug text-muted-foreground">
+                      {stat.label}
+                    </p>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* ── CTA Final Section ─────────────────────────────────────── */}
       <section
         id="cta-final"
-        className="relative overflow-hidden bg-primary"
+        className="relative overflow-hidden bg-background border-t-4 border-border py-16"
       >
-        {/* Decorative */}
-        <div className="absolute top-0 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-6 justify-center">
+            {/* Avatar on the left — slides in from left */}
+            <SlideIn direction="left" delay={0.1} className="shrink-0 flex items-center justify-center">
+              <img 
+                src="/images/pixel-avatar.png" 
+                alt="Pixel Art Avatar" 
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </SlideIn>
 
-        <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
-          <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl lg:text-4xl">
-            ¿Listo para poner a prueba tus conocimientos?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/85 sm:text-base">
-            Completa nuestra evaluación y descubre qué tanto sabes sobre
-            ciberseguridad y prevención de fraudes digitales.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            variant="secondary"
-            className="mt-8 bg-white hover:bg-neutral-100 text-primary hover:text-primary-600 rounded-xl px-8 py-6 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-[0.97]"
-          >
-            <a
-              href={GOOGLE_FORMS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="cta-evaluacion-final"
-            >
-              Realizar evaluación
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
+            {/* Chat bubble — slides in from right */}
+            <SlideIn direction="right" delay={0.2} className="relative flex-1 w-full">
+              <div className="bg-[#0c0e21] border border-[#1a2b36] rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                {/* Triangle pointer (visible on desktop) */}
+                <div className="absolute left-[-8px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#1a2b36] hidden md:block" />
+                <div className="absolute left-[-7px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#0c0e21] hidden md:block" />
+
+                {/* Text */}
+                <div className="text-center md:text-left">
+                  <h2 
+                    className="text-[9px] md:text-[10px] font-bold text-foreground leading-relaxed"
+                    style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
+                  >
+                    ¿Listo para poner a prueba tus conocimientos?
+                  </h2>
+                  <p className="mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    Completa nuestra evaluación y descubre qué tanto sabes sobre ciberseguridad y prevención de fraudes.
+                  </p>
+                </div>
+
+                {/* Button on the right */}
+                <div className="shrink-0 w-full md:w-auto">
+                  <Button
+                    className="w-full md:w-auto bg-[#00a0c6] hover:bg-[#00809f] text-[#020405] font-semibold border-2 border-black rounded-lg px-6 py-5 shadow-[0px_4px_0px_0px_#004158] active:translate-y-[2px] active:shadow-[0px_2px_0px_0px_#004158] transition-all flex items-center justify-center gap-2 outline-none border-0"
+                    asChild
+                  >
+                    <a
+                      href={GOOGLE_FORMS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id="cta-evaluacion-final"
+                    >
+                      <span>Realizar evaluación</span>
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </SlideIn>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

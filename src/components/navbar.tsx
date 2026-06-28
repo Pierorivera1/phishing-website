@@ -14,6 +14,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import {
   Sheet,
   SheetContent,
@@ -79,53 +80,55 @@ export default function Navbar() {
           {/* Logo / Brand */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-lg font-bold text-primary transition-colors hover:opacity-90"
+            className="flex items-center gap-2 text-xl md:text-2xl font-semibold text-primary transition-colors hover:opacity-90 font-pixel"
+            style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
             aria-label="Inicio — Anti-Phishing UNFV"
           >
             <Image
-              src="/anti_pishing_unfv_logo.png"
+              src="/anti_pishing_unfv_logo.webp"
               alt="Logo UNFV"
               width={32}
               height={32}
               className="shrink-0 object-contain"
             />
-            <span className="hidden sm:inline">Anti-Phishing UNFV</span>
-            <span className="sm:hidden">UNFV</span>
+            <span className="hidden sm:inline" style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}>
+              Anti-Phishing UNFV
+            </span>
+            <span className="sm:hidden" style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}>
+              UNFV
+            </span>
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Menú principal">
+          <nav className="hidden h-full items-stretch md:flex" aria-label="Menú principal">
             {navItems.map((item) => (
-              <Button
+              <Link
                 key={item.href}
-                asChild
-                variant={isActive(item.href) ? "secondary" : "ghost"}
-                size="sm"
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "flex items-center gap-1.5 font-medium transition-all duration-200",
+                  "relative flex h-full items-center gap-1.5 px-4 text-sm font-medium transition-colors duration-200 outline-none",
                   isActive(item.href)
-                    ? "bg-primary/10 text-primary hover:bg-primary/20"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <Link href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
-                  {item.icon}
-                  {item.label}
-                </Link>
-              </Button>
+                {item.icon}
+                <span>{item.label}</span>
+                {isActive(item.href) && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-primary animate-fade-in" />
+                )}
+              </Link>
             ))}
             {/* Evaluación → Google Forms (externo) */}
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="flex items-center gap-1.5 font-medium text-muted-foreground hover:text-foreground"
+            <a
+              href={GOOGLE_FORMS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex h-full items-center gap-1.5 px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 outline-none"
             >
-              <a href={GOOGLE_FORMS_URL} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4" />
-                Evaluación
-              </a>
-            </Button>
+              <span>Evaluación</span>
+            </a>
           </nav>
 
           {/* Mobile hamburger - Sheet component */}
@@ -144,7 +147,7 @@ export default function Navbar() {
               <SheetHeader className="border-b border-border px-5 py-4 flex flex-row items-center justify-between">
                 <SheetTitle className="flex items-center gap-2 text-lg font-bold text-primary">
                   <Image
-                    src="/anti_pishing_unfv_logo.png"
+                    src="/anti_pishing_unfv_logo.webp"
                     alt="Logo UNFV"
                     width={24}
                     height={24}
@@ -183,7 +186,6 @@ export default function Navbar() {
                       onClick={closeMobile}
                       className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground"
                     >
-                      <ExternalLink className="h-4 w-4" />
                       Evaluación
                     </a>
                   </li>
@@ -197,6 +199,9 @@ export default function Navbar() {
             </SheetContent>
           </Sheet>
         </div>
+
+        {/* Reading progress bar — visible only on /aprender/* */}
+        <ReadingProgressBar />
       </header>
     </>
   );

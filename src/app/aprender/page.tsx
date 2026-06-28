@@ -1,27 +1,30 @@
 import Link from "next/link";
 import { HelpCircle, AlertTriangle, ShieldAlert, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function AprenderQueEsPage() {
   return (
-    <Card className="rounded-3xl border-border bg-card shadow-sm p-6 sm:p-10">
+    <Card className="rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)] p-6 sm:p-10">
       <CardHeader className="p-0 mb-8 border-b border-border pb-8">
-        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-none border-2 border-border p-2 bg-primary/10 text-primary">
           <HelpCircle className="h-6 w-6" />
         </div>
-        <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+        <CardTitle 
+          className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
           ¿Qué es el Phishing?
         </CardTitle>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground">
           Entendiendo la anatomía del fraude digital en el entorno universitario.
         </p>
       </CardHeader>
 
       <CardContent className="p-0 space-y-8 text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-loose">
         <p>
-          El phishing es una forma de <strong className="text-foreground">engaño digital</strong> en la que,
+          El phishing es una forma de <strong className="text-foreground">engaño digital</strong>{" "}en la que,
           de acuerdo con Molina Hernández y Olivas Doña (2025), personas mal
           intencionadas intentan robar información privada o credenciales
           haciéndose pasar por una institución confiable. Según explican Carreño
@@ -30,13 +33,16 @@ export default function AprenderQueEsPage() {
           enlaces a sitios web falsos para obtener datos de los usuarios.
         </p>
 
-        <Card className="my-8 border-primary/20 bg-primary/5 p-6 sm:p-8">
+        <Card className="my-8 rounded-none border-4 border-primary/20 bg-primary/5 p-6 sm:p-8 shadow-none">
           <CardHeader className="p-0 mb-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-card text-primary shadow-sm border border-border">
+              <div className="flex h-10 w-10 items-center justify-center rounded-none bg-card text-primary border-2 border-border">
                 <ShieldAlert className="h-5 w-5" />
               </div>
-              <CardTitle className="text-xl font-bold text-primary dark:text-primary-400">
+              <CardTitle 
+                className="text-lg font-bold text-primary dark:text-primary-400"
+                style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+              >
                 No hackean tu computadora, hackean tu mente
               </CardTitle>
             </div>
@@ -67,9 +73,12 @@ export default function AprenderQueEsPage() {
         </p>
 
         {/* Dato clave */}
-        <Alert className="my-8 border-l-4 border-l-amber-500 bg-amber-500/5 border-border">
+        <Alert className="my-8 rounded-none border-4 border-l-amber-500 bg-amber-500/5 border-border">
           <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0" />
-          <AlertTitle className="text-sm font-bold tracking-wider text-amber-800 dark:text-amber-500 uppercase ml-2">
+          <AlertTitle 
+            className="text-sm font-bold tracking-wider text-amber-850 dark:text-amber-500 ml-2"
+            style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+          >
             Dato Crítico
           </AlertTitle>
           <AlertDescription className="mt-1 font-medium text-foreground ml-2">
@@ -97,11 +106,13 @@ export default function AprenderQueEsPage() {
         <Button
           asChild
           size="lg"
-          className="rounded-xl px-6 py-5 text-sm font-semibold transition-all hover:bg-primary-700 active:scale-95"
+          font="normal"
+          className="px-8 py-6 text-sm bg-primary text-primary-foreground hover:bg-primary/95 active:scale-[0.97]"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
         >
-          <Link href="/aprender/tipos">
+          <Link href="/aprender/riesgos">
             Siguiente módulo
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>

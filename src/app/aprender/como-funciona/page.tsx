@@ -11,20 +11,23 @@ import {
   BrainCircuit,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function AprenderComoFuncionaPage() {
   return (
-    <Card className="rounded-3xl border-border bg-card shadow-sm p-6 sm:p-10">
+    <Card className="rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)] p-6 sm:p-10">
       <CardHeader className="p-0 mb-8 border-b border-border pb-8">
-        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-none border-2 border-border p-2 bg-primary/10 text-primary">
           <Zap className="h-6 w-6" />
         </div>
-        <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+        <CardTitle 
+          className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
           ¿Cómo funciona un ataque?
         </CardTitle>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground">
           De acuerdo con las investigaciones sobre ciberseguridad, un ataque
           típico sigue un proceso metódico de 6 pasos (Abdulla et al., 2023).
         </p>
@@ -32,7 +35,7 @@ export default function AprenderComoFuncionaPage() {
 
       <CardContent className="p-0">
         {/* Línea de tiempo — 6 pasos */}
-        <Card className="mt-8 border-border bg-card p-6 shadow-sm sm:p-10">
+        <Card className="mt-8 rounded-none border-4 border-border bg-card p-6 shadow-none sm:p-10">
           <CardContent className="p-0">
             <PhishingStep
               stepNumber={1}
@@ -65,7 +68,7 @@ export default function AprenderComoFuncionaPage() {
             <PhishingStep
               stepNumber={5}
               icon={<UserX className="h-6 w-6" />}
-              title="Tú caes en el engaño"
+              title="Tú cae en el engaño"
               description="Ingresas tu usuario y contraseña creyendo que es el sitio real. El error no es técnico sino humano: la urgencia del mensaje te impide verificar. Según Molina Hernández y Olivas Doña (2025), el 36.9% de los universitarios cayó en un ataque simulado."
             />
 
@@ -80,12 +83,15 @@ export default function AprenderComoFuncionaPage() {
         </Card>
 
         {/* Rol de la Ingeniería Social */}
-        <Card className="mt-12 border-primary/20 bg-primary/5 p-6 sm:p-10">
+        <Card className="mt-12 rounded-none border-4 border-primary/20 bg-primary/5 p-6 sm:p-10 shadow-none">
           <CardHeader className="p-0 mb-6 flex flex-row items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md">
+            <div className="flex h-12 w-12 items-center justify-center rounded-none border-2 border-border bg-primary text-primary-foreground">
               <BrainCircuit className="h-6 w-6" />
             </div>
-            <CardTitle className="text-2xl font-bold text-foreground">
+            <CardTitle 
+              className="text-xl font-bold text-foreground"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               El rol de la Ingeniería Social: El &quot;hackeo&quot; humano
             </CardTitle>
           </CardHeader>
@@ -110,11 +116,13 @@ export default function AprenderComoFuncionaPage() {
         <Button
           asChild
           size="lg"
-          className="rounded-xl px-6 py-5 text-sm font-semibold transition-all hover:bg-primary-700 active:scale-95"
+          font="normal"
+          className="px-8 py-6 text-sm bg-primary text-primary-foreground hover:bg-primary/95 active:scale-[0.97]"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
         >
           <Link href="/galeria/correos">
             Siguiente módulo
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>

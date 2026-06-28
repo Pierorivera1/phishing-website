@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Layers, AlertCircle, Smartphone, Phone, Gift, Users, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -66,15 +66,18 @@ const tipos = [
 
 export default function AprenderTiposPage() {
   return (
-    <Card className="rounded-3xl border-border bg-card shadow-sm p-6 sm:p-10">
+    <Card className="rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)] p-6 sm:p-10">
       <CardHeader className="p-0 mb-8 border-b border-border pb-8">
-        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-none border-2 border-border p-2 bg-primary/10 text-primary">
           <Layers className="h-6 w-6" />
         </div>
-        <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+        <CardTitle 
+          className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
           Tipos de Phishing
         </CardTitle>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground">
           Conoce las diferentes estrategias que usan los atacantes para engañarte.
         </p>
       </CardHeader>
@@ -83,15 +86,18 @@ export default function AprenderTiposPage() {
         {tipos.map((tipo) => (
           <Card
             key={tipo.id}
-            className="overflow-hidden border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+            className="rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)] overflow-hidden"
           >
             {/* Cabecera / Teoría */}
             <div className="flex gap-4 p-6 sm:p-8">
-              <div className="mt-1 shrink-0 rounded-xl bg-primary/10 p-2.5 flex items-center justify-center h-11 w-11">
+              <div className="mt-1 shrink-0 rounded-none border-2 border-border p-2 bg-primary/10 flex items-center justify-center h-11 w-11">
                 {tipo.icon}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+                <h2 
+                  className="text-lg font-bold text-foreground sm:text-xl"
+                  style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                >
                   {tipo.title}
                 </h2>
                 <p className="mt-2 text-base leading-relaxed text-muted-foreground">
@@ -102,12 +108,12 @@ export default function AprenderTiposPage() {
 
             {/* Simulación / Ejemplo */}
             <div className="border-t border-border bg-muted/20 p-6 sm:px-8 sm:py-6">
-              <div className="relative rounded-xl border-l-4 border-l-destructive bg-card p-5 shadow-sm ring-1 ring-border">
+              <div className="relative rounded-none border-l-4 border-l-destructive border-t-2 border-r-2 border-b-2 border-border bg-card p-5 shadow-none">
                 <div className="mb-2 flex items-center justify-between border-b border-border pb-2">
                   <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
                     Ejemplo de {tipo.example.type}
                   </span>
-                  <Badge variant="outline" className="text-destructive border-destructive/20 bg-destructive/5 gap-1">
+                  <Badge variant="outline" className="rounded-none border-2 text-destructive border-destructive/20 bg-destructive/5 gap-1">
                     <AlertCircle className="h-3 w-3" /> Fraude
                   </Badge>
                 </div>
@@ -131,11 +137,13 @@ export default function AprenderTiposPage() {
         <Button
           asChild
           size="lg"
-          className="rounded-xl px-6 py-5 text-sm font-semibold transition-all hover:bg-primary-700 active:scale-95"
+          font="normal"
+          className="px-8 py-6 text-sm bg-primary text-primary-foreground hover:bg-primary/95 active:scale-[0.97]"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
         >
           <Link href="/aprender/como-funciona">
             Siguiente módulo
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </div>

@@ -19,7 +19,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -134,25 +134,40 @@ export default function GaleriaSitiosPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
-        {/* Decorative background blobs */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-1/3 h-96 w-96 rounded-full bg-primary blur-[120px]" />
-          <div className="absolute bottom-0 right-1/3 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
-        </div>
+      <section 
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/pythonbannerbackground.png')",
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+
+        {/* Pixel grid overlay effect */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
+            backgroundSize: "8px 8px"
+          }}
+        />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
             <Globe className="h-7 w-7" />
           </div>
           <h1
-            className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
-            style={{ animationDelay: "100ms" }}
+            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
+            style={{ 
+              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
+              animationDelay: "100ms",
+              textShadow: "3px 3px 0px #000000"
+            }}
           >
             Sitios Web Fraudulentos
           </h1>
           <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-300 sm:text-lg"
+            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
             style={{ animationDelay: "200ms" }}
           >
             Aprende a distinguir un sitio web real de una copia fraudulenta
@@ -165,7 +180,10 @@ export default function GaleriaSitiosPage() {
       <section className="section-padding bg-background py-16">
         <div className="mx-auto max-w-5xl px-4">
           <div className="mb-10 text-center">
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 
+              className="text-2xl font-bold text-foreground sm:text-3xl"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               Comparador: Real vs. Falso
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
@@ -175,10 +193,10 @@ export default function GaleriaSitiosPage() {
           </div>
 
           {/* Full comparison image */}
-          <Card className="overflow-hidden border-border bg-card shadow-lg">
+          <Card className="overflow-hidden rounded-none border-4 border-border bg-card shadow-[8px_8px_0px_0px_var(--secondary)]">
             <CardContent className="p-0 relative aspect-[16/10] w-full bg-muted sm:aspect-[16/9]">
               <Image
-                src="/images/sitios/comparacion_banco.png"
+                src="/images/sitios/comparacion_banco.webp"
                 alt="Comparación lado a lado entre un sitio web bancario real y su copia fraudulenta, mostrando 5 diferencias clave"
                 fill
                 className="object-contain"
@@ -206,10 +224,10 @@ export default function GaleriaSitiosPage() {
                       )
                     }
                     className={cn(
-                      "group flex gap-3 p-5 text-left cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md border-border bg-card",
+                      "group flex gap-3 p-5 text-left cursor-pointer transition-all duration-300 rounded-none border-4 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--secondary)]",
                       isActive
-                        ? "border-destructive/30 bg-destructive/5 shadow-md"
-                        : "shadow-sm"
+                        ? "border-destructive/30 bg-destructive/5 shadow-none"
+                        : ""
                     )}
                     role="button"
                     tabIndex={0}
@@ -217,14 +235,17 @@ export default function GaleriaSitiosPage() {
                   >
                     <div
                       className={cn(
-                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white transition-colors",
+                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border text-sm font-bold text-white transition-colors",
                         isActive ? "bg-destructive" : "bg-neutral-800 dark:bg-neutral-700"
                       )}
                     >
                       {point.id}
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-foreground">
+                      <p 
+                        className="text-sm font-bold text-foreground"
+                        style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                      >
                         {point.label}
                       </p>
                       <p
@@ -247,16 +268,19 @@ export default function GaleriaSitiosPage() {
       </section>
 
       {/* ── Checklist comparativa ─────────────────────────────── */}
-      <section className="border-y border-border bg-muted/20 py-16">
+      <section className="border-y-4 border-border bg-muted/20 py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h3 className="mb-8 text-center text-2xl font-bold text-foreground">
+          <h3 
+            className="mb-8 text-center text-xl font-bold text-foreground sm:text-2xl"
+            style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+          >
             Checklist de verificación rápida
           </h3>
 
-          <Card className="overflow-hidden border-border bg-card shadow-sm">
+          <Card className="overflow-hidden rounded-none border-4 border-border bg-card shadow-[6px_6px_0px_0px_var(--secondary)]">
             <CardContent className="p-0">
               {/* Header row */}
-              <div className="grid grid-cols-3 border-b border-border bg-muted/50 text-center">
+              <div className="grid grid-cols-3 border-b-2 border-border bg-muted/50 text-center">
                 <div className="p-4 text-sm font-bold text-foreground">
                   Característica
                 </div>
@@ -308,11 +332,14 @@ export default function GaleriaSitiosPage() {
       <section className="section-padding bg-background py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-10 text-center">
-            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 border-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-none border-2 border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
               <FileWarning className="h-3.5 w-3.5" />
               Guía rápida
             </Badge>
-            <h2 className="text-3xl font-bold text-foreground">
+            <h2 
+              className="text-2xl font-bold text-foreground sm:text-3xl"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               ¿Cómo reconocer una página web falsa?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
@@ -325,13 +352,16 @@ export default function GaleriaSitiosPage() {
             {websiteTips.map((tip, i) => (
               <Card
                 key={i}
-                className="group flex gap-4 border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:p-8"
+                className="group flex gap-4 rounded-none border-4 border-border bg-card p-6 shadow-[4px_4px_0px_0px_var(--secondary)] transition-all duration-300 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--secondary)] sm:p-8"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-110">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary ring-1 ring-primary/20 transition-transform duration-300">
                   {tip.icon}
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-foreground sm:text-lg">
+                  <h3 
+                    className="text-base font-bold text-foreground sm:text-lg"
+                    style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                  >
                     {tip.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -345,10 +375,13 @@ export default function GaleriaSitiosPage() {
       </section>
 
       {/* ── Navigation CTA ───────────────────────────────────── */}
-      <section className="border-t border-border bg-card">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 lg:px-8">
+      <section className="border-t-4 border-border bg-card py-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-8 sm:flex-row sm:px-6 lg:px-8">
           <div>
-            <h3 className="text-xl font-bold text-foreground">
+            <h3 
+              className="text-lg font-bold text-foreground"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               ¿Quieres aprender a protegerte?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -357,13 +390,24 @@ export default function GaleriaSitiosPage() {
             </p>
           </div>
           <div className="flex gap-3 w-full sm:w-auto">
-            <Button asChild className="rounded-xl px-6 py-5 text-sm font-semibold flex-1 sm:flex-none">
+            <Button 
+              asChild 
+              font="normal"
+              className="px-6 py-5 text-sm bg-primary text-primary-foreground hover:bg-primary/95 active:scale-[0.97] flex-1 sm:flex-none"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               <Link href="/consejos">
                 Ver consejos
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="outline" className="rounded-xl px-6 py-5 text-sm font-semibold border-border flex-1 sm:flex-none">
+            <Button 
+              asChild 
+              variant="outline" 
+              font="normal"
+              className="px-6 py-5 text-sm border-2 border-border bg-card hover:bg-muted active:scale-[0.97] flex-1 sm:flex-none"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               <Link href="/galeria/correos">
                 Correos
                 <ChevronRight className="ml-2 h-4 w-4" />

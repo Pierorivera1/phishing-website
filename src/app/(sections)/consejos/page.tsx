@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -147,18 +147,18 @@ function ConsejoCard({
   return (
     <Card
       id={`consejo-${variant}-${index}`}
-      className={`animate-fade-in-up group relative overflow-hidden border ${accentBorder} bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8`}
+      className={`animate-fade-in-up group relative overflow-hidden rounded-none border-4 ${accentBorder} bg-card p-6 shadow-[4px_4px_0px_0px_var(--secondary)] transition-all duration-300 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--secondary)] sm:p-8`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Number badge */}
-      <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-bl-xl bg-neutral-900 dark:bg-neutral-800 text-xs font-bold text-white">
+      <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-none border-b-2 border-l-2 border-border bg-neutral-900 text-xs font-bold text-white">
         {index + 1}
       </div>
 
       {/* Icon */}
       <CardHeader className="p-0 mb-5">
         <div
-          className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${accentBg} ${accentText} ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-110`}
+          className={`inline-flex h-12 w-12 items-center justify-center rounded-none border-2 border-border ${accentBg} ${accentText}`}
         >
           {consejo.icon}
         </div>
@@ -166,7 +166,10 @@ function ConsejoCard({
 
       {/* Content */}
       <CardContent className="p-0">
-        <h3 className="text-lg font-bold text-foreground sm:text-xl">
+        <h3 
+          className="text-lg font-bold text-foreground sm:text-xl"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
           {consejo.title}
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -176,7 +179,7 @@ function ConsejoCard({
         {/* Stat badge */}
         {consejo.stat && (
           <div className="mt-4">
-            <Badge variant="outline" className={`inline-flex items-center gap-1.5 rounded-lg ${accentBg} border-none px-3 py-1.5 text-xs font-semibold ${accentText}`}>
+            <Badge variant="outline" className={`inline-flex items-center gap-1.5 rounded-none border-2 border-border ${accentBg} px-3 py-1.5 text-xs font-semibold ${accentText}`}>
               <BookOpen className="h-3.5 w-3.5" />
               {consejo.stat}
             </Badge>
@@ -186,11 +189,6 @@ function ConsejoCard({
         {/* Source */}
         <p className="mt-3 text-xs text-muted-foreground/60">{consejo.source}</p>
       </CardContent>
-
-      {/* Decorative corner glow */}
-      <div
-        className={`absolute -bottom-10 -right-10 h-28 w-28 rounded-full ${accentBg} opacity-0 transition-opacity duration-500 group-hover:opacity-60`}
-      />
     </Card>
   );
 }
@@ -201,25 +199,40 @@ export default function ConsejosPage() {
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-destructive blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-primary blur-[120px]" />
-        </div>
+      <section 
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/pythonbannerbackground.png')",
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+
+        {/* Pixel grid overlay effect */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
+            backgroundSize: "8px 8px"
+          }}
+        />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-white/20">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-white/10 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
             <Shield className="h-7 w-7" />
           </div>
           <h1
-            className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
-            style={{ animationDelay: "100ms" }}
+            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
+            style={{ 
+              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
+              animationDelay: "100ms",
+              textShadow: "3px 3px 0px #000000"
+            }}
           >
             Consejos de Prevención
           </h1>
           <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-300 sm:text-lg"
+            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
             style={{ animationDelay: "200ms" }}
           >
             Aprende a identificar ataques de phishing y a proteger tus cuentas
@@ -233,11 +246,14 @@ export default function ConsejosPage() {
       <section className="section-padding bg-background py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-destructive/10 border-destructive/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-none border-2 border-destructive/20 bg-destructive/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
               <AlertTriangle className="h-3.5 w-3.5" />
               Señales de alerta
             </Badge>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 
+              className="text-2xl font-bold text-foreground sm:text-3xl"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               ¿Cómo identificar un intento de phishing?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -268,11 +284,14 @@ export default function ConsejosPage() {
       <section className="section-padding bg-muted/20 py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 border-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-none border-2 border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
               <Shield className="h-3.5 w-3.5" />
               Protección digital
             </Badge>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 
+              className="text-2xl font-bold text-foreground sm:text-3xl"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               Recomendaciones de seguridad
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -298,11 +317,14 @@ export default function ConsejosPage() {
       <section className="section-padding bg-background py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-12 text-center">
-            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-destructive/10 border-destructive/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
+            <Badge variant="outline" className="mb-3 inline-flex items-center gap-1.5 rounded-none border-2 border-destructive/20 bg-destructive/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive">
               <AlertTriangle className="h-3.5 w-3.5" />
               Protocolo de Emergencia
             </Badge>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 
+              className="text-2xl font-bold text-foreground sm:text-3xl"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               ¿Qué hacer si ya caíste en un fraude?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -312,14 +334,19 @@ export default function ConsejosPage() {
 
           <div className="mx-auto max-w-4xl space-y-6">
             {/* Paso 1: Llamar al banco */}
-            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+            <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-destructive font-bold text-white text-sm">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border bg-destructive font-bold text-white text-sm">
                     1
                   </span>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-foreground">Bloquea tus tarjetas y cuentas bancarias</h3>
+                    <h3 
+                      className="text-lg font-bold text-foreground"
+                      style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                    >
+                      Bloquea tus tarjetas y cuentas bancarias
+                    </h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                       Llama de inmediato a la central de emergencias de tu banco en Perú para bloquear tus tarjetas y claves digitales. No uses la app si sospechas que el celular está comprometido.
                     </p>
@@ -333,8 +360,13 @@ export default function ConsejosPage() {
                         { name: "Banco de la Nación", phone: "(01) 440-5305", link: "tel:014405305" },
                         { name: "Scotiabank", phone: "(01) 311-6000", link: "tel:013116000" },
                       ].map((bank) => (
-                        <Card key={bank.name} className="bg-muted/30 p-3 border-border">
-                          <p className="text-xs font-bold text-foreground">{bank.name}</p>
+                        <Card key={bank.name} className="rounded-none border-2 border-border bg-muted/30 p-3 shadow-none">
+                          <p 
+                            className="text-xs font-bold text-foreground"
+                            style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                          >
+                            {bank.name}
+                          </p>
                           <a href={bank.link} className="text-sm font-semibold text-primary hover:underline block mt-1">
                             {bank.phone}
                           </a>
@@ -347,14 +379,19 @@ export default function ConsejosPage() {
             </Card>
 
             {/* Paso 2: Cambiar claves */}
-            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+            <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
                     2
                   </span>
                   <div>
-                    <h3 className="text-lg font-bold text-foreground">Cambia todas tus contraseñas</h3>
+                    <h3 
+                      className="text-lg font-bold text-foreground"
+                      style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                    >
+                      Cambia todas tus contraseñas
+                    </h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                       Si ingresaste tu clave en una web falsa, modifícala inmediatamente en el portal oficial. Si usas la misma clave en otras cuentas (como Gmail o redes sociales), cámbialas también. Recuerda usar gestores de contraseñas para evitar repetir credenciales (Guo & Tinmaz, 2023).
                     </p>
@@ -364,14 +401,19 @@ export default function ConsejosPage() {
             </Card>
 
             {/* Paso 3: Reportar a la Universidad */}
-            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+            <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
                     3
                   </span>
                   <div>
-                    <h3 className="text-lg font-bold text-foreground">Reporta al soporte TI de la UNFV</h3>
+                    <h3 
+                      className="text-lg font-bold text-foreground"
+                      style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                    >
+                      Reporta al soporte TI de la UNFV
+                    </h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                       Si el ataque comprometió tu correo institucional (`@unfv.edu.pe`), avisa de inmediato a la Oficina de Tecnología de la Información para bloquear el correo temporalmente. Esto evita que los ciberdelincuentes usen tu cuenta para enviar spam o phishing masivo a tus compañeros de Ciencias Sociales.
                     </p>
@@ -381,14 +423,19 @@ export default function ConsejosPage() {
             </Card>
 
             {/* Paso 4: Denunciar formalmente */}
-            <Card className="border-border bg-card p-6 shadow-sm sm:p-8">
+            <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border bg-neutral-800 dark:bg-neutral-700 font-bold text-white text-sm">
                     4
                   </span>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-foreground">Asienta una denuncia policial o fiscal</h3>
+                    <h3 
+                      className="text-lg font-bold text-foreground"
+                      style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                    >
+                      Asienta una denuncia policial o fiscal
+                    </h3>
                     <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                       El fraude informático es un delito según la Ley de Delitos Informáticos en el Perú. Puedes asentar una denuncia formal en:
                     </p>
@@ -408,32 +455,54 @@ export default function ConsejosPage() {
         </div>
       </section>
 
-      {/* ── CTA → Evaluación ────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-primary py-16 sm:py-20">
-        <div className="absolute top-0 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
-            ¿Podrías detectar un ataque real?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/85 sm:text-base">
-            Pon a prueba tus conocimientos completando nuestra evaluación sobre
-            prevención de phishing y seguridad digital.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            variant="secondary"
-            className="mt-8 bg-white hover:bg-neutral-100 text-primary hover:text-primary-600 rounded-xl px-8 py-6 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-[0.97]"
-          >
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Realizar evaluación
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+      {/* ── CTA → Evaluación (HU-11) ────────────────────────────── */}
+      <section id="cta-final" className="relative overflow-hidden bg-background border-t-4 border-border py-16">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-6 justify-center">
+            {/* Avatar on the left */}
+            <div className="shrink-0 flex items-center justify-center animate-fade-in">
+              <img 
+                src="/images/pixel-avatar.png" 
+                alt="Pixel Art Avatar" 
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+
+            {/* Chat bubble */}
+            <div className="relative flex-1 w-full bg-[#0c0e21] border-4 border-border rounded-none p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[6px_6px_0px_0px_rgba(0,160,198,0.2)] animate-fade-in-up">
+              {/* Text */}
+              <div className="text-center md:text-left">
+                <h2 
+                  className="text-sm font-bold text-foreground leading-relaxed"
+                  style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                >
+                  ¿Podrías detectar un ataque real?
+                </h2>
+                <p className="mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">
+                  Pon a prueba tus conocimientos completando nuestra evaluación sobre prevención de phishing y seguridad digital.
+                </p>
+              </div>
+
+              {/* Button on the right */}
+              <div className="shrink-0 w-full md:w-auto">
+                <Button
+                  className="w-full md:w-auto bg-[#00a0c6] hover:bg-[#00809f] text-[#020405] font-semibold rounded-none border-none px-6 py-5 shadow-[4px_4px_0px_0px_#050714] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#050714] transition-all flex items-center justify-center gap-2 outline-none"
+                  asChild
+                  font="normal"
+                  style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                >
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>Realizar evaluación</span>
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

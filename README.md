@@ -13,7 +13,8 @@ Este proyecto ha sido desarrollado como parte del **Proyecto Integrador** para l
 | **Next.js 15 (App Router)** | Framework principal con arquitectura basada en rutas dinámicas para alta performance y optimización SEO. |
 | **TypeScript** | Desarrollo con tipado estático estricto para asegurar la escalabilidad del sistema. |
 | **Tailwind CSS 4.x** | Estilos visuales adaptativos y modernos con variables nativas de CSS. |
-| **SQLite (better-sqlite3)** | Base de datos local ligera y síncrona para almacenamiento seguro de postests académicos. |
+| **shadcn/ui & Radix UI** | Componentes accesibles y personalizables para una interfaz de usuario moderna, con integración de estilos retro 8-bit. |
+| **Framer Motion** | Animaciones fluidas, barra de progreso de lectura y transiciones accesibles de UX. |
 | **Lucide React** | Iconografía vectorizada, moderna e intuitiva. |
 
 ---
@@ -24,19 +25,21 @@ La plataforma se encuentra en constante iteración técnica y pedagógica. A la 
 
 ### 📖 Módulo 1: Educación Fundamental (Sprint 1) — *¡Completado!*
 *   **Conceptos Clave:** Definición clara de qué es el phishing, su impacto psicológico y estadísticas de delitos informáticos en Perú en la página principal y rutas específicas (`/que-es`).
+*   **Riesgos del Phishing:** Nuevo módulo (`/aprender/riesgos`) con datos oficiales sobre cibercrimen en Perú (2018-2024) e informes de Kaspersky, destacando el impacto real.
 *   **Tipos de Phishing:** Lecciones y explicaciones detalladas en `/aprender/tipos` para identificar variantes como *Spear Phishing*, *Smishing*, *Vishing*, y clonación web.
-*   **Proceso de un Ataque (Línea de Tiempo):** En `/aprender/como-funciona` se implementó una línea de tiempo interactiva de 6 pasos respaldada científicamente (Abdulla et al., 2023) que expone el flujo metodológico del fraude, complementado con una sección interactiva sobre el rol de la **Ingeniería Social (El hackeo humano)**.
+*   **Proceso de un Ataque:** Línea de tiempo interactiva de 6 pasos respaldada científicamente que expone el flujo del fraude y el rol de la **Ingeniería Social (El hackeo humano)**.
 
 ### 🖼️ Módulo 2: Prevención Visual y Práctica (Sprint 2) — *¡Completado!*
-*   **Galería de Correos Fraudulentos (`/galeria/correos`):** Repositorio visual con múltiples plantillas reales e interactivas de correos fraudulentos (bancos, universidad, premios). Cuenta con un diseño dinámico (glassmorphic overlays) que resalta en tiempo real los 4 indicadores clave de sospecha: remitente inusual, enlaces de dudosa procedencia, urgencia extrema y errores ortográficos.
-*   **Comparador de Sitios Web (`/galeria/sitios`):** Interfaz interactiva ("Sitio Real" vs "Sitio Falso") equipada con puntos de alerta interactivos que guían de forma guiada al estudiante a reconocer dominios clonados, formularios sospechosos e inconsistencias técnicas.
-*   **Consejos de Prevención y Protección Digital (`/consejos`):** Compilación interactiva de las mejores prácticas de ciberseguridad:
-    1.  *Identificación activa:* 6 consejos estratégicos de detección (por ej. uso de la función "Reportar phishing", validación de links).
-    2.  *Protección digital:* 5 pautas técnicas avanzadas (autenticación multifactor o 2FA, uso de gestores de contraseñas seguros y riesgos de redes WiFi públicas).
+*   **Galería de Correos Fraudulentos (`/galeria/correos`):** Repositorio visual con múltiples plantillas reales e interactivas de correos fraudulentos, optimizadas en formato **WebP**. Cuenta con un diseño dinámico (glassmorphic overlays) que resalta indicadores clave de sospecha.
+*   **Comparador de Sitios Web (`/galeria/sitios`):** Interfaz interactiva ("Sitio Real" vs "Sitio Falso") con puntos de alerta que guían al estudiante a reconocer dominios clonados e inconsistencias técnicas.
+*   **Consejos de Prevención (`/consejos`):** Compilación de mejores prácticas de ciberseguridad, identificación activa y protección digital avanzada.
 
-### 📊 Módulo 3: Evaluación Académica (Sprint 3) — *En Desarrollo/Preparación*
-*   **Postest Académico (`/evaluacion`):** Integración con formularios evaluativos de rendimiento.
-*   **Sistema de Respaldo Local:** Backend API (`/api/evaluacion`) que almacena de forma íntegra las evaluaciones de los estudiantes en una base de datos SQLite persistente para estadísticas locales e informes de impacto educativo.
+### ✨ Mejoras de Interfaz de Usuario y Rendimiento
+*   **Estética Retro/8-bit:** Migración de componentes visuales clave (botones, avatares) hacia un diseño nostálgico 8-bit altamente interactivo.
+*   **Animaciones y Skeletons:** Integración de transiciones fluidas de entrada (`fade-in`, `slide-in`), barra de progreso de lectura, y placeholders inteligentes (`Skeleton Loading`) para mejorar la UX durante la navegación de rutas.
+
+### 📊 Módulo 3: Evaluación y Migración a la Nube (Sprint 3) — *En Planificación*
+*   **Arquitectura Cloud (Azure):** Se eliminó la dependencia de bases de datos locales (SQLite) para preparar una migración a la nube utilizando Azure Static Web Apps, Azure Functions y PostgreSQL (documentado en `azure_plan.md` y `sugerencias_proyecto.md`).
 
 ---
 
@@ -44,25 +47,26 @@ La plataforma se encuentra en constante iteración técnica y pedagógica. A la 
 
 ```text
 phishing-unfv/
-├── app/                      # Rutas y vistas de la aplicación (Next.js App Router)
-│   ├── (sections)/           # Secciones interactivas principales
-│   │   ├── consejos/         # Página interactiva de consejos y seguridad digital
-│   │   ├── evaluacion/       # Módulo para el postest académico
-│   │   ├── que-es/           # Conceptos iniciales y fundamentales
-│   │   └── galeria/          
-│   │       ├── correos/      # Galería de correos fraudulentos con hotspots
-│   │       └── sitios/       # Comparador interactivo de sitios web reales y falsos
-│   ├── aprender/             # Lecciones conceptuales del primer sprint
-│   │   ├── como-funciona/    # Proceso en 6 pasos del phishing y hackeo humano
-│   │   └── tipos/            # Clasificación interactiva de técnicas de ataque
-│   ├── api/                  # Endpoints REST (ej. registro en base de datos de evaluación)
-│   ├── globals.css           # Estilos globales y tokens visuales con UNFV Branding
-│   └── page.tsx              # Landing page principal (Estadísticas e introducción)
-├── components/               # Componentes reutilizables (Sidebar, Navbar, Footer, Timeline)
-├── lib/                      # Lógica de datos (Conexión SQLite, esquemas y utilidades)
-├── public/                   # Recursos estáticos e imágenes reales de phishing
-├── data/                     # Base de datos SQLite local (phishing.db)
-└── implementation_plan.md    # Plan de implementación detallado del 2do Sprint
+├── src/
+│   ├── app/                  # Rutas y vistas de la aplicación (Next.js App Router)
+│   │   ├── (sections)/       # Secciones interactivas principales
+│   │   │   ├── consejos/     # Página de consejos y seguridad digital
+│   │   │   ├── que-es/       # Conceptos iniciales y fundamentales
+│   │   │   └── galeria/      # Correos fraudulentos y comparador de sitios
+│   │   ├── aprender/         # Lecciones conceptuales del primer sprint
+│   │   │   ├── como-funciona/# Proceso en 6 pasos del phishing
+│   │   │   ├── riesgos/      # Consecuencias e impacto estadístico
+│   │   │   └── tipos/        # Clasificación de técnicas de ataque
+│   │   ├── globals.css       # Estilos globales y tokens visuales retro/UNFV
+│   │   └── page.tsx          # Landing page principal
+│   ├── components/           # Componentes UI (Sidebar, Navbar, animaciones, shadcn 8-bit)
+│   │   ├── animations/       # Componentes de Framer Motion
+│   │   └── ui/               # Botones retro y Skeletons
+│   ├── hooks/                # Hooks personalizados (ej. useScrollProgress)
+│   └── lib/                  # Utilidades y configuración de proyecto
+├── public/                   # Recursos estáticos optimizados (.webp)
+├── sugerencias_proyecto.md   # Análisis arquitectónico y de seguridad
+└── azure_plan.md             # Propuesta de infraestructura Cloud (Azure)
 ```
 
 ---
@@ -80,10 +84,7 @@ phishing-unfv/
     npm install
     ```
 
-3.  **Configurar base de datos local:**
-    El sistema inicializa automáticamente la base de datos SQLite en `data/phishing.db` al arrancar el servidor por primera vez, ejecutando el script estructural de `lib/schema.sql`.
-
-4.  **Iniciar el entorno de desarrollo:**
+3.  **Iniciar el entorno de desarrollo:**
     ```bash
     npm run dev
     ```
