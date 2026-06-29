@@ -1,129 +1,24 @@
 import {
   Shield,
-  Mail,
-  Link2Off,
   AlertTriangle,
-  Search,
-  Flag,
-  FileWarning,
-  KeyRound,
-  Smartphone,
-  Lock,
-  Wifi,
-  RefreshCw,
   ChevronRight,
+  ArrowDown,
   BookOpen,
 } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Callout from "@/components/callout";
+import {
+  consejosIdentificacion,
+  recomendacionesProteccion,
+  type Consejo,
+} from "@/lib/consejos";
 
 export const metadata: Metadata = {
   title: "Consejos de Prevención",
   description:
     "Aprende a identificar correos de phishing y proteger tus cuentas digitales con consejos prácticos basados en investigación científica.",
 };
-
-/* ── Datos: Consejos de identificación (HU-09) ──────────────────── */
-
-interface Consejo {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  stat?: string;
-  source: string;
-}
-
-const consejosIdentificacion: Consejo[] = [
-  {
-    icon: <Mail size={24} />,
-    title: "Verifica el remitente antes de abrir",
-    description:
-      "Revisa la dirección de correo completa, no solo el nombre visible. Los atacantes usan dominios similares (ej: @unfv-soporte.com en vez de @unfv.edu.pe).",
-    stat: "62.9% detecta phishing por remitente inusual",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <Link2Off size={24} />,
-    title: "No hagas clic en links sospechosos",
-    description:
-      "Pasa el cursor sobre el enlace para ver la URL real antes de hacer clic. Si la dirección no coincide con el sitio oficial, no lo abras.",
-    stat: "75% identifica phishing por enlaces sospechosos",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <AlertTriangle size={24} />,
-    title: "Desconfía de mensajes con urgencia extrema",
-    description:
-      'Los atacantes usan frases como "Tu cuenta será bloqueada en 24 horas" o "Acción inmediata requerida" para que actúes sin pensar.',
-    stat: "48.6% reconoce presión psicológica como señal",
-    source: "Shahbazi et al., 2025; Yoro et al., 2023",
-  },
-  {
-    icon: <Search size={24} />,
-    title: "Busca errores ortográficos y de diseño",
-    description:
-      "Los correos de phishing suelen contener errores gramaticales, logos de baja calidad o formatos inconsistentes. Las instituciones reales cuidan su comunicación.",
-    stat: "40% se fija en calidad de redacción",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <Flag size={24} />,
-    title: 'Usa la función "Reportar phishing"',
-    description:
-      "Todos los servicios de correo tienen un botón para reportar correos sospechosos. Úsalo: protege a otros usuarios y entrena al filtro de spam.",
-    stat: "80% desconoce esta función",
-    source: "Okokpujie et al., 2025",
-  },
-  {
-    icon: <FileWarning size={24} />,
-    title: "No abras archivos adjuntos inesperados",
-    description:
-      "Los archivos .exe, .zip o incluso .docx pueden contener malware. Si no esperabas el archivo, contacta al remitente por otro medio para confirmar.",
-    source: "Ruiz Contreras & Solis Castillo, 2024",
-  },
-];
-
-/* ── Datos: Recomendaciones de protección (HU-10) ───────────────── */
-
-const recomendacionesProteccion: Consejo[] = [
-  {
-    icon: <KeyRound size={24} />,
-    title: "Usa contraseñas únicas y seguras",
-    description:
-      "Cada cuenta debe tener una contraseña diferente de al menos 12 caracteres, combinando mayúsculas, minúsculas, números y símbolos.",
-    stat: "53.6% reutiliza credenciales entre cuentas",
-    source: "Abdulla et al., 2023; Guo & Tinmaz, 2023",
-  },
-  {
-    icon: <Smartphone size={24} />,
-    title: "Activa la verificación en dos pasos (2FA)",
-    description:
-      "Con 2FA activado, aunque un atacante obtenga tu contraseña, necesitará el código de tu teléfono para acceder a tu cuenta.",
-    source: "Abdulla et al., 2023",
-  },
-  {
-    icon: <Lock size={24} />,
-    title: "Usa un gestor de contraseñas",
-    description:
-      "Herramientas como Bitwarden o Google Password Manager generan y almacenan contraseñas únicas. Solo necesitas recordar una contraseña maestra.",
-    source: "Guo & Tinmaz, 2023",
-  },
-  {
-    icon: <Wifi size={24} />,
-    title: "Evita WiFi público para cuentas importantes",
-    description:
-      "Las redes WiFi abiertas permiten que terceros intercepten tu tráfico. Usa datos móviles o VPN para acceder a tu correo o banca online.",
-    stat: "52.1% usa WiFi público para acceder a cuentas",
-    source: "Abdulla et al., 2023",
-  },
-  {
-    icon: <RefreshCw size={24} />,
-    title: "Mantén tu software actualizado",
-    description:
-      "Las actualizaciones corrigen vulnerabilidades de seguridad. Activa las actualizaciones automáticas en tu sistema operativo y navegador.",
-    source: "Carreño Ardila et al., 2024",
-  },
-];
 
 /* ── Componente de tarjeta ──────────────────────────────────────── */
 
@@ -162,6 +57,11 @@ function ConsejoCard({
       </div>
 
       {/* Content */}
+      <p
+        className={`mb-1 text-xs font-semibold uppercase tracking-wider ${accentText}`}
+      >
+        {consejo.situacion}
+      </p>
       <h3 className="text-lg font-bold text-neutral-900 sm:text-xl">
         {consejo.title}
       </h3>
@@ -239,6 +139,15 @@ export default function ConsejosPage() {
               Estas son las 6 señales clave que debes buscar antes de confiar en
               cualquier mensaje o correo electrónico.
             </p>
+          </div>
+
+          <div className="mx-auto mb-10 max-w-3xl">
+            <Callout title="Regla de oro" variant="warning">
+              Si un mensaje te genera urgencia, miedo o una oferta demasiado
+              buena, detente y verifica por un canal oficial antes de hacer clic
+              o entregar datos. La mayoría de los ataques fracasan cuando te
+              tomas 10 segundos para dudar.
+            </Callout>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -355,6 +264,11 @@ export default function ConsejosPage() {
               </div>
             </div>
 
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
+            </div>
+
             {/* Paso 2: Cambiar claves */}
             <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
               <div className="flex items-start gap-4">
@@ -370,6 +284,11 @@ export default function ConsejosPage() {
               </div>
             </div>
 
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
+            </div>
+
             {/* Paso 3: Reportar a la Universidad */}
             <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
               <div className="flex items-start gap-4">
@@ -383,6 +302,11 @@ export default function ConsejosPage() {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
             </div>
 
             {/* Paso 4: Denunciar formalmente */}
