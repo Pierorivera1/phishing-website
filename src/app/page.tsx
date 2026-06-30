@@ -60,13 +60,13 @@ export default function HomePage() {
       {/* ── Hero Section ──────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
         style={{
           backgroundImage: "url('/images/python-animated.gif')",
         }}
       >
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
 
         {/* Pixel grid overlay effect */}
         <div 
@@ -77,14 +77,15 @@ export default function HomePage() {
           }}
         />
 
+        {/* CRT Scanlines overlay */}
+        <div className="crt-scanlines" aria-hidden="true" />
+
+        {/* CRT Vignette overlay */}
+        <div className="crt-vignette" aria-hidden="true" />
+
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            {/* Badge */}
-            <FadeIn delay={0} duration={0.4}>
-              <div className="inline-block border-2 border-white bg-white/10 px-3 py-1.5 text-[10px] tracking-widest text-white font-bold mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
-                [ Sistema de concientización ]
-              </div>
-            </FadeIn>
+
 
             {/* Main heading */}
             <FadeIn delay={0.1} duration={0.5} yOffset={28}>
@@ -248,10 +249,10 @@ export default function HomePage() {
 
             {/* Chat bubble — slides in from right */}
             <SlideIn direction="right" delay={0.2} className="relative flex-1 w-full">
-              <div className="bg-[#0c0e21] border border-[#1a2b36] rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
                 {/* Triangle pointer (visible on desktop) */}
-                <div className="absolute left-[-8px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#1a2b36] hidden md:block" />
-                <div className="absolute left-[-7px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#0c0e21] hidden md:block" />
+                <div className="absolute left-[-8px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-border hidden md:block" />
+                <div className="absolute left-[-7px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-card hidden md:block" />
 
                 {/* Text */}
                 <div className="text-center md:text-left">
@@ -269,7 +270,7 @@ export default function HomePage() {
                 {/* Button on the right */}
                 <div className="shrink-0 w-full md:w-auto">
                   <Button
-                    className="w-full md:w-auto bg-[#00a0c6] hover:bg-[#00809f] text-[#020405] font-semibold border-2 border-black rounded-lg px-6 py-5 shadow-[0px_4px_0px_0px_#004158] active:translate-y-[2px] active:shadow-[0px_2px_0px_0px_#004158] transition-all flex items-center justify-center gap-2 outline-none border-0"
+                    className="w-full md:w-auto bg-primary hover:bg-primary/85 text-primary-foreground font-semibold border-2 border-black rounded-lg px-6 py-5 shadow-[0px_4px_0px_0px_var(--ring)] active:translate-y-[2px] active:shadow-[0px_2px_0px_0px_var(--ring)] transition-all flex items-center justify-center gap-2 outline-none border-0"
                     asChild
                   >
                     <a

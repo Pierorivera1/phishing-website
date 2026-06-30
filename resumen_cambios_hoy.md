@@ -1,133 +1,44 @@
-# Resumen de Cambios — Proyecto Anti-Phishing UNFV
+# 🌟 Resumen de Cambios: Qué hemos mejorado hoy en la web
 
 **Fecha:** 28 de junio de 2026
 
-Hoy hemos trabajado en importantes mejoras de diseño, rendimiento, interactividad y contenido para la plataforma de concientización sobre Phishing de la UNFV. A continuación se detallan todas las modificaciones y adiciones organizadas por área.
+Hoy hemos trabajado en hacer que la plataforma educativa **Anti-Phishing UNFV** sea más rápida, más bonita de ver, interactiva y con contenido nuevo para concientizar a los estudiantes.
+
+Aquí te explicamos de forma muy sencilla todo lo que hemos cambiado:
 
 ---
 
-## ⚡ 1. Nuevas Páginas y Contenidos
-
-### Módulo: "Riesgos del Phishing"
-- **Nueva página:** [src/app/aprender/riesgos/page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/aprender/riesgos/page.tsx)
-  - Se implementó un módulo educativo centrado en los peligros y el impacto del phishing en el ámbito personal, financiero y académico.
-  - **Estadísticas de Ciberdelitos en Perú (2018-2024):** Incorporación de datos oficiales del Ministerio Público que muestran la evolución del ciberdelito en el país, acompañados de un gráfico interactivo (`Denuncia_de_delitos_informaticos2018-2024.jpeg`).
-  - **Ranking de Phishing Kaspersky (2025):** Exposición del informe de Kaspersky donde Perú lidera a nivel mundial con un 17.46% de usuarios atacados. Incluye una tabla comparativa y el gráfico oficial de Kaspersky (`Informe_Kaspersky.jpeg`).
-  - **Consecuencias críticas:** Explicación detallada de riesgos como robo de cuentas, robo de identidad, pérdidas económicas y exposición de información privada.
-  - **Casos reales documentados:** Universidad de California (2023), Empresa Air-e (2024), y Comité Nacional Demócrata (2016).
-- **Integración en Navegación:**
-  - Se actualizó el sidebar educativo ([src/components/course-sidebar.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/course-sidebar.tsx)) para incluir el enlace al nuevo módulo y permitir la navegación secuencial fluida.
+## 📘 1. Nueva sección educativa: "Riesgos del Phishing"
+Hemos agregado una nueva lección interactiva para que las personas entiendan el verdadero peligro de los engaños por internet:
+* **El aumento de estafas en Perú:** Explicamos con datos sencillos del Ministerio Público cómo las denuncias de delitos informáticos subieron de **4,000 en 2018 a más de 42,000 en 2024**. Incluye un gráfico visual fácil de entender.
+* **Perú en el ranking mundial:** Mostramos con una tabla interactiva que el Perú es el país con más porcentaje de ataques de phishing en la región según el reporte Kaspersky 2025.
+* **Consecuencias claras:** Detallamos de forma directa qué pasa si caes en la trampa (robo de cuentas, robo de identidad y pérdida de dinero).
+* **Casos de la vida real:** Añadimos historias reales de hackeos (como el robo de sueldos en la Universidad de California) para que el estudiante vea que esto pasa de verdad.
 
 ---
 
-## 🎨 2. Mejoras Visuales, Interactividad y UX (Framer Motion & Skeletons)
-
-### Animaciones de Entrada (Framer Motion)
-Se instaló `framer-motion` y se configuraron transiciones fluidas que se activan al entrar en el viewport:
-- **Componentes de Animación:**
-  - [fade-in.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/animations/fade-in.tsx): Controla animaciones suaves de opacidad y desplazamiento vertical leve.
-  - [slide-in.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/animations/slide-in.tsx): Añade un efecto de deslizamiento horizontal a elementos concretos (avatar y globo de chat del CTA final).
-  - [stagger-container.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/animations/stagger-container.tsx): Genera un efecto de cascada en la carga de listas y grillas de tarjetas.
-- **Integración:**
-  - Se convirtió la página de inicio ([src/app/page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/page.tsx)) a componente de cliente para animar de forma nativa sus secciones principales.
-  - Se animó el contenedor principal de los cursos ([src/components/section-wrapper.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/section-wrapper.tsx)).
-
-### Barra de Progreso de Lectura
-- **Hook `useScrollProgress`:** Creado en [use-scroll-progress.ts](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/hooks/use-scroll-progress.ts) para calcular reactivamente la distancia de scroll.
-- **Componente `ReadingProgressBar`:** Creado en [reading-progress-bar.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/reading-progress-bar.tsx) e integrado en la base del navbar fijo ([src/components/navbar.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/navbar.tsx)). Es visible únicamente en las rutas educativas (`/aprender/*`).
-
-### Pantallas de Carga Inteligentes (Skeleton Loading)
-Se crearon placeholders visuales que respetan la distribución física de los componentes finales durante las transiciones de ruta:
-- **Componente `Skeleton`:** Creado en [skeleton.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/ui/skeleton.tsx) con la estética retro-pixelada del sitio (`rounded-none`).
-- **Implementación de Rutas (`loading.tsx`):**
-  - **Módulos de Aprendizaje:** [loading.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/aprender/loading.tsx)
-  - **Galería de Casos:** [loading.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/(sections)/galeria/loading.tsx)
-  - **Sección de Consejos:** [loading.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/(sections)/consejos/loading.tsx)
-
-### Accesibilidad y Movimiento Reducido
-- Se integró la directiva `prefers-reduced-motion` a través de Framer Motion (`useReducedMotion`) y CSS (`motion-safe:`). Si el usuario tiene desactivadas las animaciones a nivel de sistema, el sitio se comportará estático de inmediato.
+## 🎨 2. Mejoras en el diseño y en la experiencia de navegación (UX)
+Hicimos que la página se sienta viva, moderna y profesional al interactuar con ella:
+* **Efectos y animaciones suaves:** Ahora los textos, estadísticas y tarjetas no aparecen de golpe, sino que entran con una animación suave a medida que el usuario baja por la página (hace scroll).
+* **Barra de lectura inteligente:** Añadimos una línea delgada azul en la parte superior que se va llenando a medida que bajas leyendo en las lecciones. Así sabes cuánto te falta para terminar de leer.
+* **Siluetas de carga (Skeletons):** Cuando pasas de una página a otra y la conexión es lenta, en lugar de ver la pantalla en blanco o un círculo dando vueltas aburrido, verás "siluetas grises" que imitan el diseño final de la página. Esto hace sentir la carga mucho más rápida y fluida.
+* **Respeto a la accesibilidad:** Si una persona tiene desactivadas las animaciones en su celular o computadora porque le causan mareos, la página lo detecta automáticamente y se muestra de forma estática y segura.
 
 ---
 
-## 🚀 3. Optimización de Rendimiento e Imágenes
-
-- **Migración de PNG a WebP:**
-  - Se convirtieron todas las imágenes pesadas de correos simulados, capturas de pantalla de comparación bancaria y el logo institucional a formato `.webp` de alta eficiencia.
-  - Esto reduce el tamaño de descarga del cliente final y mejora los tiempos de carga y el *Largest Contentful Paint (LCP)*.
-  - Se actualizaron las referencias en las páginas correspondientes:
-    - [page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/page.tsx)
-    - [navbar.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/navbar.tsx)
-    - [footer.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/components/footer.tsx)
-    - [que-es/page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/(sections)/que-es/page.tsx)
-    - [galeria/correos/page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/(sections)/galeria/correos/page.tsx)
-    - [galeria/sitios/page.tsx](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/app/(sections)/galeria/sitios/page.tsx)
+## ⚡ 3. Mayor velocidad de carga
+* **Imágenes súper ligeras (WebP):** Reemplazamos todas las imágenes del sitio (como el logo oficial y las capturas de correos de ejemplo) por un formato moderno y ultra-comprimido llamado **WebP**. 
+* **El beneficio:** Las imágenes ahora se ven con la misma calidad pero pesan una fracción de lo que pesaban antes, haciendo que la web cargue casi instantáneamente, incluso con planes de datos móviles lentos.
 
 ---
 
-## ☁️ 4. Planes y Propuestas de Arquitectura
-
-Para planificar los siguientes pasos técnicos de la plataforma, creamos dos documentos descriptivos:
-1. **Sugerencias de Proyecto (`sugerencias_proyecto.md`):**
-   - Análisis de arquitectura, bases de datos (SQLite local vs Supabase/PostgreSQL) y opciones de infraestructura.
-   - Mejoras de DevOps y validación de seguridad (Zod, rate limiting, hCaptcha).
-2. **Plan de Integración en la Nube con Azure (`azure_plan.md`):**
-   - Propuesta para alojar el proyecto usando la cuenta Azure for Students ($100/mes de crédito).
-   - Arquitectura basada en **Azure Static Web Apps** (frontend), **Azure Functions** (backend serverless) y **Azure Database for PostgreSQL** para el almacenamiento de los postests y formularios de contacto.
+## ☁️ 4. Planes listos para subir la web a internet
+Hemos dejado preparados dos documentos guía para los siguientes pasos del equipo:
+1. **Guía de Mejoras del Proyecto:** Un documento que explica las tecnologías de la web y propone cómo manejar bases de datos de forma profesional.
+2. **Plan para usar Azure gratis:** Una guía paso a paso para aprovechar los $100 dólares mensuales gratuitos que da Microsoft a estudiantes, permitiendo alojar la base de datos y la página web en la nube sin costo real.
 
 ---
 
-## 🧹 5. Limpieza y Reestructuración de Código
-
-- **Remoción de archivos obsoletos:**
-  - Se eliminó [schema.sql](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/src/lib/schema.sql) debido a que la persistencia se replanificará hacia la nube.
-  - Se retiraron las dependencias locales directas de SQLite (`better-sqlite3`) del `package.json` para limpiar dependencias que no están en uso activo.
-- **Actualización de Estructuras:**
-  - Se actualizó el archivo [README.md](file:///home/pierooo/Projects/Proyecto_Integrador_v0/phishing-unfv/README.md) para documentar el uso de `shadcn/ui` y la nueva estructura basada en el directorio `src/`.
-
----
-
-## 📂 Estructura de Archivos Afectados
-
-```text
-Nuevos Archivos (Adicionados):
-├── CONTENIDO DE LA PAGINA WEB PHISHING.md
-├── public/anti_pishing_unfv_logo.webp
-├── public/images/Denuncia_de_delitos_informaticos2018-2024.jpeg
-├── public/images/Informe_Kaspersky.jpeg
-├── public/images/correos/correo[1-6].webp
-├── public/images/correos/correo_no_fraudulento.webp
-├── public/images/sitios/comparacion_banco.webp
-├── src/app/(sections)/consejos/loading.tsx
-├── src/app/(sections)/galeria/loading.tsx
-├── src/app/aprender/loading.tsx
-├── src/app/aprender/riesgos/page.tsx
-├── src/components/animations/fade-in.tsx
-├── src/components/animations/stagger-container.tsx
-├── src/components/animations/slide-in.tsx
-├── src/components/reading-progress-bar.tsx
-├── src/components/ui/skeleton.tsx
-└── src/hooks/use-scroll-progress.ts
-
-Archivos Eliminados:
-├── public/anti_pishing_unfv_logo.png
-├── public/images/correos/correo[1-6].png
-├── public/images/correos/correo_no_fraudulento.png
-├── public/images/sitios/comparacion_banco.png
-├── public/images/sitios/download.png
-└── src/lib/schema.sql
-
-Archivos Modificados:
-├── README.md
-├── package.json
-├── package-lock.json
-├── src/app/(sections)/consejos/page.tsx
-├── src/app/(sections)/galeria/correos/page.tsx
-├── src/app/(sections)/galeria/sitios/page.tsx
-├── src/app/(sections)/que-es/page.tsx
-├── src/app/aprender/page.tsx
-├── src/app/page.tsx
-├── src/components/course-sidebar.tsx
-├── src/components/footer.tsx
-├── src/components/navbar.tsx
-└── src/components/section-wrapper.tsx
-```
+## 🧹 5. Limpieza general
+* Quitamos archivos de código viejos que ya no se usaban (limpieza de despensa).
+* Actualizamos el archivo de instrucciones técnicas (`README.md`) para que si otro programador entra al proyecto, entienda la estructura de inmediato.

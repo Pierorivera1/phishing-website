@@ -780,13 +780,13 @@ export default function GaleriaCorreosPage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section 
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
         style={{
           backgroundImage: "url('/images/pythonbannerbackground.png')",
         }}
       >
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
 
         {/* Pixel grid overlay effect */}
         <div 
@@ -796,6 +796,12 @@ export default function GaleriaCorreosPage() {
             backgroundSize: "8px 8px"
           }}
         />
+
+        {/* CRT Scanlines overlay */}
+        <div className="crt-scanlines" aria-hidden="true" />
+
+        {/* CRT Vignette overlay */}
+        <div className="crt-vignette" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
           <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-destructive/10 text-destructive shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">

@@ -135,13 +135,13 @@ export default function GaleriaSitiosPage() {
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section 
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
         style={{
           backgroundImage: "url('/images/pythonbannerbackground.png')",
         }}
       >
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
 
         {/* Pixel grid overlay effect */}
         <div 
@@ -151,6 +151,12 @@ export default function GaleriaSitiosPage() {
             backgroundSize: "8px 8px"
           }}
         />
+
+        {/* CRT Scanlines overlay */}
+        <div className="crt-scanlines" aria-hidden="true" />
+
+        {/* CRT Vignette overlay */}
+        <div className="crt-vignette" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
           <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
@@ -195,6 +201,19 @@ export default function GaleriaSitiosPage() {
           {/* Full comparison image */}
           <Card className="overflow-hidden rounded-none border-4 border-border bg-card shadow-[8px_8px_0px_0px_var(--secondary)]">
             <CardContent className="p-0 relative aspect-[16/10] w-full bg-muted sm:aspect-[16/9]">
+              {/* Threat bar — simulates browser/antivirus phishing detection */}
+              <div 
+                className="threat-bar absolute top-0 left-0 right-0 z-10 flex items-center gap-2 bg-destructive px-3 py-1.5 text-destructive-foreground"
+                aria-label="Alerta de seguridad: sitio de phishing detectado"
+              >
+                <ShieldAlert className="h-3.5 w-3.5 shrink-0 animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-wider font-mono">
+                  ⚠ Phishing Detectado — Sitio No Seguro
+                </span>
+                <span className="ml-auto text-[9px] font-mono opacity-70 hidden sm:inline">
+                  unfv-scanner v1.0
+                </span>
+              </div>
               <Image
                 src="/images/sitios/comparacion_banco.webp"
                 alt="Comparación lado a lado entre un sitio web bancario real y su copia fraudulenta, mostrando 5 diferencias clave"
@@ -224,19 +243,22 @@ export default function GaleriaSitiosPage() {
                       )
                     }
                     className={cn(
-                      "group flex gap-3 p-5 text-left cursor-pointer transition-all duration-300 rounded-none border-4 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--secondary)]",
+                      "group relative flex gap-3 p-5 text-left cursor-pointer transition-all duration-300 rounded-none border-4 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--secondary)]",
                       isActive
-                        ? "border-destructive/30 bg-destructive/5 shadow-none"
+                        ? "alert-card-active border-destructive/60 bg-destructive/5 shadow-none"
                         : ""
                     )}
                     role="button"
                     tabIndex={0}
                     aria-expanded={isActive}
                   >
+                    {/* Scan sweep line — re-mounts on each activation via key */}
+                    {isActive && <div key={`sweep-${point.id}-${Date.now()}`} className="scan-sweep-line" />}
+
                     <div
                       className={cn(
                         "flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border text-sm font-bold text-white transition-colors",
-                        isActive ? "bg-destructive" : "bg-neutral-800 dark:bg-neutral-700"
+                        isActive ? "bg-destructive hotspot" : "bg-neutral-800 dark:bg-neutral-700"
                       )}
                     >
                       {point.id}

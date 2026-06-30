@@ -46,18 +46,18 @@ export default function CourseSidebar() {
   const pathname = usePathname();
 
   return (
-    <Card className="sticky top-24 border-4 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)] rounded-none">
-      <CardHeader className="p-5 pb-3">
+    <Card className="border-4 border-border bg-card shadow-[4px_4px_0px_0px_var(--secondary)] rounded-none">
+      <CardHeader className="p-3 pb-1.5">
         <CardTitle 
-          className="flex items-center gap-2 text-base md:text-lg font-semibold text-foreground font-pixel"
+          className="flex items-center gap-2 text-sm font-semibold text-foreground font-pixel"
           style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
         >
-          <BookOpen className="text-primary h-5 w-5" />
+          <BookOpen className="text-primary h-4 w-4" />
           Módulos del Curso
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-5 pt-0">
-        <nav className="flex flex-col gap-1.5" aria-label="Menú del curso">
+      <CardContent className="p-3 pt-0">
+        <nav className="flex flex-col gap-1" aria-label="Menú del curso">
           {modules.map((mod) => {
             const isActive = mod.activeCheck(pathname);
             const Icon = mod.icon;
@@ -66,13 +66,13 @@ export default function CourseSidebar() {
               return (
                 <div
                   key={mod.label}
-                  className="flex items-center justify-between rounded-none border-l-4 border-transparent pl-3 px-4 py-2.5 text-sm font-medium text-muted-foreground opacity-60 cursor-not-allowed select-none"
+                  className="flex items-center justify-between rounded-none border-l-4 border-transparent pl-2 px-2.5 py-1 text-xs font-medium text-muted-foreground opacity-60 cursor-not-allowed select-none h-7"
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-4.5 w-4.5" />
+                  <div className="flex items-center gap-2">
+                    <Icon className="h-3.5 w-3.5" />
                     <span>{mod.label}</span>
                   </div>
-                  <Badge variant="outline" className="text-[9px] px-1.5 py-0 rounded-none border-border">Pronto</Badge>
+                  <Badge variant="outline" className="text-[8px] px-1 py-0 rounded-none border-border">Pronto</Badge>
                 </div>
               );
             }
@@ -83,14 +83,14 @@ export default function CourseSidebar() {
                 asChild
                 variant="ghost"
                 className={cn(
-                  "justify-start gap-3 rounded-none px-4 py-2.5 text-sm font-medium transition-all duration-200 border-l-4",
+                  "justify-start gap-2 rounded-none px-2 py-1 text-xs font-medium transition-all duration-200 border-l-4 h-7",
                   isActive
-                    ? "bg-primary/10 text-primary border-primary hover:bg-primary/20 hover:text-primary font-semibold pl-3"
-                    : "text-muted-foreground border-transparent hover:text-foreground hover:border-border pl-3"
+                    ? "bg-primary/10 text-primary border-primary hover:bg-primary/20 hover:text-primary font-semibold pl-2"
+                    : "text-muted-foreground border-transparent hover:text-foreground hover:border-border pl-2"
                 )}
               >
                 <Link href={mod.href}>
-                  <Icon className="h-4.5 w-4.5 shrink-0" />
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
                   <span>{mod.label}</span>
                 </Link>
               </Button>

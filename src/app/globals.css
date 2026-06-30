@@ -8,53 +8,53 @@
 
 
 :root {
-  /* Space Station Palette - Default Dark with Deep Navy Background (#050714) */
-  --background: #050714;
-  --foreground: #d0e1e7;
+  /* Hacker Console Palette — Cyber-Green / Amber / Alert Red */
+  --background: #030708;
+  --foreground: #e2f3ec;
   
-  --primary: #00a0c6;
-  --primary-foreground: #020405;
+  --primary: #00ff66;
+  --primary-foreground: #030708;
   
-  --secondary: #0b1d27;
-  --secondary-foreground: #cadbe1;
+  --secondary: #0d1b1e;
+  --secondary-foreground: #a3f0c2;
   
-  --muted: #0d171e;
-  --muted-foreground: #697e89;
+  --muted: #0a1412;
+  --muted-foreground: #6b9b87;
   
-  --accent: #c47c3b;
-  --accent-foreground: #f8f8f8;
+  --accent: #f59e0b;
+  --accent-foreground: #030708;
   
-  --destructive: #cc272e;
+  --destructive: #ff3333;
   --destructive-foreground: #ffffff;
   
-  --border: #1a2b36;
-  --input: #1a2b36;
-  --ring: #004158;
+  --border: #142d2a;
+  --input: #142d2a;
+  --ring: #004d20;
   
-  --card: #0c0e21;
-  --card-foreground: #d0e1e7;
+  --card: #070e10;
+  --card-foreground: #e2f3ec;
   
-  --popover: #050714;
-  --popover-foreground: #d0e1e7;
+  --popover: #030708;
+  --popover-foreground: #e2f3ec;
 
   /* Surfaces */
-  --card-bg: #0c0e21;
-  --card-border: #1a2b36;
+  --card-bg: #070e10;
+  --card-border: #142d2a;
 
   /* Navbar */
   --nav-height: 4rem;
-  --nav-bg: rgba(5, 7, 20, 0.9);
-  --nav-border: #1a2b36;
+  --nav-bg: rgba(3, 7, 8, 0.9);
+  --nav-border: #142d2a;
   
   --radius: 0px;
   
-  --chart-1: #00a0c6;
-  --chart-2: #c47c3b;
-  --chart-3: #cc272e;
-  --chart-4: #0d171e;
-  --chart-5: #697e89;
+  --chart-1: #00ff66;
+  --chart-2: #f59e0b;
+  --chart-3: #ff3333;
+  --chart-4: #0a1412;
+  --chart-5: #6b9b87;
 
-  --pulse-glow-color: 0, 160, 198;
+  --pulse-glow-color: 0, 255, 102;
 }
 
 /* ===== Tailwind theme bridge ===== */
@@ -283,43 +283,133 @@ body {
 }
 
 .dark {
-  --background: #050714;
-  --foreground: #d0e1e7;
-  --card: #0c0e21;
-  --card-foreground: #d0e1e7;
-  --popover: #050714;
-  --popover-foreground: #d0e1e7;
-  --primary: #00a0c6;
-  --primary-foreground: #020405;
-  --secondary: #0b1d27;
-  --secondary-foreground: #cadbe1;
-  --muted: #0d171e;
-  --muted-foreground: #697e89;
-  --accent: #c47c3b;
-  --accent-foreground: #f8f8f8;
-  --destructive: #cc272e;
+  --background: #030708;
+  --foreground: #e2f3ec;
+  --card: #070e10;
+  --card-foreground: #e2f3ec;
+  --popover: #030708;
+  --popover-foreground: #e2f3ec;
+  --primary: #00ff66;
+  --primary-foreground: #030708;
+  --secondary: #0d1b1e;
+  --secondary-foreground: #a3f0c2;
+  --muted: #0a1412;
+  --muted-foreground: #6b9b87;
+  --accent: #f59e0b;
+  --accent-foreground: #030708;
+  --destructive: #ff3333;
   --destructive-foreground: #ffffff;
-  --border: #1a2b36;
-  --input: #1a2b36;
-  --ring: #004158;
-  --sidebar: #0c0e21;
-  --sidebar-foreground: #d0e1e7;
-  --sidebar-primary: #00a0c6;
-  --sidebar-primary-foreground: #020405;
-  --sidebar-accent: #c47c3b;
-  --sidebar-accent-foreground: #f8f8f8;
-  --sidebar-border: #1a2b36;
-  --sidebar-ring: #004158;
+  --border: #142d2a;
+  --input: #142d2a;
+  --ring: #004d20;
+  --sidebar: #070e10;
+  --sidebar-foreground: #e2f3ec;
+  --sidebar-primary: #00ff66;
+  --sidebar-primary-foreground: #030708;
+  --sidebar-accent: #f59e0b;
+  --sidebar-accent-foreground: #030708;
+  --sidebar-border: #142d2a;
+  --sidebar-ring: #004d20;
 
   /* Surfaces */
-  --card-bg: #0c0e21;
-  --card-border: #1a2b36;
+  --card-bg: #070e10;
+  --card-border: #142d2a;
 
   /* Navbar */
-  --nav-bg: rgba(5, 7, 20, 0.9);
-  --nav-border: #1a2b36;
+  --nav-bg: rgba(3, 7, 8, 0.9);
+  --nav-border: #142d2a;
 
-  --pulse-glow-color: 0, 160, 198;
+  --pulse-glow-color: 0, 255, 102;
+}
+
+/* ===== CRT / Scanlines Effect ===== */
+@keyframes crt-scanline-move {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 4px; }
+}
+
+@keyframes crt-flicker {
+  0%   { opacity: 1; }
+  92%  { opacity: 1; }
+  93%  { opacity: 0.97; }
+  95%  { opacity: 1; }
+  97%  { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+.crt-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  animation: crt-scanline-move 0.15s steps(1) infinite;
+}
+
+.crt-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.crt-flicker {
+  animation: crt-flicker 6s ease-in-out infinite;
+}
+
+/* ===== Phishing Alert Visual Indicators ===== */
+@keyframes threat-bar-in {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes alert-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(204, 39, 46, 0.0); }
+  50%      { box-shadow: 0 0 0 5px rgba(204, 39, 46, 0.3), 0 0 16px rgba(204, 39, 46, 0.12); }
+}
+
+@keyframes scan-sweep {
+  0%   { transform: translateY(-100%); opacity: 0.7; }
+  100% { transform: translateY(200%);  opacity: 0; }
+}
+
+.threat-bar {
+  animation: threat-bar-in 0.4s ease-out both;
+}
+
+.alert-card-active {
+  animation: alert-glow-pulse 1.8s ease-in-out infinite;
+}
+
+.scan-sweep-line {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(204, 39, 46, 0.85), transparent);
+  animation: scan-sweep 0.6s ease-in-out both;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Respect prefers-reduced-motion for all hacker-theme animations */
+@media (prefers-reduced-motion: reduce) {
+  .crt-scanlines   { animation: none; }
+  .crt-flicker     { animation: none; }
+  .threat-bar      { animation: none; }
+  .alert-card-active { animation: none; }
+  .scan-sweep-line { animation: none; display: none; }
 }
 
 @layer base {
