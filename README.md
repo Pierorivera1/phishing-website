@@ -35,7 +35,7 @@ La plataforma se encuentra en constante iteración técnica y pedagógica. A la 
 *   **Consejos de Prevención (`/consejos`):** Compilación de mejores prácticas de ciberseguridad, identificación activa y protección digital avanzada.
 
 ### ✨ Mejoras de Interfaz de Usuario y Rendimiento
-*   **Estética Retro/8-bit:** Migración de componentes visuales clave (botones, avatares) hacia un diseño nostálgico 8-bit altamente interactivo.
+*   **Temática Hacker Console & Retro/8-bit:** Migración de componentes visuales clave (botones, avatares) hacia un diseño nostálgico de consola de hacker. Integra una paleta de color en negro y verde cibernético, simulando una pantalla CRT retro con efectos de escaneo (*scanlines*), parpadeo (*flicker*), viñeta (*vignette*) y animaciones de radar/barrido para alertas de amenazas.
 *   **Animaciones y Skeletons:** Integración de transiciones fluidas de entrada (`fade-in`, `slide-in`), barra de progreso de lectura, y placeholders inteligentes (`Skeleton Loading`) para mejorar la UX durante la navegación de rutas.
 
 ### 📊 Módulo 3: Evaluación y Migración a la Nube (Sprint 3) — *En Planificación*
@@ -57,16 +57,17 @@ phishing-unfv/
 │   │   │   ├── como-funciona/# Proceso en 6 pasos del phishing
 │   │   │   ├── riesgos/      # Consecuencias e impacto estadístico
 │   │   │   └── tipos/        # Clasificación de técnicas de ataque
-│   │   ├── globals.css       # Estilos globales y tokens visuales retro/UNFV
+│   │   ├── globals.css       # Estilos globales y tokens visuales retro/UNFV y efectos CRT
 │   │   └── page.tsx          # Landing page principal
 │   ├── components/           # Componentes UI (Sidebar, Navbar, animaciones, shadcn 8-bit)
 │   │   ├── animations/       # Componentes de Framer Motion
 │   │   └── ui/               # Botones retro y Skeletons
 │   ├── hooks/                # Hooks personalizados (ej. useScrollProgress)
-│   └── lib/                  # Utilidades y configuración de proyecto
-├── public/                   # Recursos estáticos optimizados (.webp)
+│   └── lib/                  # Utilidades y configuración compartida (ej. utils.ts para shadcn)
+├── public/                   # Recursos estáticos optimizados (.webp) e imágenes/GIFs
 ├── sugerencias_proyecto.md   # Análisis arquitectónico y de seguridad
-└── azure_plan.md             # Propuesta de infraestructura Cloud (Azure)
+├── azure_plan.md             # Propuesta de infraestructura Cloud (Azure)
+└── PROCESO_DE_DESARROLLO_WEB.md # Bitácora detallada del proceso de desarrollo y decisiones de diseño
 ```
 
 ---
