@@ -154,28 +154,28 @@ const NIVELES: Nivel[] = [
     titulo: "Experto en ciberseguridad",
     mensaje:
       "Dominas las señales del phishing. Comparte lo que sabes con tus compañeros y mantente al día.",
-    color: "text-success-600",
+    color: "text-emerald-400",
   },
   {
     min: 70,
     titulo: "Usuario avanzado",
     mensaje:
       "Tienes buenos reflejos de seguridad. Repasa los consejos para cubrir los puntos que fallaste.",
-    color: "text-primary-600",
+    color: "text-primary",
   },
   {
     min: 50,
     titulo: "Nivel intermedio",
     mensaje:
       "Vas por buen camino, pero aún hay riesgos que podrían sorprenderte. Revisa la sección de consejos.",
-    color: "text-amber-600",
+    color: "text-accent",
   },
   {
     min: 0,
     titulo: "Principiante",
     mensaje:
       "Tu cuenta está en riesgo. Te recomendamos repasar todo el contenido educativo antes de volver a intentarlo.",
-    color: "text-danger-600",
+    color: "text-destructive",
   },
 ];
 
@@ -225,21 +225,47 @@ export default function EvaluacionPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-neutral-950">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary-500 blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-success-500 blur-[120px]" />
-        </div>
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-24 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-white/20">
+      <section 
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
+        style={{
+          backgroundImage: "url('/images/pythonbannerbackground.png')",
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
+
+        {/* Pixel grid overlay effect */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
+            backgroundSize: "8px 8px"
+          }}
+        />
+
+        {/* CRT Scanlines overlay */}
+        <div className="crt-scanlines" aria-hidden="true" />
+
+        {/* CRT Vignette overlay */}
+        <div className="crt-vignette" aria-hidden="true" />
+
+        <div className="relative mx-auto max-w-4xl px-4 py-10 text-center sm:px-6 lg:px-8">
+          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
             <GraduationCap size={28} />
           </div>
-          <h1 className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-            Evaluación de conocimientos
+          <h1 
+            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
+            style={{ 
+              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
+              animationDelay: "100ms",
+              textShadow: "3px 3px 0px #000000"
+            }}
+          >
+            Evaluación de Conocimientos
           </h1>
           <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-300 sm:text-lg"
-            style={{ animationDelay: "100ms" }}
+            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            style={{ animationDelay: "200ms" }}
           >
             Responde estas {PREGUNTAS.length} preguntas para medir cuánto
             aprendiste sobre la prevención del phishing. Al terminar verás tu
@@ -250,33 +276,40 @@ export default function EvaluacionPage() {
 
       {/* ── Panel de resultados (PI-145 / PI-148) ─────────────────── */}
       {enviado && (
-        <section className="section-padding bg-neutral-50 !py-12">
-          <div className="animate-fade-in-up mx-auto max-w-3xl rounded-3xl border border-neutral-200 bg-white p-8 text-center shadow-lg sm:p-10">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary-50 text-primary-600 ring-1 ring-primary-100">
+        <section className="section-padding bg-background py-12 border-b-4 border-border">
+          <div className="animate-fade-in-up mx-auto max-w-3xl rounded-none border-4 border-border bg-card p-8 text-center shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-10">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary">
               <Trophy size={28} />
             </div>
-            <p className="text-sm font-semibold uppercase tracking-wider text-neutral-500">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Tu resultado
             </p>
-            <p className="mt-2 text-5xl font-extrabold tracking-tight text-neutral-900">
+            <p 
+              className="mt-2 text-5xl font-extrabold tracking-tight text-foreground font-pixel"
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               {aciertos}
-              <span className="text-2xl font-bold text-neutral-400">
+              <span className="text-2xl font-bold text-muted-foreground">
                 {" "}
                 / {PREGUNTAS.length}
               </span>
             </p>
-            <p className={`mt-2 text-2xl font-bold ${nivel.color}`}>
+            <p 
+              className={`mt-2 text-xl font-bold font-pixel ${nivel.color}`}
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
               {pct}% — {nivel.titulo}
             </p>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-600">
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
               {nivel.mensaje}
             </p>
 
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <button
                 type="button"
                 onClick={reiniciar}
-                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-6 py-3 text-sm font-semibold text-neutral-700 shadow-sm transition-all duration-200 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 active:scale-[0.97]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-border bg-card px-6 py-3 text-xs font-bold text-foreground shadow-[3px_3px_0px_0px_var(--secondary)] transition-all hover:bg-secondary/40 active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_var(--secondary)] cursor-pointer"
+                style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
                 <RotateCcw size={16} />
                 Reintentar
@@ -286,13 +319,14 @@ export default function EvaluacionPage() {
                 href={GOOGLE_FORMS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-primary-700 active:scale-[0.97]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-black bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-[3px_3px_0px_0px_var(--ring)] transition-all hover:bg-primary/90 active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_var(--ring)]"
+                style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
                 Completar post-test oficial
                 <ExternalLink size={16} />
               </a>
             </div>
-            <p className="mt-4 text-xs text-neutral-400">
+            <p className="mt-4 text-xs text-muted-foreground/60">
               El post-test es anónimo y nos ayuda a medir el impacto educativo de
               la plataforma.
             </p>
@@ -301,41 +335,44 @@ export default function EvaluacionPage() {
       )}
 
       {/* ── Cuestionario (PI-140) ─────────────────────────────────── */}
-      <section className="section-padding bg-white !pt-12">
-        <div className="mx-auto max-w-3xl space-y-6">
+      <section className="section-padding bg-background py-12">
+        <div className="mx-auto max-w-3xl space-y-8">
           {PREGUNTAS.map((p, qi) => {
             const elegida = respuestas[qi];
             return (
               <article
                 key={qi}
                 id={`pregunta-${qi}`}
-                className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8"
+                className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8"
               >
-                <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-xs font-bold text-white">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-border bg-neutral-900 text-xs font-bold text-white">
                     {qi + 1}
                   </span>
-                  <h2 className="text-base font-bold text-neutral-900 sm:text-lg">
+                  <h2 
+                    className="text-base font-bold text-foreground sm:text-lg font-pixel"
+                    style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+                  >
                     {p.enunciado}
                   </h2>
                 </div>
 
-                <div className="mt-5 space-y-2.5">
+                <div className="mt-5 space-y-3">
                   {p.opciones.map((opcion, oi) => {
                     const seleccionada = elegida === oi;
                     const esCorrecta = oi === p.correcta;
 
                     // Estado visual tras enviar (PI-144).
                     let estado =
-                      "border-neutral-200 bg-white hover:border-primary-300 hover:bg-primary-50";
+                      "border-border bg-card hover:border-primary/50 text-foreground hover:bg-secondary/40";
                     if (enviado) {
                       if (esCorrecta)
-                        estado = "border-success-500 bg-success-500/10";
+                        estado = "border-emerald-500 bg-emerald-500/10 text-emerald-450";
                       else if (seleccionada)
-                        estado = "border-danger-500 bg-danger-500/10";
-                      else estado = "border-neutral-200 bg-white opacity-60";
+                        estado = "border-destructive bg-destructive/10 text-destructive";
+                      else estado = "border-border bg-card opacity-50";
                     } else if (seleccionada) {
-                      estado = "border-primary-500 bg-primary-50";
+                      estado = "border-primary bg-primary/10 text-primary";
                     }
 
                     return (
@@ -344,31 +381,31 @@ export default function EvaluacionPage() {
                         type="button"
                         disabled={enviado}
                         onClick={() => elegir(qi, oi)}
-                        className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-all duration-150 ${estado} ${
+                        className={`flex w-full items-center gap-3 rounded-none border-2 px-4 py-3 text-left text-sm transition-all duration-150 ${estado} ${
                           enviado ? "cursor-default" : "cursor-pointer"
                         }`}
                         aria-pressed={seleccionada}
                       >
                         <span
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold ${
+                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-none border text-[11px] font-bold ${
                             seleccionada
                               ? "border-current"
-                              : "border-neutral-300 text-neutral-400"
+                              : "border-border text-muted-foreground"
                           }`}
                         >
                           {String.fromCharCode(65 + oi)}
                         </span>
-                        <span className="flex-1 text-neutral-700">{opcion}</span>
+                        <span className="flex-1">{opcion}</span>
                         {enviado && esCorrecta && (
                           <CheckCircle2
                             size={18}
-                            className="shrink-0 text-success-600"
+                            className="shrink-0 text-emerald-400"
                           />
                         )}
                         {enviado && seleccionada && !esCorrecta && (
                           <XCircle
                             size={18}
-                            className="shrink-0 text-danger-600"
+                            className="shrink-0 text-destructive"
                           />
                         )}
                       </button>
@@ -379,14 +416,14 @@ export default function EvaluacionPage() {
                 {/* Retroalimentación por pregunta (PI-144) */}
                 {enviado && (
                   <div
-                    className={`mt-4 rounded-xl p-4 text-sm leading-relaxed ${
+                    className={`mt-4 rounded-none border-2 p-4 text-sm leading-relaxed ${
                       elegida === p.correcta
-                        ? "bg-success-500/10 text-neutral-700"
-                        : "bg-danger-500/10 text-neutral-700"
+                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                        : "bg-destructive/10 border-destructive/20 text-destructive"
                     }`}
                   >
-                    <span className="font-semibold">
-                      {elegida === p.correcta ? "¡Correcto! " : "Incorrecto. "}
+                    <span className="font-bold">
+                      {elegida === p.correcta ? "✔ ¡Correcto! " : "✘ Incorrecto. "}
                     </span>
                     {p.explicacion}
                   </div>
@@ -397,7 +434,7 @@ export default function EvaluacionPage() {
 
           {/* ── Acciones ──────────────────────────────────────────── */}
           {!enviado && (
-            <div className="flex flex-col items-center gap-3 pt-2">
+            <div className="flex flex-col items-center gap-3 pt-4">
               <button
                 type="button"
                 disabled={!todasRespondidas}
@@ -405,13 +442,14 @@ export default function EvaluacionPage() {
                   setEnviado(true);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-8 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-primary-700 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:shadow-none"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-black bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[4px_4px_0px_0px_var(--ring)] transition-all hover:bg-primary/95 active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_var(--ring)] disabled:cursor-not-allowed disabled:bg-neutral-800 disabled:text-muted-foreground disabled:shadow-none disabled:border-border cursor-pointer"
+                style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
                 Ver mi resultado
                 <ChevronRight size={18} />
               </button>
               {!todasRespondidas && (
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-muted-foreground/60">
                   Responde las {PREGUNTAS.length} preguntas para continuar (
                   {respuestas.filter((r) => r !== -1).length}/{PREGUNTAS.length})
                 </p>
@@ -423,7 +461,7 @@ export default function EvaluacionPage() {
           <div className="pt-4 text-center">
             <Link
               href="/consejos"
-              className="text-sm font-medium text-primary-600 hover:text-primary-700 hover:underline"
+              className="text-sm font-medium text-primary hover:text-primary/90 hover:underline"
             >
               ← Repasar los consejos de prevención
             </Link>

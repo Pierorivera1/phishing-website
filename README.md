@@ -64,10 +64,14 @@ phishing-unfv/
 │   │   └── ui/               # Botones retro y Skeletons
 │   ├── hooks/                # Hooks personalizados (ej. useScrollProgress)
 │   └── lib/                  # Utilidades y configuración compartida (ej. utils.ts para shadcn)
+├── docs/                     # Documentación y bitácoras del proyecto
+│   ├── PLAN_TECNICO.md       # Plan técnico detallado
+│   ├── paper proyecto integrador con scrum.md # Paper académico
+│   ├── PROCESO_DE_DESARROLLO_WEB.md # Bitácora del desarrollo y decisiones de diseño
+│   └── resumen_cambios_hoy.md       # Resumen de cambios y optimizaciones
 ├── public/                   # Recursos estáticos optimizados (.webp) e imágenes/GIFs
 ├── sugerencias_proyecto.md   # Análisis arquitectónico y de seguridad
-├── azure_plan.md             # Propuesta de infraestructura Cloud (Azure)
-└── PROCESO_DE_DESARROLLO_WEB.md # Bitácora detallada del proceso de desarrollo y decisiones de diseño
+└── azure_plan.md             # Propuesta de infraestructura Cloud (Azure)
 ```
 
 ---

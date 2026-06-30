@@ -32,7 +32,7 @@ export default function PhishingStep({
       )}
 
       {/* Círculo indicador / Icono */}
-      <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-none border-4 border-border bg-[#0c0e21] text-lg font-bold text-primary shadow-[3px_3px_0px_0px_var(--secondary)] sm:h-16 sm:w-16 sm:text-xl">
+      <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-none border-4 border-border bg-card text-lg font-bold text-primary shadow-[3px_3px_0px_0px_var(--secondary)] sm:h-16 sm:w-16 sm:text-xl">
         {icon ? icon : stepNumber}
       </div>
 
