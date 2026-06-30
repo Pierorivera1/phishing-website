@@ -1,132 +1,27 @@
 import {
   Shield,
-  Mail,
-  Link2Off,
   AlertTriangle,
-  Search,
-  Flag,
-  FileWarning,
-  KeyRound,
-  Smartphone,
-  Lock,
-  Wifi,
-  RefreshCw,
-  BookOpen,
   ChevronRight,
+  ArrowDown,
+  BookOpen,
 } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Callout from "@/components/callout";
+import {
+  consejosIdentificacion,
+  recomendacionesProteccion,
+  type Consejo,
+} from "@/lib/consejos";
 
 export const metadata: Metadata = {
   title: "Consejos de Prevención",
   description:
     "Aprende a identificar correos de phishing y proteger tus cuentas digitales con consejos prácticos basados en investigación científica.",
 };
-
-/* ── Datos: Consejos de identificación (HU-09) ──────────────────── */
-
-interface Consejo {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  stat?: string;
-  source: string;
-}
-
-const consejosIdentificacion: Consejo[] = [
-  {
-    icon: <Mail className="h-6 w-6" />,
-    title: "Verifica el remitente antes de abrir",
-    description:
-      "Revisa la dirección de correo completa, no solo el nombre visible. Los atacantes usan dominios similares (ej: @unfv-soporte.com en vez de @unfv.edu.pe).",
-    stat: "62.9% detecta phishing por remitente inusual",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <Link2Off className="h-6 w-6" />,
-    title: "No hagas clic en links sospechosos",
-    description:
-      "Pasa el cursor sobre el enlace para ver la URL real antes de hacer clic. Si la dirección no coincide con el sitio oficial, no lo abras.",
-    stat: "75% identifica phishing por enlaces sospechosos",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <AlertTriangle className="h-6 w-6" />,
-    title: "Desconfía de mensajes con urgencia extrema",
-    description:
-      'Los atacantes usan frases como "Tu cuenta será bloqueada en 24 horas" o "Acción inmediata requerida" para que actúes sin pensar.',
-    stat: "48.6% reconoce presión psicológica como señal",
-    source: "Shahbazi et al., 2025; Yoro et al., 2023",
-  },
-  {
-    icon: <Search className="h-6 w-6" />,
-    title: "Busca errores ortográficos y de diseño",
-    description:
-      "Los correos de phishing suelen contener errores gramaticales, logos de baja calidad o formatos inconsistentes. Las instituciones reales cuidan su comunicación.",
-    stat: "40% se fija en calidad de redacción",
-    source: "Shahbazi et al., 2025",
-  },
-  {
-    icon: <Flag className="h-6 w-6" />,
-    title: 'Usa la función "Reportar phishing"',
-    description:
-      "Todos los servicios de correo tienen un botón para reportar correos sospechosos. Úsalo: protege a otros usuarios y entrena al filtro de spam.",
-    stat: "80% desconoce esta función",
-    source: "Okokpujie et al., 2025",
-  },
-  {
-    icon: <FileWarning className="h-6 w-6" />,
-    title: "No abras archivos adjuntos inesperados",
-    description:
-      "Los archivos .exe, .zip o incluso .docx pueden contener malware. Si no esperabas el archivo, contacta al remitente por otro medio para confirmar.",
-    source: "Ruiz Contreras & Solis Castillo, 2024",
-  },
-];
-
-/* ── Datos: Recomendaciones de protección (HU-10) ───────────────── */
-
-const recomendacionesProteccion: Consejo[] = [
-  {
-    icon: <KeyRound className="h-6 w-6" />,
-    title: "Usa contraseñas únicas y seguras",
-    description:
-      "Cada cuenta debe tener una contraseña diferente de al menos 12 caracteres, combinando mayúsculas, minúsculas, números y símbolos.",
-    stat: "53.6% reutiliza credenciales entre cuentas",
-    source: "Abdulla et al., 2023; Guo & Tinmaz, 2023",
-  },
-  {
-    icon: <Smartphone className="h-6 w-6" />,
-    title: "Activa la verificación en dos pasos (2FA)",
-    description:
-      "Con 2FA activado, aunque un atacante obtenga tu contraseña, necesitará el código de tu teléfono para acceder a tu cuenta.",
-    source: "Abdulla et al., 2023",
-  },
-  {
-    icon: <Lock className="h-6 w-6" />,
-    title: "Usa un gestor de contraseñas",
-    description:
-      "Herramientas como Bitwarden o Google Password Manager generan y almacenan contraseñas únicas. Solo necesitas recordar una contraseña maestra.",
-    source: "Guo & Tinmaz, 2023",
-  },
-  {
-    icon: <Wifi className="h-6 w-6" />,
-    title: "Evita WiFi público para cuentas importantes",
-    description:
-      "Las redes WiFi abiertas permiten que terceros intercepten tu tráfico. Usa datos móviles o VPN para acceder a tu correo o banca online.",
-    stat: "52.1% usa WiFi público para acceder a cuentas",
-    source: "Abdulla et al., 2023",
-  },
-  {
-    icon: <RefreshCw className="h-6 w-6" />,
-    title: "Mantén tu software actualizado",
-    description:
-      "Las actualizaciones corrigen vulnerabilidades de seguridad. Activa las actualizaciones automáticas en tu sistema operativo y navegador.",
-    source: "Carreño Ardila et al., 2024",
-  },
-];
 
 /* ── Componente de tarjeta ──────────────────────────────────────── */
 
@@ -166,6 +61,11 @@ function ConsejoCard({
 
       {/* Content */}
       <CardContent className="p-0">
+        <p
+          className={`mb-1 text-xs font-semibold uppercase tracking-wider ${accentText}`}
+        >
+          {consejo.situacion}
+        </p>
         <h3 
           className="text-lg font-bold text-foreground sm:text-xl"
           style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
@@ -200,13 +100,13 @@ export default function ConsejosPage() {
     <>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section 
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat"
+        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
         style={{
           backgroundImage: "url('/images/pythonbannerbackground.png')",
         }}
       >
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#050714]/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
 
         {/* Pixel grid overlay effect */}
         <div 
@@ -216,6 +116,12 @@ export default function ConsejosPage() {
             backgroundSize: "8px 8px"
           }}
         />
+
+        {/* CRT Scanlines overlay */}
+        <div className="crt-scanlines" aria-hidden="true" />
+
+        {/* CRT Vignette overlay */}
+        <div className="crt-vignette" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
           <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-white/10 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
@@ -260,6 +166,15 @@ export default function ConsejosPage() {
               Estas son las 6 señales clave que debes buscar antes de confiar en
               cualquier mensaje o correo electrónico.
             </p>
+          </div>
+
+          <div className="mx-auto mb-10 max-w-3xl">
+            <Callout title="Regla de oro" variant="warning">
+              Si un mensaje te genera urgencia, miedo o una oferta demasiado
+              buena, detente y verifica por un canal oficial antes de hacer clic
+              o entregar datos. La mayoría de los ataques fracasan cuando te
+              tomas 10 segundos para dudar.
+            </Callout>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -378,6 +293,11 @@ export default function ConsejosPage() {
               </CardContent>
             </Card>
 
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
+            </div>
+
             {/* Paso 2: Cambiar claves */}
             <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
@@ -400,6 +320,11 @@ export default function ConsejosPage() {
               </CardContent>
             </Card>
 
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
+            </div>
+
             {/* Paso 3: Reportar a la Universidad */}
             <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
               <CardContent className="p-0">
@@ -421,6 +346,11 @@ export default function ConsejosPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Conector de flujo */}
+            <div className="flex justify-center" aria-hidden="true">
+              <ArrowDown size={18} className="text-neutral-300" />
+            </div>
 
             {/* Paso 4: Denunciar formalmente */}
             <Card className="rounded-none border-4 border-border bg-card p-6 shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-8">
@@ -470,7 +400,7 @@ export default function ConsejosPage() {
             </div>
 
             {/* Chat bubble */}
-            <div className="relative flex-1 w-full bg-[#0c0e21] border-4 border-border rounded-none p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[6px_6px_0px_0px_rgba(0,160,198,0.2)] animate-fade-in-up">
+            <div className="relative flex-1 w-full bg-card border-4 border-border rounded-none p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[6px_6px_0px_0px_rgba(0,255,102,0.2)] animate-fade-in-up">
               {/* Text */}
               <div className="text-center md:text-left">
                 <h2 
@@ -487,7 +417,7 @@ export default function ConsejosPage() {
               {/* Button on the right */}
               <div className="shrink-0 w-full md:w-auto">
                 <Button
-                  className="w-full md:w-auto bg-[#00a0c6] hover:bg-[#00809f] text-[#020405] font-semibold rounded-none border-none px-6 py-5 shadow-[4px_4px_0px_0px_#050714] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#050714] transition-all flex items-center justify-center gap-2 outline-none"
+                  className="w-full md:w-auto bg-primary hover:bg-primary/85 text-primary-foreground font-semibold rounded-none border-none px-6 py-5 shadow-[4px_4px_0px_0px_var(--ring)] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_var(--ring)] transition-all flex items-center justify-center gap-2 outline-none"
                   asChild
                   font="normal"
                   style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
