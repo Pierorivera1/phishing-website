@@ -42,13 +42,9 @@ export default function Footer() {
             </Button>
             <span className="text-muted-foreground/30 self-center px-1">•</span>
             <Button asChild variant="link" size="sm" className="text-muted-foreground hover:text-primary h-auto p-0">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Evaluación ↗
-              </a>
+              <Link href="/evaluacion">
+                Evaluación
+              </Link>
             </Button>
           </nav>
 

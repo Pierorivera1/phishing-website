@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, AlertTriangle, HelpCircle, Layers, Zap, ShieldAlert } from "lucide-react";
+import { BookOpen, HelpCircle, Layers, Zap, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const modules = [
   {
@@ -33,13 +32,6 @@ const modules = [
     icon: Zap,
     activeCheck: (pathname: string) => pathname === "/aprender/como-funciona",
   },
-  {
-    href: "#",
-    label: "Señales de alerta",
-    icon: AlertTriangle,
-    activeCheck: () => false,
-    disabled: true,
-  },
 ];
 
 export default function CourseSidebar() {
@@ -56,26 +48,11 @@ export default function CourseSidebar() {
           Módulos del Curso
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-3 pt-0">
+      <CardContent className="p-3 pt-0 pb-1.5">
         <nav className="flex flex-col gap-1" aria-label="Menú del curso">
           {modules.map((mod) => {
             const isActive = mod.activeCheck(pathname);
             const Icon = mod.icon;
-
-            if (mod.disabled) {
-              return (
-                <div
-                  key={mod.label}
-                  className="flex items-center justify-between rounded-none border-l-4 border-transparent pl-2 px-2.5 py-1 text-xs font-medium text-muted-foreground opacity-60 cursor-not-allowed select-none h-7"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon className="h-3.5 w-3.5" />
-                    <span>{mod.label}</span>
-                  </div>
-                  <Badge variant="outline" className="text-[8px] px-1 py-0 rounded-none border-border">Pronto</Badge>
-                </div>
-              );
-            }
 
             return (
               <Button

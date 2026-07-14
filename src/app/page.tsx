@@ -7,16 +7,12 @@ import {
   TrendingUp,
   GraduationCap,
   ArrowRight,
-  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/8bit/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { FadeIn } from "@/components/animations/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/animations/stagger-container";
 import { SlideIn } from "@/components/animations/slide-in";
-
-const GOOGLE_FORMS_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform";
 
 /* ── Stat cards data ───────────────────────────────────────────────── */
 
@@ -131,15 +127,9 @@ export default function HomePage() {
                   font="retro"
                   className="w-full sm:w-auto px-8 py-6 text-xs border-2 border-border bg-card hover:bg-muted active:scale-[0.97]"
                 >
-                  <a
-                    href={GOOGLE_FORMS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    id="cta-evaluacion"
-                  >
+                  <Link href="/evaluacion" id="cta-evaluacion">
                     Evaluación
-                    <ExternalLink className="ml-2 h-3.5 w-3.5" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </FadeIn>
@@ -230,18 +220,72 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── CTA Aprender Section ──────────────────────────────────── */}
+      <section
+        id="cta-aprender"
+        className="relative overflow-hidden bg-background border-t-4 border-border py-16"
+      >
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row-reverse items-center gap-6 justify-center">
+            {/* Avatar on the right — slides in from right */}
+            <SlideIn direction="right" delay={0.1} className="shrink-0 flex items-center justify-center">
+              <img
+                src="/images/gotita.png"
+                alt="Pixel Art Avatar"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </SlideIn>
+
+            {/* Chat bubble — slides in from left */}
+            <SlideIn direction="left" delay={0.2} className="relative flex-1 w-full">
+              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 flex flex-col md:flex-row-reverse items-center justify-between gap-6 shadow-xl">
+                {/* Triangle pointer (visible on desktop) */}
+                <div className="absolute right-[-8px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-border hidden md:block" />
+                <div className="absolute right-[-7px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-card hidden md:block" />
+
+                {/* Text */}
+                <div className="text-center md:text-right">
+                  <h2
+                    className="text-[9px] md:text-[10px] font-bold text-foreground leading-relaxed"
+                    style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
+                  >
+                    ¿Quieres aprender a protegerte del phishing?
+                  </h2>
+                  <p className="mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    Recorre nuestro curso interactivo y domina las claves de la ciberseguridad y la prevención de fraudes.
+                  </p>
+                </div>
+
+                {/* Button on the left */}
+                <div className="shrink-0 w-full md:w-auto">
+                  <Button
+                    className="w-full md:w-auto bg-primary hover:bg-primary/85 text-primary-foreground font-semibold border-2 border-black rounded-lg px-6 py-5 shadow-[0px_4px_0px_0px_var(--ring)] active:translate-y-[2px] active:shadow-[0px_2px_0px_0px_var(--ring)] transition-all flex items-center justify-center gap-2 outline-none border-0"
+                    asChild
+                  >
+                    <Link href="/aprender" id="cta-aprender-final">
+                      <span>Comenzar a aprender</span>
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </SlideIn>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA Final Section ─────────────────────────────────────── */}
       <section
         id="cta-final"
-        className="relative overflow-hidden bg-background border-t-4 border-border py-16"
+        className="relative overflow-hidden bg-background py-16"
       >
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-6 justify-center">
             {/* Avatar on the left — slides in from left */}
             <SlideIn direction="left" delay={0.1} className="shrink-0 flex items-center justify-center">
-              <img 
-                src="/images/pixel-avatar.png" 
-                alt="Pixel Art Avatar" 
+              <img
+                src="/images/pixel-avatar.png"
+                alt="Pixel Art Avatar"
                 className="w-16 h-16 md:w-20 md:h-20 object-contain"
                 style={{ imageRendering: "pixelated" }}
               />
@@ -256,7 +300,7 @@ export default function HomePage() {
 
                 {/* Text */}
                 <div className="text-center md:text-left">
-                  <h2 
+                  <h2
                     className="text-[9px] md:text-[10px] font-bold text-foreground leading-relaxed"
                     style={{ fontFamily: "'Press Start 2P', system-ui, sans-serif" }}
                   >
@@ -273,14 +317,9 @@ export default function HomePage() {
                     className="w-full md:w-auto bg-primary hover:bg-primary/85 text-primary-foreground font-semibold border-2 border-black rounded-lg px-6 py-5 shadow-[0px_4px_0px_0px_var(--ring)] active:translate-y-[2px] active:shadow-[0px_2px_0px_0px_var(--ring)] transition-all flex items-center justify-center gap-2 outline-none border-0"
                     asChild
                   >
-                    <a
-                      href={GOOGLE_FORMS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      id="cta-evaluacion-final"
-                    >
+                    <Link href="/evaluacion" id="cta-evaluacion-final">
                       <span>Realizar evaluación</span>
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>

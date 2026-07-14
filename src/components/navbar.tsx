@@ -6,11 +6,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu,
-  X,
   Home,
   ImageIcon as ImageIconIcon,
   Lightbulb,
-  ExternalLink,
+  ClipboardCheck,
   GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -37,10 +36,8 @@ const navItems: NavItem[] = [
   { label: "Aprender", href: "/aprender", icon: <GraduationCap className="h-4 w-4" /> },
   { label: "Galería", href: "/galeria/correos", icon: <ImageIconIcon className="h-4 w-4" /> },
   { label: "Consejos", href: "/consejos", icon: <Lightbulb className="h-4 w-4" /> },
+  { label: "Evaluación", href: "/evaluacion", icon: <ClipboardCheck className="h-4 w-4" /> },
 ];
-
-const GOOGLE_FORMS_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform";
 
 /* ── Component ─────────────────────────────────────────────────────── */
 
@@ -120,15 +117,6 @@ export default function Navbar() {
                 )}
               </Link>
             ))}
-            {/* Evaluación → Google Forms (externo) */}
-            <a
-              href={GOOGLE_FORMS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative flex h-full items-center gap-1.5 px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 outline-none"
-            >
-              <span>Evaluación</span>
-            </a>
           </nav>
 
           {/* Mobile hamburger - Sheet component */}
@@ -178,17 +166,6 @@ export default function Navbar() {
                       </Link>
                     </li>
                   ))}
-                  <li>
-                    <a
-                      href={GOOGLE_FORMS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={closeMobile}
-                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground"
-                    >
-                      Evaluación
-                    </a>
-                  </li>
                 </ul>
               </nav>
 

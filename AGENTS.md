@@ -7,7 +7,7 @@
 ## Framework & Tooling
 - **Next.js 15 (App Router):** Expect breaking changes compared to older versions. Refer to `node_modules/next/dist/docs/` if unsure.
 - **Tailwind CSS 4.x:** Managed natively; there is no `tailwind.config.ts` file.
-- **Database:** Uses `better-sqlite3`. Schema is defined in `src/lib/schema.sql`.
+- **No database:** the platform is fully static/client-side; no persistence layer is used.
 
 ## Development
 - **Start:** `npm run dev`

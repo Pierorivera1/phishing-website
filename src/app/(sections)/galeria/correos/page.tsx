@@ -39,6 +39,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/8bit/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import PixelHero from "@/components/pixel-hero";
 
 /* ─────────────────────────────────────────────────────────────────── */
 /* ── INTERFACES                                                   ── */
@@ -779,53 +780,15 @@ export default function GaleriaCorreosPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section 
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
-        style={{
-          backgroundImage: "url('/images/pythonbannerbackground.png')",
-        }}
+      <PixelHero
+        icon={<Mail className="h-6 w-6" />}
+        title="Galería de Mensajes Fraudulentos"
+        iconClassName="bg-destructive/10 text-destructive"
+        maxWidthClass="max-w-6xl"
       >
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
-
-        {/* Pixel grid overlay effect */}
-        <div 
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
-            backgroundSize: "8px 8px"
-          }}
-        />
-
-        {/* CRT Scanlines overlay */}
-        <div className="crt-scanlines" aria-hidden="true" />
-
-        {/* CRT Vignette overlay */}
-        <div className="crt-vignette" aria-hidden="true" />
-
-        <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-destructive/10 text-destructive shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
-            <Mail className="h-7 w-7" />
-          </div>
-          <h1
-            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
-            style={{ 
-              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
-              animationDelay: "100ms",
-              textShadow: "3px 3px 0px #000000"
-            }}
-          >
-            Galería de Mensajes Fraudulentos
-          </h1>
-          <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-            style={{ animationDelay: "200ms" }}
-          >
-            Analiza ejemplos reales de correos, SMS y WhatsApp de phishing.
-            Aprende a identificar las señales de fraude antes de que sea tarde.
-          </p>
-        </div>
-      </section>
+        Analiza ejemplos reales de correos, SMS y WhatsApp de phishing, y
+        aprende a identificar las señales de fraude antes de que sea tarde.
+      </PixelHero>
 
       {/* ── Indicadores estadísticos ──────────────────────────── */}
       <section className="border-b-4 border-border bg-card py-10">

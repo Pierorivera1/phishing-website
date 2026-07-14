@@ -19,8 +19,6 @@
 | **Next.js** | 15.x | Framework React con App Router, SSR/SSG |
 | **TypeScript** | 5.x | Tipado estático |
 | **Tailwind CSS** | 4.x | Estilos utilitarios, diseño responsive |
-| **SQLite** | 3.x | Base de datos local para respaldo de evaluaciones |
-| **better-sqlite3** | Última | Driver SQLite síncrono para Node.js |
 | **Lucide React** | Última | Iconografía |
 | **shadcn/ui** | Última | Componentes UI accesibles (opcional) |
 
@@ -43,13 +41,10 @@ phishing-unfv/
 │   │   │   │   └── page.tsx
 │   │   │   └── sitios/           # /galeria/sitios
 │   │   │       └── page.tsx
-│   │   ├── consejos/             # /consejos
-│   │   │   └── page.tsx
-│   │   └── evaluacion/           # /evaluacion
+│   │   └── consejos/             # /consejos
 │   │       └── page.tsx
-│   ├── api/                      # API Routes
-│   │   └── evaluacion/
-│   │       └── route.ts          # POST/GET respuestas postest
+│   ├── evaluacion/               # /evaluacion (fuera del grupo (sections))
+│   │   └── page.tsx
 │   ├── layout.tsx                # Root layout + Navbar + Footer
 │   ├── page.tsx                  # Home (Página de Inicio)
 │   └── globals.css               # Tailwind + estilos globales
@@ -62,11 +57,8 @@ phishing-unfv/
 │   ├── hero-section.tsx          # Hero de la homepage
 │   ├── phishing-step.tsx         # Paso de ataque (timeline)
 │   ├── gallery-card.tsx          # Card de galería con overlay
-│   ├── site-comparator.tsx       # Comparador real vs falso
-│   └── postest-form.tsx          # Formulario de evaluación
+│   └── site-comparator.tsx       # Comparador real vs falso
 ├── lib/                          # Utilidades y configuración
-│   ├── db.ts                     # Conexión y queries SQLite
-│   ├── schema.sql                # Esquema de base de datos
 │   └── utils.ts                  # Helpers (cn, formatters)
 ├── public/
 │   └── images/                   # Capturas de phishing, sitios falsos
@@ -93,8 +85,8 @@ phishing-unfv/
 | HU-08 | F-08 | Galería: ejemplos de sitios web fraudulentos | Sprint 2 | 8h | Por hacer |
 | HU-09 | F-09 | Consejos para identificar phishing | Sprint 2 | 8h | Por hacer |
 | HU-10 | F-10 | Recomendaciones de protección digital | Sprint 2 | 5h | Por hacer |
-| HU-11 | F-11 | Formulario postest (Google Forms + SQLite) | Sprint 3 | 5h | Por hacer |
-| HU-12 | F-12 | Instrucciones del postest | Sprint 3 | 2h | Por hacer |
+| HU-11 | F-11 | Quiz de autoevaluación propio | Sprint 3 | 5h | Hecho |
+| HU-12 | F-12 | Instrucciones del quiz | Sprint 3 | 2h | Hecho |
 | HU-13 | F-13 | Pruebas de navegación y compatibilidad | Sprint 3 | 8h | Por hacer |
 
 **Total horas asignadas: 71 horas**
@@ -190,33 +182,13 @@ interface PhishingEmail {
   - No usar WiFi público para cuentas importantes
   - Actualizar software regularmente
 
-### 7. Evaluación / Postest (`app/(sections)/evaluacion/page.tsx`)
+### 7. Evaluación (`app/evaluacion/page.tsx`)
 
 **Requisitos:**
-- Instrucciones claras antes del formulario
-- Integración de Google Forms (embed iframe)
-- Sistema de respaldo con SQLite
+- Instrucciones claras antes del quiz
+- Quiz propio interactivo (sin backend ni plataforma externa)
 - Mínimo 8 preguntas sobre comprensión y percepción de utilidad
-
-**Esquema SQLite:**
-```sql
-CREATE TABLE IF NOT EXISTS respuestas_postest (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nombre TEXT NOT NULL,
-  carrera TEXT,
-  correo TEXT,
-  p1_conocimiento_phishing INTEGER,      -- 1-5 escala Likert
-  p2_identificar_tipos INTEGER,
-  p3_reconocer_correos INTEGER,
-  p4_verificar_enlaces INTEGER,
-  p5_proteger_cuentas INTEGER,
-  p6_ingenieria_social INTEGER,
-  p7_smishing_vishing INTEGER,
-  p8_utilidad_plataforma INTEGER,          -- percepción de utilidad
-  comentarios TEXT,
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+- Puntaje, nivel de desempeño y retroalimentación por pregunta calculados en el cliente
 
 ---
 
@@ -247,8 +219,7 @@ npx create-next-app@latest phishing-unfv   --typescript   --tailwind   --eslint 
 cd phishing-unfv
 
 # 2. Instalar dependencias
-npm install better-sqlite3 lucide-react
-npm install -D @types/better-sqlite3
+npm install lucide-react
 
 # 3. Inicializar shadcn/ui (opcional)
 npx shadcn@latest init
@@ -258,15 +229,10 @@ npx shadcn add button card accordion badge sheet
 
 # 5. Crear estructura de carpetas
 mkdir -p app/(sections)/{que-es,tipos,como-funciona,galeria/{correos,sitios},consejos,evaluacion}
-mkdir -p app/api/evaluacion
 mkdir -p components/ui
 mkdir -p lib
 mkdir -p public/images/{correos,sitios}
 mkdir -p docs
-
-# 6. Crear archivo de base de datos
-mkdir -p data
-touch data/phishing.db
 ```
 
 ---
@@ -341,17 +307,13 @@ export default config;
 
 ### Sprint 3 — Evaluación, Calidad y Cierre
 
-- [ ] `app/(sections)/evaluacion/page.tsx` — Instrucciones + Google Forms embed
-- [ ] `app/api/evaluacion/route.ts` — API para guardar respuestas en SQLite
-- [ ] `lib/db.ts` — Conexión SQLite funcional
-- [ ] `lib/schema.sql` — Esquema de base de datos ejecutado
-- [ ] Formulario SQLite funcional como respaldo
-- [ ] Pruebas en Chrome y Firefox
-- [ ] Todos los enlaces del menú funcionando
-- [ ] Imágenes de galería cargando correctamente
-- [ ] Enlace a postest funcional sin errores
-- [ ] Revisión de ortografía y redacción
-- [ ] Build de producción exitoso (`next build`)
+- [x] `app/evaluacion/page.tsx` — Quiz propio interactivo
+- [x] Pruebas en Chrome y Firefox
+- [x] Todos los enlaces del menú funcionando
+- [x] Imágenes de galería cargando correctamente
+- [x] Acceso al quiz desde navbar, home, footer y consejos funcional sin errores
+- [x] Revisión de ortografía y redacción
+- [x] Build de producción exitoso (`next build`)
 
 ---
 
@@ -360,8 +322,8 @@ export default config;
 ### Prompt inicial de contexto:
 ```
 Estoy desarrollando una plataforma web educativa sobre prevención de phishing 
-para estudiantes universitarios de la UNFV. El stack es Next.js 15 (App Router), 
-Tailwind CSS, y SQLite. Mi rol es Desarrollador Frontend Principal.
+para estudiantes universitarios de la UNFV. El stack es Next.js 15 (App Router) 
+y Tailwind CSS, sin base de datos (plataforma estática/cliente). Mi rol es Desarrollador Frontend Principal.
 
 La planificación técnica completa está en docs/PLAN_TECNICO.md.
 
@@ -407,7 +369,7 @@ Genera el componente components/navbar.tsx con las siguientes características:
 
 2. **Imágenes de galería**: Solicitar al Diseñador de Producto (Integrante 4) las capturas de correos falsos y sitios fraudulentos. Mientras tanto, usar placeholders de placeholder.com o capturas de ejemplo.
 
-3. **Google Forms**: Coordinar con Integrante 5 (Responsable de Evaluación) para obtener el link de embed del formulario postest.
+3. **Quiz de evaluación**: Coordinar con Integrante 5 (Responsable de Evaluación) el contenido y la validación de las preguntas del quiz propio en `/evaluacion`.
 
 4. **Pruebas**: Documentar cada prueba de navegación en el Daily Scrum. Reportar bugs encontrados durante HU-13.
 

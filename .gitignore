@@ -42,3 +42,6 @@ next-env.d.ts
 
 # cloudflared binary
 cloudflared
+
+testsprite_tests/
+despliegue-azure.md

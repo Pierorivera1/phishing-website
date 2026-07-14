@@ -7,24 +7,23 @@
  *  - PI-139  Preguntas y estructura del quiz
  *  - PI-140  Sección de evaluación dentro de la plataforma
  *  - PI-141  Acceso al quiz (los CTA /evaluacion ahora resuelven aquí)
- *  - PI-142  Redirección a la plataforma de evaluación (post-test en Google Forms)
  *  - PI-143  Escala de evaluación y niveles de desempeño
  *  - PI-144  Retroalimentación por respuesta
  *  - PI-145  Información orientativa sobre resultados
  *  - PI-148  Visualización de puntaje y retroalimentación
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   GraduationCap,
   CheckCircle2,
   XCircle,
   RotateCcw,
-  ExternalLink,
   ChevronRight,
   Trophy,
 } from "lucide-react";
+import PixelHero from "@/components/pixel-hero";
 
 /* ── Datos del quiz (PI-139) ─────────────────────────────────────── */
 
@@ -187,9 +186,6 @@ function nivelPorPorcentaje(pct: number): Nivel {
   return NIVELES.find((n) => pct >= n.min) ?? NIVELES[NIVELES.length - 1];
 }
 
-const GOOGLE_FORMS_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScyB-HegC1TqEaUqX6r_LszwN83f7Wj8nO9f-HjW_LhB5f80Q/viewform";
-
 /* ── Página ──────────────────────────────────────────────────────── */
 
 export default function EvaluacionPage() {
@@ -198,6 +194,13 @@ export default function EvaluacionPage() {
     () => Array(PREGUNTAS.length).fill(-1)
   );
   const [enviado, setEnviado] = useState(false);
+  const resultadoRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (enviado) {
+      resultadoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [enviado]);
 
   const aciertos = useMemo(
     () => respuestas.filter((r, i) => r === PREGUNTAS[i].correcta).length,
@@ -205,15 +208,23 @@ export default function EvaluacionPage() {
   );
   const pct = Math.round((aciertos / PREGUNTAS.length) * 100);
   const nivel = nivelPorPorcentaje(pct);
-  const todasRespondidas = respuestas.every((r) => r !== -1);
+  const respondidas = respuestas.filter((r) => r !== -1).length;
+  const todasRespondidas = respondidas === PREGUNTAS.length;
 
   function elegir(pregunta: number, opcion: number) {
     if (enviado) return;
+    const esPrimeraRespuesta = respuestas[pregunta] === -1;
     setRespuestas((prev) => {
       const next = [...prev];
       next[pregunta] = opcion;
       return next;
     });
+    // Al responder por primera vez, lleva suavemente a la siguiente pregunta.
+    if (esPrimeraRespuesta && pregunta < PREGUNTAS.length - 1) {
+      document
+        .getElementById(`pregunta-${pregunta + 1}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
 
   function reiniciar() {
@@ -224,59 +235,94 @@ export default function EvaluacionPage() {
 
   return (
     <>
-      {/* ── Hero ──────────────────────────────────────────────────── */}
-      <section 
-        className="relative overflow-hidden border-b-4 border-border py-16 sm:py-24 bg-cover bg-center bg-no-repeat crt-flicker"
-        style={{
-          backgroundImage: "url('/images/pythonbannerbackground.png')",
-        }}
+      {/* ── Hero compacto ─────────────────────────────────────────── */}
+      <PixelHero
+        icon={<GraduationCap size={24} />}
+        title="Evaluación de Conocimientos"
       >
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-[#030708]/40 pointer-events-none" />
+        {PREGUNTAS.length} preguntas sobre prevención del phishing. Al terminar
+        verás tu puntaje y retroalimentación.
+      </PixelHero>
 
-        {/* Pixel grid overlay effect */}
-        <div 
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(var(--foreground) 1px, transparent 0)",
-            backgroundSize: "8px 8px"
-          }}
-        />
-
-        {/* CRT Scanlines overlay */}
-        <div className="crt-scanlines" aria-hidden="true" />
-
-        {/* CRT Vignette overlay */}
-        <div className="crt-vignette" aria-hidden="true" />
-
-        <div className="relative mx-auto max-w-4xl px-4 py-10 text-center sm:px-6 lg:px-8">
-          <div className="animate-fade-in-up mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
-            <GraduationCap size={28} />
+      {/* ── Barra de progreso pegajosa (solo móvil) ───────────────── */}
+      {!enviado && (
+        <div className="sticky top-[var(--nav-height)] z-40 border-b-2 border-border bg-[#04120c]/95 px-4 py-2.5 backdrop-blur-sm lg:hidden">
+          <div className="mb-1.5 flex items-center justify-between text-xs font-bold text-white/70">
+            <span style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}>
+              Progreso
+            </span>
+            <span className="text-primary">
+              {respondidas}/{PREGUNTAS.length}
+            </span>
           </div>
-          <h1 
-            className="animate-fade-in-up text-3xl font-bold text-white sm:text-4xl"
-            style={{ 
-              fontFamily: "'Pixelify Sans', system-ui, sans-serif", 
-              animationDelay: "100ms",
-              textShadow: "3px 3px 0px #000000"
-            }}
-          >
-            Evaluación de Conocimientos
-          </h1>
-          <p
-            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white sm:text-lg font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-            style={{ animationDelay: "200ms" }}
-          >
-            Responde estas {PREGUNTAS.length} preguntas para medir cuánto
-            aprendiste sobre la prevención del phishing. Al terminar verás tu
-            puntaje y la retroalimentación de cada respuesta.
-          </p>
+          <div className="flex gap-1.5" role="progressbar" aria-valuemin={0} aria-valuemax={PREGUNTAS.length} aria-valuenow={respondidas}>
+            {PREGUNTAS.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Pregunta ${i + 1}`}
+                onClick={() =>
+                  document
+                    .getElementById(`pregunta-${i}`)
+                    ?.scrollIntoView({ behavior: "smooth", block: "center" })
+                }
+                className={`h-2.5 flex-1 cursor-pointer rounded-none border border-border transition-colors duration-300 ${
+                  respuestas[i] !== -1 ? "bg-primary" : "bg-white/10"
+                }`}
+              />
+            ))}
+          </div>
         </div>
-      </section>
+      )}
+
+      {/* ── Riel de progreso vertical (escritorio) ────────────────── */}
+      <nav
+        aria-label="Progreso del quiz"
+        className="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 lg:flex xl:left-8"
+      >
+        {PREGUNTAS.map((p, i) => {
+          const contestada = respuestas[i] !== -1;
+          // Tras enviar, el riel refleja aciertos y errores.
+          let estilo = contestada
+            ? "border-primary bg-primary/15 text-primary"
+            : "border-border bg-card text-muted-foreground hover:border-primary/50";
+          if (enviado) {
+            estilo =
+              respuestas[i] === p.correcta
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400"
+                : "border-destructive bg-destructive/15 text-destructive";
+          }
+          return (
+            <button
+              key={i}
+              type="button"
+              title={`Pregunta ${i + 1}`}
+              onClick={() =>
+                document
+                  .getElementById(`pregunta-${i}`)
+                  ?.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+              className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-none border-2 text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)] transition-all active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,0.5)] ${estilo}`}
+              style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+            >
+              {contestada && !enviado ? <CheckCircle2 size={16} /> : i + 1}
+            </button>
+          );
+        })}
+        <span
+          className="mt-1 text-xs font-bold text-primary"
+          style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
+        >
+          {respondidas}/{PREGUNTAS.length}
+        </span>
+      </nav>
 
       {/* ── Panel de resultados (PI-145 / PI-148) ─────────────────── */}
       {enviado && (
-        <section className="section-padding bg-background py-12 border-b-4 border-border">
+        <section
+          ref={resultadoRef}
+          className="section-padding bg-background py-12 border-b-4 border-border"
+        >
           <div className="animate-fade-in-up mx-auto max-w-3xl rounded-none border-4 border-border bg-card p-8 text-center shadow-[6px_6px_0px_0px_var(--secondary)] sm:p-10">
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-none border-2 border-border bg-primary/10 text-primary">
               <Trophy size={28} />
@@ -314,21 +360,17 @@ export default function EvaluacionPage() {
                 <RotateCcw size={16} />
                 Reintentar
               </button>
-              {/* PI-142 — redirección al post-test en la plataforma de evaluación */}
-              <a
-                href={GOOGLE_FORMS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-black bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-[3px_3px_0px_0px_var(--ring)] transition-all hover:bg-primary/90 active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_var(--ring)]"
+              <Link
+                href="/aprender"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-border bg-card px-6 py-3 text-xs font-bold text-foreground shadow-[3px_3px_0px_0px_var(--secondary)] transition-all hover:bg-secondary/40 active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_var(--secondary)] cursor-pointer"
                 style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
-                Completar post-test oficial
-                <ExternalLink size={16} />
-              </a>
+                Dale otro repaso
+              </Link>
             </div>
             <p className="mt-4 text-xs text-muted-foreground/60">
-              El post-test es anónimo y nos ayuda a medir el impacto educativo de
-              la plataforma.
+              Este resultado es solo para ti: no se guarda ni se envía a ningún
+              lado.
             </p>
           </div>
         </section>
@@ -438,10 +480,7 @@ export default function EvaluacionPage() {
               <button
                 type="button"
                 disabled={!todasRespondidas}
-                onClick={() => {
-                  setEnviado(true);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
+                onClick={() => setEnviado(true)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-black bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[4px_4px_0px_0px_var(--ring)] transition-all hover:bg-primary/95 active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_var(--ring)] disabled:cursor-not-allowed disabled:bg-neutral-800 disabled:text-muted-foreground disabled:shadow-none disabled:border-border cursor-pointer"
                 style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
@@ -451,7 +490,7 @@ export default function EvaluacionPage() {
               {!todasRespondidas && (
                 <p className="text-xs text-muted-foreground/60">
                   Responde las {PREGUNTAS.length} preguntas para continuar (
-                  {respuestas.filter((r) => r !== -1).length}/{PREGUNTAS.length})
+                  {respondidas}/{PREGUNTAS.length})
                 </p>
               )}
             </div>
