@@ -194,6 +194,7 @@ export default function EvaluacionPage() {
     () => Array(PREGUNTAS.length).fill(-1)
   );
   const [enviado, setEnviado] = useState(false);
+  const [guardando, setGuardando] = useState(false);
   const resultadoRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -210,6 +211,50 @@ export default function EvaluacionPage() {
   const nivel = nivelPorPorcentaje(pct);
   const respondidas = respuestas.filter((r) => r !== -1).length;
   const todasRespondidas = respondidas === PREGUNTAS.length;
+
+  async function finalizarEvaluacion() {
+    if (!todasRespondidas || enviado || guardando) return;
+
+    setGuardando(true);
+
+    // Preparar el detalle de las respuestas para guardar estadísticas
+    const detalleRespuestas = PREGUNTAS.map((p, index) => {
+      const opcionElegidaIndex = respuestas[index];
+      const letraAlternativa = String.fromCharCode(65 + opcionElegidaIndex); // A, B, C, D...
+      const esCorrecta = opcionElegidaIndex === p.correcta;
+
+      return {
+        pregunta_id: `p${index + 1}`,
+        alternativa: letraAlternativa,
+        es_correcta: esCorrecta,
+      };
+    });
+
+    try {
+      const response = await fetch("/api/evaluacion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: "Estudiante UNFV",
+          puntaje: aciertos,
+          puntaje_max: PREGUNTAS.length,
+          porcentaje: pct,
+          respuestas: detalleRespuestas,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Error al guardar en base de datos:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Error de conexión al guardar evaluación:", err);
+    } finally {
+      setGuardando(false);
+      setEnviado(true);
+    }
+  }
 
   function elegir(pregunta: number, opcion: number) {
     if (enviado) return;
@@ -369,8 +414,7 @@ export default function EvaluacionPage() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-muted-foreground/60">
-              Este resultado es solo para ti: no se guarda ni se envía a ningún
-              lado.
+              Tu resultado ha sido guardado de forma anónima para las estadísticas generales de prevención.
             </p>
           </div>
         </section>
@@ -440,15 +484,15 @@ export default function EvaluacionPage() {
                         <span className="flex-1">{opcion}</span>
                         {enviado && esCorrecta && (
                           <CheckCircle2
-                            size={18}
-                            className="shrink-0 text-emerald-400"
-                          />
+                              size={18}
+                              className="shrink-0 text-emerald-400"
+                            />
                         )}
                         {enviado && seleccionada && !esCorrecta && (
                           <XCircle
-                            size={18}
-                            className="shrink-0 text-destructive"
-                          />
+                              size={18}
+                              className="shrink-0 text-destructive"
+                            />
                         )}
                       </button>
                     );
@@ -479,12 +523,12 @@ export default function EvaluacionPage() {
             <div className="flex flex-col items-center gap-3 pt-4">
               <button
                 type="button"
-                disabled={!todasRespondidas}
-                onClick={() => setEnviado(true)}
+                disabled={!todasRespondidas || guardando}
+                onClick={finalizarEvaluacion}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-none border-2 border-black bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[4px_4px_0px_0px_var(--ring)] transition-all hover:bg-primary/95 active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_var(--ring)] disabled:cursor-not-allowed disabled:bg-neutral-800 disabled:text-muted-foreground disabled:shadow-none disabled:border-border cursor-pointer"
                 style={{ fontFamily: "'Pixelify Sans', system-ui, sans-serif" }}
               >
-                Ver mi resultado
+                {guardando ? "Guardando..." : "Ver mi resultado"}
                 <ChevronRight size={18} />
               </button>
               {!todasRespondidas && (
