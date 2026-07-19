@@ -237,7 +237,6 @@ export default function EvaluacionPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nombre: "Estudiante UNFV",
           puntaje: aciertos,
           puntaje_max: PREGUNTAS.length,
           porcentaje: pct,

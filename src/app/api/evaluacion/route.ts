@@ -8,8 +8,6 @@ interface RespuestaItem {
 }
 
 interface EvaluacionRequestBody {
-  nombre?: string;
-  email?: string;
   puntaje: number;
   puntaje_max: number;
   porcentaje: number;
@@ -20,15 +18,13 @@ export async function POST(request: Request) {
   try {
     const body: EvaluacionRequestBody = await request.json();
 
-    const { nombre, email, puntaje, puntaje_max, porcentaje, respuestas } = body;
+    const { puntaje, puntaje_max, porcentaje, respuestas } = body;
 
-    // 1. Guardar la evaluación principal
+    // 1. Guardar la evaluación principal (anónima por diseño de base de datos)
     const { data: evaluacion, error: dbError } = await supabase
       .from('evaluaciones')
       .insert([
         {
-          nombre: nombre || 'Anónimo',
-          email: email || null,
           puntaje,
           puntaje_max,
           porcentaje,
