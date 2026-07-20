@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     if (dbError) {
       console.error('Error al guardar evaluación:', dbError);
       return NextResponse.json(
-        { error: 'Error al registrar la evaluación en la base de datos' },
+        { error: dbError.message || 'Error al registrar la evaluación en la base de datos' },
         { status: 500 }
       );
     }
@@ -64,9 +64,10 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true, id: evaluacionId }, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('API Error:', error);
-    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : 'Error interno del servidor';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
 
