@@ -195,6 +195,8 @@ export default function EvaluacionPage() {
   );
   const [enviado, setEnviado] = useState(false);
   const [guardando, setGuardando] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
+  const [saveErrorMsg, setSaveErrorMsg] = useState<string | null>(null);
   const resultadoRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -216,6 +218,8 @@ export default function EvaluacionPage() {
     if (!todasRespondidas || enviado || guardando) return;
 
     setGuardando(true);
+    setSaveStatus("idle");
+    setSaveErrorMsg(null);
 
     // Preparar el detalle de las respuestas para guardar estadísticas
     const detalleRespuestas = PREGUNTAS.map((p, index) => {
@@ -245,10 +249,19 @@ export default function EvaluacionPage() {
       });
 
       if (!response.ok) {
-        console.error("Error al guardar en base de datos:", response.statusText);
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Error HTTP ${response.status}`);
       }
-    } catch (err) {
-      console.error("Error de conexión al guardar evaluación:", err);
+
+      setSaveStatus("success");
+    } catch (err: unknown) {
+      console.error("Error al guardar evaluación en Supabase:", err);
+      setSaveStatus("error");
+      if (err instanceof Error) {
+        setSaveErrorMsg(err.message);
+      } else {
+        setSaveErrorMsg("No se pudo conectar con el servidor.");
+      }
     } finally {
       setGuardando(false);
       setEnviado(true);
@@ -412,9 +425,21 @@ export default function EvaluacionPage() {
                 Dale otro repaso
               </Link>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground/60">
-              Tu resultado ha sido guardado de forma anónima para las estadísticas generales de prevención.
-            </p>
+            {saveStatus === "success" && (
+              <p className="mt-4 text-xs font-medium text-emerald-400">
+                ✓ Tu resultado ha sido guardado exitosamente en la base de datos de Supabase de forma anónima.
+              </p>
+            )}
+            {saveStatus === "error" && (
+              <p className="mt-4 text-xs font-medium text-destructive">
+                ⚠ No se pudo registrar el resultado en Supabase: {saveErrorMsg || "Error de red"}.
+              </p>
+            )}
+            {saveStatus === "idle" && (
+              <p className="mt-4 text-xs text-muted-foreground/60">
+                Tu resultado ha sido guardado de forma anónima para las estadísticas generales de prevención.
+              </p>
+            )}
           </div>
         </section>
       )}
